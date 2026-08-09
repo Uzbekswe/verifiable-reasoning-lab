@@ -1,0 +1,10 @@
+.venv/
+.cache/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+artifacts/runs/
+!artifacts/runs/
+!artifacts/runs/ch02_smoke.json

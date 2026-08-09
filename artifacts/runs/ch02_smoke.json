@@ -1,0 +1,33 @@
+{
+  "provenance": {
+    "model_id": "rasbt/qwen3-from-scratch:qwen3-0.6B-base",
+    "model_path": ".cache/models/qwen3/qwen3-0.6B-base.pth",
+    "model_sha256": "ff38e5cc1530161ca5d68f6284f9343e58d637358b2bee9cc37e781b1c440443",
+    "device": "mps",
+    "torch_version": "2.10.0"
+  },
+  "generation": {
+    "text": " The sum of two identical numbers is twice the number itself.",
+    "token_ids": [
+      576,
+      2629,
+      315,
+      1378,
+      19516,
+      5109,
+      374,
+      10917,
+      279,
+      1372,
+      5086,
+      13
+    ],
+    "prompt_token_count": 15,
+    "generated_token_count": 12,
+    "elapsed_seconds": 1.0497656669977005,
+    "tokens_per_second": 11.431122561208973,
+    "device": "mps",
+    "use_cache": true,
+    "stopped_on_eos": true
+  }
+}

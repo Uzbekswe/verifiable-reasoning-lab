@@ -1,6 +1,6 @@
 # Verifiable Reasoning Lab
 
-Status: draft for owner approval
+Status: active build; decisions through Chapter 2 are recorded below
 
 Project: Building a Small Reasoning Model — evaluating inference scaling, GRPO/RLVR, adaptive reasoning budgets, and optional distillation on verifiable tasks.
 
@@ -151,6 +151,11 @@ Deliverables: pinned model manifest, local MPS/CPU device fallback, model backen
 
 Exit criteria: a clean local smoke run on the M1 MacBook Air; tokenizer round-trip tests pass; cache and no-cache outputs agree for a fixed seed/prompt; no cloud spend.
 
+Status: complete. The pure-PyTorch Qwen3-0.6B adapter, greedy generation, EOS stopping,
+streaming token path, device selection, atomic model download, provenance record, and
+cache/no-cache parity tests are implemented. A real MPS smoke run is saved at
+`artifacts/runs/ch02_smoke.json`; the downloaded model remains outside Git.
+
 ### M2 — Chapter 3 evaluator and frozen data
 
 Book concepts: answer extraction, exact verification, accuracy evaluation, parser failures, and the limits of small benchmark samples.
@@ -197,7 +202,7 @@ Exit criteria: a clean checkout can run the smoke test; every reported number ma
 
 Primary evidence will be an original, verifier-backed suite of short math and logic tasks. MATH-500 is secondary and clearly labeled for comparison with the book.
 
-Proposed initial scale, pending approval:
+Approved initial scale:
 
 - 400 training tasks;
 - 80 validation tasks;
@@ -253,7 +258,7 @@ The owner approved the following operating decisions:
 - The verifier is a shared contract: it evaluates answers, supplies verifiable rewards for RLVR/GRPO, and can provide structured feedback for refinement.
 - The next key distinction is inference-time compute (spending more tokens/attempts with unchanged weights) versus weight updates (training changes parameters and therefore future behavior).
 
-M0 is complete. M1 now begins with the Chapter 2 generation substrate and a local-only smoke test.
+M0 and M1 are complete. M2 now begins with the Chapter 3 verifier and frozen data contract.
 
 ## 12. Source and attribution notes
 

@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "verifiable-reasoning-lab"
+version = "0.1.0"
+description = "A reproducible study of inference scaling and verifiable reasoning"
+requires-python = ">=3.10,<3.15"
+dependencies = [
+  "numpy>=2.0",
+  "torch>=2.7.1,<2.11",
+  "tokenizers>=0.21.2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.3", "ruff>=0.9"]
+
+[project.scripts]
+reasonlab = "reasonlab.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

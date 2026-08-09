@@ -1,0 +1,6 @@
+model_dir = ".cache/models/qwen3"
+device = "auto"
+prompt = "Explain why 2 + 2 = 4 in one sentence."
+max_new_tokens = 32
+use_cache = true
+output = "artifacts/runs/ch02_smoke.json"
