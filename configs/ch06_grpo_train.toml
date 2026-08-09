@@ -4,6 +4,7 @@ model_dir = ".cache/models/qwen3"
 device = "auto"
 steps = 1
 num_rollouts = 4
+trainable_scope = "output_head"
 max_new_tokens = 32
 temperature = 0.8
 top_p = 0.9

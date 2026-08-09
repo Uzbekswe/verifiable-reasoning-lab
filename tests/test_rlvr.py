@@ -5,6 +5,7 @@ from reasonlab.rl_smoke import TinyPolicy, TinyTokenizer
 from reasonlab.rlvr import (
     Rollout,
     compute_grpo_loss,
+    configure_trainable_scope,
     group_relative_advantages,
     load_grpo_checkpoint,
     policy_gradient_loss,
@@ -14,11 +15,31 @@ from reasonlab.rlvr import (
 )
 
 
+class HeadModel(torch.nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.backbone = torch.nn.Linear(2, 2)
+        self.out_head = torch.nn.Linear(2, 3)
+
+    def forward(self, input_ids):
+        hidden = self.backbone(torch.ones(*input_ids.shape, 2))
+        return self.out_head(hidden)
+
+
 def test_verifier_reward_is_binary_and_format_sensitive():
     task = {"answer": "4", "answer_type": "numeric"}
     assert verifier_reward(task, r"\boxed{4}").reward == 1.0
     assert verifier_reward(task, "4").reward == 0.0
     assert verifier_reward(task, r"\boxed{5}").reward == 0.0
+
+
+def test_output_head_scope_freezes_backbone():
+    model = HeadModel()
+    summary = configure_trainable_scope(model, "output_head")
+    assert summary["scope"] == "output_head"
+    assert all(not parameter.requires_grad for parameter in model.backbone.parameters())
+    assert all(parameter.requires_grad for parameter in model.out_head.parameters())
+    assert summary["trainable_parameters"] < summary["total_parameters"]
 
 
 def test_group_relative_advantages_match_chapter_formula():

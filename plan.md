@@ -198,17 +198,20 @@ Deliverables: small train/validation run, reward unit tests, rollout ledger, tra
 
 Exit criteria: reward computation is independently tested; training can resume or stop safely; held-out evaluation is performed once per selected checkpoint; cost remains inside the approved cap.
 
-Status: Chapter 6 implementation complete, training gate still open. The binary
+Status: Chapter 6 implementation complete, full-model training gate still open. The binary
 verifier reward, grouped rollout collector, group-relative advantages,
 gradient-bearing sequence log-probabilities, policy-gradient loss, checkpoint
 round-trip, CLI, and deterministic tiny-policy smoke test are implemented and
 tested. The tiny policy moves its approved-token probability from 0.333 to
-0.676. A one-prompt, four-rollout Qwen3/MPS diagnostic produced a mixed reward
-(3/4 correct) but a non-finite bfloat16 gradient; the safety gate skipped the
-optimizer update and recorded the failure. No cloud money was spent. Before a
-full train/validation claim, choose a safe precision/hardware path (for
-example, a bounded approved GPU run or a deliberately smaller trainable
-parameterization), then add Chapter 7 stability terms.
+0.676. The all-parameter Qwen3/MPS diagnostic produced a mixed reward (3/4
+correct) but a non-finite bfloat16 gradient; the safety gate skipped the update.
+The approved local reduced-parameter path now freezes the Transformer and trains
+only `out_head`: the same diagnostic produced a finite gradient norm of 113.5
+and applied the update, with 155.6M of 751.6M parameters trainable. This is a
+numerical/plumbing gate, not a full-policy improvement claim. No cloud money was
+spent. Before a full train/validation claim, choose whether to run one bounded
+GPU full-model diagnostic or continue with Chapter 7 stability terms on the
+reduced scope.
 
 ### M5 — Original adaptive reasoning budget
 
@@ -289,9 +292,10 @@ The owner approved the following operating decisions:
 - The next key distinction is inference-time compute (spending more tokens/attempts with unchanged weights) versus weight updates (training changes parameters and therefore future behavior).
 
 M0, M1, M2, and M3 are complete. Chapter 6's reward and GRPO implementation is
-complete, but its real-Qwen training gate remains open because the local MPS
-diagnostic produced non-finite gradients. The next decision is the safe
-precision/hardware path; no cloud job runs without explicit approval.
+complete, and the reduced-parameter local training path is numerically safe.
+Full-model Qwen training remains unclaimed after the all-parameter MPS failure.
+The next decision is whether one bounded GPU diagnostic is justified; no cloud
+job runs without explicit approval.
 
 ## 12. Source and attribution notes
 

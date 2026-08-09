@@ -14,7 +14,7 @@ from .evaluation import evaluate_tasks
 from .models.backend import Qwen3Backend
 from .policies import best_of_n, self_consistency, self_refine
 from .rl_smoke import run_tiny_grpo_smoke
-from .rlvr import train_grpo
+from .rlvr import configure_trainable_scope, train_grpo
 
 
 def _smoke(args: argparse.Namespace) -> int:
@@ -75,8 +75,13 @@ def _grpo_train(args: argparse.Namespace) -> int:
         device=config.get("device", "auto"),
         download=args.download,
     )
+    trainable_scope = str(config.get("trainable_scope", "all"))
+    parameter_summary = configure_trainable_scope(backend.model, trainable_scope)
+    trainable_parameters = [parameter for parameter in backend.model.parameters() if parameter.requires_grad]
+    if not trainable_parameters:
+        raise ValueError("training scope selected no trainable parameters")
     optimizer = torch.optim.AdamW(
-        backend.model.parameters(),
+        trainable_parameters,
         lr=float(config.get("learning_rate", 1e-6)),
         weight_decay=float(config.get("weight_decay", 0.0)),
     )
@@ -94,7 +99,12 @@ def _grpo_train(args: argparse.Namespace) -> int:
         checkpoint_path=config.get("checkpoint"),
         checkpoint_every=int(config.get("checkpoint_every", 0)),
     )
-    result = {"provenance": backend.provenance(), "config": config, "metrics": metrics}
+    result = {
+        "provenance": backend.provenance(),
+        "config": config,
+        "parameter_summary": parameter_summary,
+        "metrics": metrics,
+    }
     output_path = config.get("output")
     if output_path:
         destination = Path(output_path)

@@ -98,11 +98,13 @@ uv run reasonlab grpo-train --config configs/ch06_grpo_train.toml --limit 1
 ```
 
 The tiny deterministic smoke test is a real optimizer loop: the approved-token
-probability rose from 0.333 to 0.676 after six steps. The bounded Qwen3 run
-used one training prompt and four rollouts on local MPS. It produced three
-correct and one failed rollout (`mean_reward=0.75`), but bfloat16/MPS backward
-returned a non-finite gradient, so the safety gate skipped the weight update.
-The run is saved in [`ch06_grpo_train.json`](artifacts/runs/ch06_grpo_train.json)
-and is negative evidence about this local training configuration, not a claim
-that Qwen3 improved. The checkpoint is kept under `.cache/` and excluded from
-Git because it is multi-gigabyte.
+probability rose from 0.333 to 0.676 after six steps. An all-parameter Qwen3
+diagnostic previously produced a non-finite MPS/bfloat16 gradient, so the safety
+gate refused the update. The safer local path freezes the Transformer backbone
+and trains only `out_head`: the same one-prompt/four-rollout diagnostic produced
+three correct and one failed rollout (`mean_reward=0.75`), a finite gradient
+norm of `113.5`, and an applied update. This is a numerical and plumbing
+success, not evidence that the full Qwen3 policy improved: 155.6M of 751.6M
+parameters were trainable. The run is saved in
+[`ch06_grpo_train.json`](artifacts/runs/ch06_grpo_train.json). The checkpoint is
+kept under `.cache/` and excluded from Git because it is multi-gigabyte.

@@ -13,6 +13,7 @@
     "device": "auto",
     "steps": 1,
     "num_rollouts": 4,
+    "trainable_scope": "output_head",
     "max_new_tokens": 32,
     "temperature": 0.8,
     "top_p": 0.9,
@@ -24,6 +25,11 @@
     "checkpoint": ".cache/checkpoints/ch06_grpo.pt",
     "output": "artifacts/runs/ch06_grpo_train.json"
   },
+  "parameter_summary": {
+    "scope": "output_head",
+    "total_parameters": 751632384,
+    "trainable_parameters": 155582464
+  },
   "metrics": [
     {
       "step": 1,
@@ -31,10 +37,10 @@
       "mean_reward": 0.75,
       "mean_advantage": -1.4901161193847656e-08,
       "mean_generated_tokens": 19.5,
-      "gradient_norm": null,
+      "gradient_norm": 113.5,
       "correct_count": 3,
-      "update_applied": false,
-      "nonfinite_gradient": true
+      "update_applied": true,
+      "nonfinite_gradient": false
     }
   ]
 }

@@ -31,6 +31,28 @@ class RewardResult:
         return asdict(self)
 
 
+def configure_trainable_scope(model: torch.nn.Module, scope: str = "all") -> dict[str, int | str]:
+    """Select which model parameters may receive GRPO updates.
+
+    ``output_head`` is the local numerical diagnostic: the Transformer
+    backbone stays frozen while the vocabulary projection remains trainable.
+    This is intentionally not presented as equivalent to full-model GRPO.
+    """
+    if scope not in {"all", "output_head"}:
+        raise ValueError("scope must be 'all' or 'output_head'")
+    for parameter in model.parameters():
+        parameter.requires_grad_(scope == "all")
+    if scope == "output_head":
+        output_head = getattr(model, "out_head", None)
+        if output_head is None:
+            raise ValueError("output_head scope requires a model.out_head module")
+        for parameter in output_head.parameters():
+            parameter.requires_grad_(True)
+    total = sum(parameter.numel() for parameter in model.parameters())
+    trainable = sum(parameter.numel() for parameter in model.parameters() if parameter.requires_grad)
+    return {"scope": scope, "total_parameters": total, "trainable_parameters": trainable}
+
+
 def verifier_reward(task: dict, output_text: str) -> RewardResult:
     """Map the shared verifier contract to a binary correctness reward.
 
