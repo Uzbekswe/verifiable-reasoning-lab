@@ -46,5 +46,12 @@ Best-of-N is scored by mean raw model log-probability. Self-consistency votes on
 extracted final answers. Neither policy uses the ground-truth verifier to select
 an answer.
 
+The full 120-task comparison is recorded in
+[`ch04_comparison.json`](artifacts/runs/ch04_comparison.json). On this fixed
+suite, one sampled attempt reached 14.17% accuracy, best-of-4 reached 10.00%,
+and self-consistency-4 reached 10.83%. The four-attempt methods used about
+3.7× the generated tokens per task, so the result is an accuracy/compute tradeoff,
+not an unconditional improvement.
+
 The project is private during development. See [`plan.md`](plan.md) for the
 complete scope, milestone gates, budget policy, and backup plans.

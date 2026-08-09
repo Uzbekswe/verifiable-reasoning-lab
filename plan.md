@@ -178,11 +178,12 @@ Deliverables: paired comparisons for greedy, temperature/top-p sampling, best-of
 
 Exit criteria: all methods use the same frozen test set and prompt contract; compute budgets are visible; comparisons can be reproduced from saved run records.
 
-Status: Chapter 4 implementation complete. Seeded temperature/top-p sampling,
+Status: Chapter 4 evidence gate complete. Seeded temperature/top-p sampling,
 model-scored best-of-N, and self-consistency voting are implemented and tested.
-Bounded eight-task real-Qwen artifacts are saved for the one-sample, best-of-four,
-and self-consistency-of-four policies. Full 120-task policy comparisons remain
-an explicit follow-up before declaring the entire M3 comparison complete.
+Full 120-task real-Qwen artifacts and a paired comparison summary are saved for
+the one-sample, best-of-four, and self-consistency-of-four policies. The results
+are evidence about this fixed suite and resource budget, not a general benchmark
+claim. Chapter 5 self-refinement is the next active slice of M3.
 
 ### M4 — Chapters 6–7 RLVR/GRPO
 
@@ -270,8 +271,8 @@ The owner approved the following operating decisions:
 - The verifier is a shared contract: it evaluates answers, supplies verifiable rewards for RLVR/GRPO, and can provide structured feedback for refinement.
 - The next key distinction is inference-time compute (spending more tokens/attempts with unchanged weights) versus weight updates (training changes parameters and therefore future behavior).
 
-M0, M1, and the core M2 evaluator are complete. M3 now begins with inference-time
-scaling comparisons on the same frozen manifests.
+M0, M1, M2, and the Chapter 4 slice of M3 are complete. The next active work is
+Chapter 5 self-refinement on the same frozen manifests.
 
 ## 12. Source and attribution notes
 
