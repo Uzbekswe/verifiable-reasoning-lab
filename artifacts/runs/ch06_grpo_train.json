@@ -1,0 +1,40 @@
+{
+  "provenance": {
+    "model_id": "rasbt/qwen3-from-scratch:qwen3-0.6B-base",
+    "model_path": ".cache/models/qwen3/qwen3-0.6B-base.pth",
+    "model_sha256": "ff38e5cc1530161ca5d68f6284f9343e58d637358b2bee9cc37e781b1c440443",
+    "device": "mps",
+    "torch_version": "2.10.0"
+  },
+  "config": {
+    "manifest_dir": "data/manifests",
+    "split": "train",
+    "model_dir": ".cache/models/qwen3",
+    "device": "auto",
+    "steps": 1,
+    "num_rollouts": 4,
+    "max_new_tokens": 32,
+    "temperature": 0.8,
+    "top_p": 0.9,
+    "seed": 20260809,
+    "learning_rate": 1e-06,
+    "weight_decay": 0.0,
+    "grad_clip": 1.0,
+    "checkpoint_every": 1,
+    "checkpoint": ".cache/checkpoints/ch06_grpo.pt",
+    "output": "artifacts/runs/ch06_grpo_train.json"
+  },
+  "metrics": [
+    {
+      "step": 1,
+      "loss": -1.6839826107025146,
+      "mean_reward": 0.75,
+      "mean_advantage": -1.4901161193847656e-08,
+      "mean_generated_tokens": 19.5,
+      "gradient_norm": null,
+      "correct_count": 3,
+      "update_applied": false,
+      "nonfinite_gradient": true
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+manifest_dir = "data/manifests"
+split = "train"
+model_dir = ".cache/models/qwen3"
+device = "auto"
+steps = 1
+num_rollouts = 4
+max_new_tokens = 32
+temperature = 0.8
+top_p = 0.9
+seed = 20260809
+learning_rate = 1e-6
+weight_decay = 0.0
+grad_clip = 1.0
+checkpoint_every = 1
+checkpoint = ".cache/checkpoints/ch06_grpo.pt"
+output = "artifacts/runs/ch06_grpo_train.json"

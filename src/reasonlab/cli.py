@@ -7,11 +7,14 @@ import json
 from pathlib import Path
 
 import tomllib
+import torch
 
 from .datasets import load_split, write_manifests
 from .evaluation import evaluate_tasks
 from .models.backend import Qwen3Backend
 from .policies import best_of_n, self_consistency, self_refine
+from .rl_smoke import run_tiny_grpo_smoke
+from .rlvr import train_grpo
 
 
 def _smoke(args: argparse.Namespace) -> int:
@@ -42,6 +45,62 @@ def _smoke(args: argparse.Namespace) -> int:
 def _build_data(args: argparse.Namespace) -> int:
     metadata = write_manifests(args.out_dir, seed=args.seed)
     print(json.dumps(metadata, indent=2))
+    return 0
+
+
+def _grpo_smoke(args: argparse.Namespace) -> int:
+    with Path(args.config).open("rb") as handle:
+        config = tomllib.load(handle)
+    result = run_tiny_grpo_smoke(
+        steps=int(config.get("steps", 6)),
+        num_rollouts=int(config.get("num_rollouts", 4)),
+    )
+    output_path = config.get("output")
+    if output_path:
+        destination = Path(output_path)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(result, indent=2))
+    return 0
+
+
+def _grpo_train(args: argparse.Namespace) -> int:
+    with Path(args.config).open("rb") as handle:
+        config = tomllib.load(handle)
+    tasks = load_split(config.get("manifest_dir", "data/manifests"), config.get("split", "train"))
+    if args.limit:
+        tasks = tasks[: args.limit]
+    backend = Qwen3Backend.from_pretrained(
+        config.get("model_dir", ".cache/models/qwen3"),
+        device=config.get("device", "auto"),
+        download=args.download,
+    )
+    optimizer = torch.optim.AdamW(
+        backend.model.parameters(),
+        lr=float(config.get("learning_rate", 1e-6)),
+        weight_decay=float(config.get("weight_decay", 0.0)),
+    )
+    metrics = train_grpo(
+        backend,
+        tasks,
+        optimizer,
+        steps=int(config.get("steps", 1)),
+        num_rollouts=int(config.get("num_rollouts", 2)),
+        max_new_tokens=int(config.get("max_new_tokens", 64)),
+        temperature=float(config.get("temperature", 0.8)),
+        top_p=float(config.get("top_p", 0.9)),
+        seed=config.get("seed", 0),
+        grad_clip=float(config.get("grad_clip", 1.0)),
+        checkpoint_path=config.get("checkpoint"),
+        checkpoint_every=int(config.get("checkpoint_every", 0)),
+    )
+    result = {"provenance": backend.provenance(), "config": config, "metrics": metrics}
+    output_path = config.get("output")
+    if output_path:
+        destination = Path(output_path)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps({"provenance": result["provenance"], "metrics": metrics}, indent=2))
     return 0
 
 
@@ -159,6 +218,14 @@ def main() -> int:
     build.add_argument("--out-dir", default="data/manifests")
     build.add_argument("--seed", type=int, default=20260809)
     build.set_defaults(handler=_build_data)
+    grpo_smoke = subparsers.add_parser("grpo-smoke", help="run the deterministic tiny GRPO training smoke test")
+    grpo_smoke.add_argument("--config", default="configs/ch06_grpo_smoke.toml")
+    grpo_smoke.set_defaults(handler=_grpo_smoke)
+    grpo_train = subparsers.add_parser("grpo-train", help="run an explicit Qwen3 GRPO training experiment")
+    grpo_train.add_argument("--config", default="configs/ch06_grpo_train.toml")
+    grpo_train.add_argument("--limit", type=int, default=0, help="optional bounded prefix for diagnostics")
+    grpo_train.add_argument("--download", action="store_true", help="download missing model files")
+    grpo_train.set_defaults(handler=_grpo_train)
     evaluate = subparsers.add_parser("evaluate", help="evaluate Qwen3 on a frozen manifest split")
     evaluate.add_argument("--config", default="configs/ch03_eval.toml")
     evaluate.add_argument("--limit", type=int, default=0, help="optional bounded prefix for diagnostics")

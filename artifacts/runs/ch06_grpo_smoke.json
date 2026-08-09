@@ -1,0 +1,77 @@
+{
+  "model": "tiny-two-answer-policy",
+  "steps": 6,
+  "num_rollouts": 4,
+  "initial_correct_probability": 0.3333333432674408,
+  "final_correct_probability": 0.676151692867279,
+  "probability_delta": 0.34281834959983826,
+  "metrics": [
+    {
+      "step": 1,
+      "loss": -0.0,
+      "mean_reward": 0.5,
+      "mean_advantage": 0.0,
+      "mean_generated_tokens": 1.0,
+      "gradient_norm": 0.6122663617134094,
+      "correct_count": 2,
+      "update_applied": true,
+      "nonfinite_gradient": false
+    },
+    {
+      "step": 2,
+      "loss": -0.14994800090789795,
+      "mean_reward": 0.5,
+      "mean_advantage": 0.0,
+      "mean_generated_tokens": 1.0,
+      "gradient_norm": 0.6122664213180542,
+      "correct_count": 2,
+      "update_applied": true,
+      "nonfinite_gradient": false
+    },
+    {
+      "step": 3,
+      "loss": -0.29989612102508545,
+      "mean_reward": 0.5,
+      "mean_advantage": 0.0,
+      "mean_generated_tokens": 1.0,
+      "gradient_norm": 0.6122663617134094,
+      "correct_count": 2,
+      "update_applied": true,
+      "nonfinite_gradient": false
+    },
+    {
+      "step": 4,
+      "loss": -0.4498441815376282,
+      "mean_reward": 0.5,
+      "mean_advantage": 0.0,
+      "mean_generated_tokens": 1.0,
+      "gradient_norm": 0.6122663617134094,
+      "correct_count": 2,
+      "update_applied": true,
+      "nonfinite_gradient": false
+    },
+    {
+      "step": 5,
+      "loss": -0.5997923016548157,
+      "mean_reward": 0.5,
+      "mean_advantage": 0.0,
+      "mean_generated_tokens": 1.0,
+      "gradient_norm": 0.6122663617134094,
+      "correct_count": 2,
+      "update_applied": true,
+      "nonfinite_gradient": false
+    },
+    {
+      "step": 6,
+      "loss": -0.7497403621673584,
+      "mean_reward": 0.5,
+      "mean_advantage": 0.0,
+      "mean_generated_tokens": 1.0,
+      "gradient_norm": 0.6122663617134094,
+      "correct_count": 2,
+      "update_applied": true,
+      "nonfinite_gradient": false
+    }
+  ],
+  "finite": true
+}

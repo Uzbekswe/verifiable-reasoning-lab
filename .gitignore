@@ -14,3 +14,5 @@ artifacts/runs/
 !artifacts/runs/ch04_self_consistency.json
 !artifacts/runs/ch04_comparison.json
 !artifacts/runs/ch05_self_refinement.json
+!artifacts/runs/ch06_grpo_smoke.json
+!artifacts/runs/ch06_grpo_train.json

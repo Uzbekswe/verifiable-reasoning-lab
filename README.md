@@ -80,3 +80,29 @@ tasks used the critique/revision path. Of the 75 final parse failures, 74 were
 already parse failures after the draft and remained failures after revision.
 These results motivate the next adaptive-budget milestone: spend refinement
 only when a cheap format-aware signal predicts that it is likely to help.
+
+## Chapter 6: RLVR and GRPO foundation
+
+RLVR changes model weights using a reward computed by the existing verifier.
+For this project the reward is intentionally binary: a correctly parsed and
+verified answer receives `1.0`; an incorrect answer, parse failure, or verifier
+failure receives `0.0`. GRPO samples a group of answers for one prompt, computes
+`(reward - group_mean) / (group_std + epsilon)`, and maximizes the
+advantage-weighted summed log-probability of the sampled completions. This is
+the unclipped Chapter 6 objective; KL penalties and clipping are deferred to
+Chapter 7.
+
+```bash
+uv run reasonlab grpo-smoke --config configs/ch06_grpo_smoke.toml
+uv run reasonlab grpo-train --config configs/ch06_grpo_train.toml --limit 1
+```
+
+The tiny deterministic smoke test is a real optimizer loop: the approved-token
+probability rose from 0.333 to 0.676 after six steps. The bounded Qwen3 run
+used one training prompt and four rollouts on local MPS. It produced three
+correct and one failed rollout (`mean_reward=0.75`), but bfloat16/MPS backward
+returned a non-finite gradient, so the safety gate skipped the weight update.
+The run is saved in [`ch06_grpo_train.json`](artifacts/runs/ch06_grpo_train.json)
+and is negative evidence about this local training configuration, not a claim
+that Qwen3 improved. The checkpoint is kept under `.cache/` and excluded from
+Git because it is multi-gigabyte.

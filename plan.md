@@ -198,6 +198,18 @@ Deliverables: small train/validation run, reward unit tests, rollout ledger, tra
 
 Exit criteria: reward computation is independently tested; training can resume or stop safely; held-out evaluation is performed once per selected checkpoint; cost remains inside the approved cap.
 
+Status: Chapter 6 implementation complete, training gate still open. The binary
+verifier reward, grouped rollout collector, group-relative advantages,
+gradient-bearing sequence log-probabilities, policy-gradient loss, checkpoint
+round-trip, CLI, and deterministic tiny-policy smoke test are implemented and
+tested. The tiny policy moves its approved-token probability from 0.333 to
+0.676. A one-prompt, four-rollout Qwen3/MPS diagnostic produced a mixed reward
+(3/4 correct) but a non-finite bfloat16 gradient; the safety gate skipped the
+optimizer update and recorded the failure. No cloud money was spent. Before a
+full train/validation claim, choose a safe precision/hardware path (for
+example, a bounded approved GPU run or a deliberately smaller trainable
+parameterization), then add Chapter 7 stability terms.
+
 ### M5 — Original adaptive reasoning budget
 
 Deliverables: a policy that starts with cheap generation and spends additional attempts/refinement only when verifier or confidence signals indicate difficulty; fixed-budget and adaptive-budget comparisons.
@@ -276,15 +288,17 @@ The owner approved the following operating decisions:
 - The verifier is a shared contract: it evaluates answers, supplies verifiable rewards for RLVR/GRPO, and can provide structured feedback for refinement.
 - The next key distinction is inference-time compute (spending more tokens/attempts with unchanged weights) versus weight updates (training changes parameters and therefore future behavior).
 
-M0, M1, M2, and M3 are complete. The next active work is Chapter 6 RLVR/GRPO,
-starting with reward-contract teaching and a small local rollout unit test
-before any training or cloud spend.
+M0, M1, M2, and M3 are complete. Chapter 6's reward and GRPO implementation is
+complete, but its real-Qwen training gate remains open because the local MPS
+diagnostic produced non-finite gradients. The next decision is the safe
+precision/hardware path; no cloud job runs without explicit approval.
 
 ## 12. Source and attribution notes
 
 - Official course source: https://github.com/rasbt/reasoning-from-scratch
 - Official Chapter 1: https://github.com/rasbt/reasoning-from-scratch/tree/main/ch01
 - Official Chapter 2: https://github.com/rasbt/reasoning-from-scratch/tree/main/ch02
+- Official Chapter 6 walkthrough: https://github.com/rasbt/reasoning-from-scratch/blob/main/ch06/01_main-chapter-code/ch06_main.ipynb
 - Official Qwen3-from-scratch weight source: https://huggingface.co/rasbt/qwen3-from-scratch
 - The project will include attribution and preserve upstream model/data license notices.
 - No unauthorized book copy or book excerpt is required for this plan.
