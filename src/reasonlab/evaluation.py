@@ -32,12 +32,25 @@ class EvaluationSummary:
 
 
 def _generation_fields(result):
+    if hasattr(result, "selected") and hasattr(result, "candidates"):
+        selected = result.selected
+        return selected.text, {
+            "policy": result.method,
+            "attempts": len(result.candidates),
+            "selection": result.selection,
+            "generated_token_count": result.generated_token_count,
+            "latency_seconds": result.elapsed_seconds,
+            "tokens_per_second": result.tokens_per_second,
+            "device": result.device,
+            "selected_mean_logprob": selected.mean_logprob,
+        }
     if hasattr(result, "text"):
         return result.text, {
             "generated_token_count": result.generated_token_count,
             "latency_seconds": result.elapsed_seconds,
             "tokens_per_second": result.tokens_per_second,
             "device": result.device,
+            "mean_logprob": result.mean_logprob,
         }
     return str(result), {}
 

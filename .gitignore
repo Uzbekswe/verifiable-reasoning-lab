@@ -9,3 +9,6 @@ artifacts/runs/
 !artifacts/runs/
 !artifacts/runs/ch02_smoke.json
 !artifacts/runs/ch03_baseline.json
+!artifacts/runs/ch04_sample.json
+!artifacts/runs/ch04_best_of_n.json
+!artifacts/runs/ch04_self_consistency.json

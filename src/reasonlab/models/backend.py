@@ -27,6 +27,10 @@ class GenerationResult:
     device: str
     use_cache: bool
     stopped_on_eos: bool
+    mean_logprob: float | None = None
+    temperature: float = 0.0
+    top_p: float = 1.0
+    seed: int | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -108,14 +112,29 @@ class Qwen3Backend:
         tokenizer = Qwen3Tokenizer(tokenizer_path)
         return cls(model, tokenizer, target, model_path)
 
-    def generate(self, prompt: str, max_new_tokens: int = 64, use_cache: bool = True) -> GenerationResult:
+    def generate(
+        self,
+        prompt: str,
+        max_new_tokens: int = 64,
+        use_cache: bool = True,
+        temperature: float = 0.0,
+        top_p: float = 1.0,
+        seed: int | None = None,
+    ) -> GenerationResult:
         if not prompt.strip():
             raise ValueError("prompt must contain non-whitespace text")
         if max_new_tokens < 1:
             raise ValueError("max_new_tokens must be positive")
         prompt_ids = torch.tensor([self.tokenizer.encode(prompt)], device=self.device, dtype=torch.long)
-        output_ids, elapsed, stopped_on_eos, prompt_length = greedy_generate(
-            self.model, prompt_ids, max_new_tokens, self.tokenizer.eos_token_id, use_cache
+        output_ids, elapsed, stopped_on_eos, prompt_length, mean_logprob = generate_sequence(
+            self.model,
+            prompt_ids,
+            max_new_tokens,
+            self.tokenizer.eos_token_id,
+            use_cache,
+            temperature=temperature,
+            top_p=top_p,
+            seed=seed,
         )
         token_count = int(output_ids.shape[1])
         return GenerationResult(
@@ -128,6 +147,10 @@ class Qwen3Backend:
             device=str(self.device),
             use_cache=use_cache,
             stopped_on_eos=stopped_on_eos,
+            mean_logprob=mean_logprob,
+            temperature=temperature,
+            top_p=top_p,
+            seed=seed,
         )
 
     def provenance(self) -> dict[str, Any]:
@@ -150,38 +173,100 @@ class Qwen3Backend:
 
 @torch.inference_mode()
 def greedy_generate(model, prompt_ids: torch.Tensor, max_new_tokens: int, eos_token_id: int | None, use_cache: bool):
-    """Return a GenerationResult-like token sequence for a batch of one."""
+    """Backward-compatible greedy token generation for tests and Chapter 2."""
+    output_ids, elapsed, stopped_on_eos, prompt_length, _ = generate_sequence(
+        model, prompt_ids, max_new_tokens, eos_token_id, use_cache
+    )
+    return output_ids, elapsed, stopped_on_eos, prompt_length
+
+
+def _top_p_filter(probs: torch.Tensor, top_p: float) -> torch.Tensor:
+    if top_p >= 1.0:
+        return probs
+    sorted_probs, sorted_indices = torch.sort(probs, dim=-1, descending=True)
+    prefix_mass = torch.cumsum(sorted_probs, dim=-1) - sorted_probs
+    keep = prefix_mass < top_p
+    keep[..., 0] = True
+    filtered_sorted = torch.where(keep, sorted_probs, torch.zeros_like(sorted_probs))
+    filtered = torch.zeros_like(probs).scatter(-1, sorted_indices, filtered_sorted)
+    return filtered / filtered.sum(dim=-1, keepdim=True).clamp_min(1e-12)
+
+
+def _select_next_token(
+    logits: torch.Tensor,
+    temperature: float,
+    top_p: float,
+    generator: torch.Generator | None,
+) -> tuple[torch.Tensor, torch.Tensor]:
+    raw_logprobs = torch.log_softmax(logits.float(), dim=-1)
+    if temperature == 0.0:
+        next_token = torch.argmax(logits, dim=-1, keepdim=True)
+    else:
+        probs = torch.softmax(logits.float() / temperature, dim=-1)
+        probs = _top_p_filter(probs, top_p)
+        # CPU sampling keeps seeded behavior consistent across CPU and MPS.
+        next_token = torch.multinomial(probs.cpu(), num_samples=1, generator=generator).to(logits.device)
+    selected_logprob = raw_logprobs.gather(-1, next_token).squeeze(-1)
+    return next_token, selected_logprob
+
+
+@torch.inference_mode()
+def generate_sequence(
+    model,
+    prompt_ids: torch.Tensor,
+    max_new_tokens: int,
+    eos_token_id: int | None,
+    use_cache: bool,
+    temperature: float = 0.0,
+    top_p: float = 1.0,
+    seed: int | None = None,
+):
+    """Generate one sequence with greedy or seeded temperature/top-p decoding."""
     if prompt_ids.shape[0] != 1:
-        raise ValueError("Chapter 2 generation currently supports batch size 1")
+        raise ValueError("Chapter 2/4 generation currently supports batch size 1")
+    if max_new_tokens < 1:
+        raise ValueError("max_new_tokens must be positive")
+    if temperature < 0:
+        raise ValueError("temperature must be non-negative")
+    if not 0 < top_p <= 1:
+        raise ValueError("top_p must be in the interval (0, 1]")
     model.eval()
     prompt_length = prompt_ids.shape[1]
     generated: list[torch.Tensor] = []
+    logprob_sum = 0.0
     stopped_on_eos = False
+    generator = torch.Generator(device="cpu") if seed is not None else None
+    if generator is not None:
+        generator.manual_seed(seed)
     start = time.perf_counter()
+
     if use_cache:
         cache = KVCache(n_layers=model.cfg.n_layers)
         model.reset_kv_cache()
         logits = model(prompt_ids, cache=cache)[:, -1]
         for _ in range(max_new_tokens):
-            next_token = torch.argmax(logits, dim=-1, keepdim=True)
+            next_token, selected_logprob = _select_next_token(logits, temperature, top_p, generator)
             if eos_token_id is not None and int(next_token.item()) == eos_token_id:
                 stopped_on_eos = True
                 break
             generated.append(next_token)
+            logprob_sum += float(selected_logprob.item())
             logits = model(next_token, cache=cache)[:, -1]
     else:
         tokens = prompt_ids
         for _ in range(max_new_tokens):
             logits = model(tokens)[:, -1]
-            next_token = torch.argmax(logits, dim=-1, keepdim=True)
+            next_token, selected_logprob = _select_next_token(logits, temperature, top_p, generator)
             if eos_token_id is not None and int(next_token.item()) == eos_token_id:
                 stopped_on_eos = True
                 break
             generated.append(next_token)
+            logprob_sum += float(selected_logprob.item())
             tokens = torch.cat((tokens, next_token), dim=1)
     elapsed = max(time.perf_counter() - start, 1e-9)
     output_ids = torch.cat(generated, dim=1) if generated else prompt_ids[:, :0]
-    return output_ids, elapsed, stopped_on_eos, prompt_length
+    mean_logprob = logprob_sum / len(generated) if generated else None
+    return output_ids, elapsed, stopped_on_eos, prompt_length, mean_logprob
 
 
 @torch.inference_mode()

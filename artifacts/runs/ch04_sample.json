@@ -1,0 +1,225 @@
+{
+  "summary": {
+    "total": 8,
+    "correct": 3,
+    "incorrect": 0,
+    "parse_errors": 5,
+    "verifier_errors": 0,
+    "accuracy": 0.375,
+    "parse_rate": 0.375,
+    "verifier_error_rate": 0.0,
+    "mean_generated_token_count": 49.125,
+    "mean_latency_seconds": 3.2409667187484956,
+    "by_family": {
+      "arithmetic": {
+        "total": 8,
+        "correct": 3,
+        "parse_errors": 5,
+        "verifier_errors": 0,
+        "accuracy": 0.375
+      }
+    },
+    "by_difficulty": {
+      "medium": {
+        "total": 3,
+        "correct": 2,
+        "parse_errors": 1,
+        "verifier_errors": 0,
+        "accuracy": 0.6666666666666666
+      },
+      "easy": {
+        "total": 5,
+        "correct": 1,
+        "parse_errors": 4,
+        "verifier_errors": 0,
+        "accuracy": 0.2
+      }
+    }
+  },
+  "elapsed_seconds": 26.055948624998564,
+  "records": [
+    {
+      "task_id": "test-arithmetic-0000",
+      "split": "test",
+      "family": "arithmetic",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 25 + 19.\n\nAnswer:",
+      "raw_output": " \\boxed{44}",
+      "verification": {
+        "status": "correct",
+        "candidate": "44",
+        "expected": "44",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "generated_token_count": 6,
+      "latency_seconds": 3.8094487080015824,
+      "tokens_per_second": 1.575031050397728,
+      "device": "mps",
+      "mean_logprob": -0.33754745482777554
+    },
+    {
+      "task_id": "test-arithmetic-0001",
+      "split": "test",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 116 - 46.\n\nAnswer:",
+      "raw_output": " \\boxed{70} To compute \\( 116 - 46 \\), follow these steps:\n\n1. **Align the numbers by their place values:**\n   \\[\n   \\begin{array}{r}\n   \\phantom{0}116 \\\\\n   -\\,46 \\\\\n",
+      "verification": {
+        "status": "correct",
+        "candidate": "70",
+        "expected": "70",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "generated_token_count": 64,
+      "latency_seconds": 3.755039957999543,
+      "tokens_per_second": 17.043760044059642,
+      "device": "mps",
+      "mean_logprob": -0.1674304704307623
+    },
+    {
+      "task_id": "test-arithmetic-0002",
+      "split": "test",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 59 × 5.\n\nAnswer:",
+      "raw_output": " 295\n\nTo compute \\(59 \\times 5\\), follow these steps:\n\n1. **Multiply the numbers directly:**\n   \\[\n   59 \\times 5 = 295\n   \\]\n\n2. **Use the distributive property for clarity:**\n   \\[\n",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "295",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "generated_token_count": 64,
+      "latency_seconds": 3.8054707499977667,
+      "tokens_per_second": 16.817893029407088,
+      "device": "mps",
+      "mean_logprob": -0.26114387479622536
+    },
+    {
+      "task_id": "test-arithmetic-0003",
+      "split": "test",
+      "family": "arithmetic",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 266 / 14.\n\nAnswer:",
+      "raw_output": " \\boxed{19} To solve \\( \\frac{266}{14} \\), follow these steps:\n\n1. **Divide the numerator by the denominator:**\n   \\[\n   266 \\div 14\n   \\]\n\n2. **Perform the division:**\n   \\",
+      "verification": {
+        "status": "correct",
+        "candidate": "19",
+        "expected": "19",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "generated_token_count": 64,
+      "latency_seconds": 3.5416710839999723,
+      "tokens_per_second": 18.070565696834343,
+      "device": "mps",
+      "mean_logprob": -0.13950136396421697
+    },
+    {
+      "task_id": "test-arithmetic-0004",
+      "split": "test",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 15 + 43.\n\nAnswer:",
+      "raw_output": " 58",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "58",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "generated_token_count": 3,
+      "latency_seconds": 0.3187411249964498,
+      "tokens_per_second": 9.412026766340285,
+      "device": "mps",
+      "mean_logprob": -0.5030702423925201
+    },
+    {
+      "task_id": "test-arithmetic-0005",
+      "split": "test",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 106 - 29.\n\nAnswer:",
+      "raw_output": " 77\n\nI can use a more efficient method to compute this problem. Let's start by looking at the numbers involved.\n\nThe first number is 106, which is a two-digit number. The second number is 29, which is also a two-digit number. Since both numbers are two-digit",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "77",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "generated_token_count": 64,
+      "latency_seconds": 3.555358999998134,
+      "tokens_per_second": 18.000995117520787,
+      "device": "mps",
+      "mean_logprob": -0.8819131542929881
+    },
+    {
+      "task_id": "test-arithmetic-0006",
+      "split": "test",
+      "family": "arithmetic",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 71 × 13.\n\nAnswer:",
+      "raw_output": " To compute \\( 71 \\times 13 \\), we can use the **distributive property** of multiplication over addition. Here's a step-by-step breakdown:\n\n1. **Break down the multiplication:**\n   \\[\n   71 \\times 13 = 71 \\times (",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "923",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "generated_token_count": 64,
+      "latency_seconds": 3.5710741669972776,
+      "tokens_per_second": 17.921778436154444,
+      "device": "mps",
+      "mean_logprob": -0.1300587349003024
+    },
+    {
+      "task_id": "test-arithmetic-0007",
+      "split": "test",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 3444 / 42.\n\nAnswer:",
+      "raw_output": " To compute \\( 3444 \\div 42 \\), follow these steps:\n\n1. **Divide 3444 by 42:**\n   - \\( 42 \\times 80 = 3360 \\)\n   - \\( 3444 - ",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "82",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "generated_token_count": 64,
+      "latency_seconds": 3.570928957997239,
+      "tokens_per_second": 17.922507211091226,
+      "device": "mps",
+      "mean_logprob": -0.17412461362786047
+    }
+  ],
+  "provenance": {
+    "model_id": "rasbt/qwen3-from-scratch:qwen3-0.6B-base",
+    "model_path": ".cache/models/qwen3/qwen3-0.6B-base.pth",
+    "model_sha256": "ff38e5cc1530161ca5d68f6284f9343e58d637358b2bee9cc37e781b1c440443",
+    "device": "mps",
+    "torch_version": "2.10.0"
+  },
+  "policy_config": {
+    "policy": "sample",
+    "attempts": 1,
+    "temperature": 0.8,
+    "top_p": 0.9,
+    "seed": 20260809,
+    "max_new_tokens": 64
+  }
+}

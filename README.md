@@ -34,5 +34,17 @@ The primary suite is original and generated deterministically from a recorded
 seed. MATH-500 remains a secondary compatibility path and must be supplied from
 a verified, licensed local file; it is not silently downloaded or bundled.
 
+Chapter 4 policies use the same evaluator and frozen split:
+
+```bash
+uv run reasonlab evaluate --config configs/ch04_sample.toml --limit 8
+uv run reasonlab evaluate --config configs/ch04_best_of_n.toml --limit 8
+uv run reasonlab evaluate --config configs/ch04_eval.toml --limit 8
+```
+
+Best-of-N is scored by mean raw model log-probability. Self-consistency votes on
+extracted final answers. Neither policy uses the ground-truth verifier to select
+an answer.
+
 The project is private during development. See [`plan.md`](plan.md) for the
 complete scope, milestone gates, budget policy, and backup plans.

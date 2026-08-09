@@ -1,0 +1,321 @@
+{
+  "summary": {
+    "total": 8,
+    "correct": 1,
+    "incorrect": 1,
+    "parse_errors": 6,
+    "verifier_errors": 0,
+    "accuracy": 0.125,
+    "parse_rate": 0.25,
+    "verifier_error_rate": 0.0,
+    "mean_generated_token_count": 148.875,
+    "mean_latency_seconds": 8.77834398937648,
+    "by_family": {
+      "arithmetic": {
+        "total": 8,
+        "correct": 1,
+        "parse_errors": 6,
+        "verifier_errors": 0,
+        "accuracy": 0.125
+      }
+    },
+    "by_difficulty": {
+      "medium": {
+        "total": 3,
+        "correct": 1,
+        "parse_errors": 2,
+        "verifier_errors": 0,
+        "accuracy": 0.3333333333333333
+      },
+      "easy": {
+        "total": 5,
+        "correct": 0,
+        "parse_errors": 4,
+        "verifier_errors": 0,
+        "accuracy": 0.0
+      }
+    }
+  },
+  "elapsed_seconds": 70.55383124999935,
+  "records": [
+    {
+      "task_id": "test-arithmetic-0000",
+      "split": "test",
+      "family": "arithmetic",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 25 + 19.\n\nAnswer:",
+      "raw_output": " \\boxed{44} To compute \\( 25 + 19 \\), follow these steps:\n\n1. **Align the numbers by their place values:**\n   \\[\n   \\begin{array}{r}\n     25 \\\\\n   +\\,19 \\\\\n   \\hline\n   \\",
+      "verification": {
+        "status": "correct",
+        "candidate": "44",
+        "expected": "44",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "best_of_n_logprob",
+      "attempts": 4,
+      "selection": {
+        "selected_index": 1,
+        "mean_logprobs": [
+          -0.33754745482777554,
+          -0.13342055041012202,
+          -0.21235429477279208,
+          -0.1439213855638073
+        ],
+        "score": "mean_raw_logprob"
+      },
+      "generated_token_count": 148,
+      "latency_seconds": 8.978744042011385,
+      "tokens_per_second": 16.48337443494442,
+      "device": "mps",
+      "selected_mean_logprob": -0.13342055041012202
+    },
+    {
+      "task_id": "test-arithmetic-0001",
+      "split": "test",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 116 - 46.\n\nAnswer:",
+      "raw_output": " To compute \\( 116 - 46 \\), follow these steps:\n\n1. **Align the numbers by place value:**\n   \\[\n   \\begin{array}{r}\n   116 \\\\\n  -46 \\\\\n   \\hline\n   \\end{array}\n   \\]\n\n",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "70",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "best_of_n_logprob",
+      "attempts": 4,
+      "selection": {
+        "selected_index": 3,
+        "mean_logprobs": [
+          -0.3874585280039658,
+          -0.7645529301832994,
+          -0.11897701416875162,
+          -0.11079124668410101
+        ],
+        "score": "mean_raw_logprob"
+      },
+      "generated_token_count": 195,
+      "latency_seconds": 11.452914416993735,
+      "tokens_per_second": 17.026233926157754,
+      "device": "mps",
+      "selected_mean_logprob": -0.11079124668410101
+    },
+    {
+      "task_id": "test-arithmetic-0002",
+      "split": "test",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 59 × 5.\n\nAnswer:",
+      "raw_output": " To compute \\( 59 \\times 5 \\), follow these steps:\n\n1. **Multiply the numbers:**\n   \\[\n   59 \\times 5 = 295\n   \\]\n\n2. **Verify the calculation:**\n   \\[\n   59 \\times 5 =",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "295",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "best_of_n_logprob",
+      "attempts": 4,
+      "selection": {
+        "selected_index": 1,
+        "mean_logprobs": [
+          -0.2456989240184027,
+          -0.16249387665406445,
+          -0.3951797161716968,
+          -0.18090249018188942
+        ],
+        "score": "mean_raw_logprob"
+      },
+      "generated_token_count": 146,
+      "latency_seconds": 8.798886709009821,
+      "tokens_per_second": 16.593008278024534,
+      "device": "mps",
+      "selected_mean_logprob": -0.16249387665406445
+    },
+    {
+      "task_id": "test-arithmetic-0003",
+      "split": "test",
+      "family": "arithmetic",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 266 / 14.\n\nAnswer:",
+      "raw_output": " To compute \\( \\frac{266}{14} \\), follow these steps:\n\n1. **Divide the numerator by the denominator:**\n   \\[\n   266 \\div 14\n   \\]\n\n2. **Perform the division:**\n   \\[\n   266",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "19",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "best_of_n_logprob",
+      "attempts": 4,
+      "selection": {
+        "selected_index": 1,
+        "mean_logprobs": [
+          -0.29125443345401436,
+          -0.07292235862908192,
+          -0.9122332169984778,
+          -0.40390504834552604
+        ],
+        "score": "mean_raw_logprob"
+      },
+      "generated_token_count": 92,
+      "latency_seconds": 5.4781269149971195,
+      "tokens_per_second": 16.794061442449873,
+      "device": "mps",
+      "selected_mean_logprob": -0.07292235862908192
+    },
+    {
+      "task_id": "test-arithmetic-0004",
+      "split": "test",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 15 + 43.\n\nAnswer:",
+      "raw_output": " To compute \\( 15 + 43 \\), follow these steps:\n\n1. **Add the units place:**  \n   \\( 5 + 3 = 8 \\)\n\n2. **Add the tens place:**  \n   \\( 10 + 40 = 50 \\)\n\n3. **",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "58",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "best_of_n_logprob",
+      "attempts": 4,
+      "selection": {
+        "selected_index": 3,
+        "mean_logprobs": [
+          -0.17780942873714878,
+          -0.5030702423925201,
+          -0.32679754817703116,
+          -0.12675649680210643
+        ],
+        "score": "mean_raw_logprob"
+      },
+      "generated_token_count": 137,
+      "latency_seconds": 8.109879206996993,
+      "tokens_per_second": 16.892976640367216,
+      "device": "mps",
+      "selected_mean_logprob": -0.12675649680210643
+    },
+    {
+      "task_id": "test-arithmetic-0005",
+      "split": "test",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 106 - 29.\n\nAnswer:",
+      "raw_output": " 77\nTo compute \\(106 - 29\\), follow these steps:\n\n1. **Align the numbers by their place values:**\n   \\[\n   \\begin{array}{r}\n   106 \\\\\n  -\\,\\,\\,29 \\\\\n   \\hline\n  ",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "77",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "best_of_n_logprob",
+      "attempts": 4,
+      "selection": {
+        "selected_index": 2,
+        "mean_logprobs": [
+          -1.4018234633674314,
+          -0.3949459937090675,
+          -0.2328843596158805,
+          -0.7812700679060072
+        ],
+        "score": "mean_raw_logprob"
+      },
+      "generated_token_count": 99,
+      "latency_seconds": 5.766044666997914,
+      "tokens_per_second": 17.1694819789775,
+      "device": "mps",
+      "selected_mean_logprob": -0.2328843596158805
+    },
+    {
+      "task_id": "test-arithmetic-0006",
+      "split": "test",
+      "family": "arithmetic",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 71 × 13.\n\nAnswer:",
+      "raw_output": " 923.\n\nTo compute \\(71 \\times 13\\), follow these steps:\n\n1. **Break down the multiplication**:\n   \\[\n   71 \\times 13 = 71 \\times (10 + 3)\n   \\]\n\n2. **Multiply 7",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "923",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "best_of_n_logprob",
+      "attempts": 4,
+      "selection": {
+        "selected_index": 2,
+        "mean_logprobs": [
+          -0.15925862844669725,
+          -0.325768140280464,
+          -0.1586058104577237,
+          -0.18462370494444613
+        ],
+        "score": "mean_raw_logprob"
+      },
+      "generated_token_count": 204,
+      "latency_seconds": 11.79394079100166,
+      "tokens_per_second": 17.29701747830076,
+      "device": "mps",
+      "selected_mean_logprob": -0.1586058104577237
+    },
+    {
+      "task_id": "test-arithmetic-0007",
+      "split": "test",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 3444 / 42.\n\nAnswer:",
+      "raw_output": " 81.66666666666667 \\boxed{81.66666666666667}",
+      "verification": {
+        "status": "incorrect",
+        "candidate": "81.66666666666667",
+        "expected": "82",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "best_of_n_logprob",
+      "attempts": 4,
+      "selection": {
+        "selected_index": 0,
+        "mean_logprobs": [
+          -0.2751552713818502,
+          -0.3314186903220442,
+          -0.5106345518909805,
+          -0.9131985108057658
+        ],
+        "score": "mean_raw_logprob"
+      },
+      "generated_token_count": 170,
+      "latency_seconds": 9.848215167003218,
+      "tokens_per_second": 17.26201114792768,
+      "device": "mps",
+      "selected_mean_logprob": -0.2751552713818502
+    }
+  ],
+  "provenance": {
+    "model_id": "rasbt/qwen3-from-scratch:qwen3-0.6B-base",
+    "model_path": ".cache/models/qwen3/qwen3-0.6B-base.pth",
+    "model_sha256": "ff38e5cc1530161ca5d68f6284f9343e58d637358b2bee9cc37e781b1c440443",
+    "device": "mps",
+    "torch_version": "2.10.0"
+  },
+  "policy_config": {
+    "policy": "best_of_n",
+    "attempts": 4,
+    "temperature": 0.8,
+    "top_p": 0.9,
+    "seed": 20260809,
+    "max_new_tokens": 64
+  }
+}

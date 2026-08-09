@@ -178,6 +178,12 @@ Deliverables: paired comparisons for greedy, temperature/top-p sampling, best-of
 
 Exit criteria: all methods use the same frozen test set and prompt contract; compute budgets are visible; comparisons can be reproduced from saved run records.
 
+Status: Chapter 4 implementation complete. Seeded temperature/top-p sampling,
+model-scored best-of-N, and self-consistency voting are implemented and tested.
+Bounded eight-task real-Qwen artifacts are saved for the one-sample, best-of-four,
+and self-consistency-of-four policies. Full 120-task policy comparisons remain
+an explicit follow-up before declaring the entire M3 comparison complete.
+
 ### M4 — Chapters 6–7 RLVR/GRPO
 
 Book concepts: verifiable rewards, group-relative advantages, policy-gradient loss, clipping/KL choices, rollout collection, and training diagnostics.

@@ -1,4 +1,4 @@
-"""Small Chapter 2 command-line surface."""
+"""Small command-line surface for generation and evaluation experiments."""
 
 from __future__ import annotations
 
@@ -11,6 +11,7 @@ import tomllib
 from .datasets import load_split, write_manifests
 from .evaluation import evaluate_tasks
 from .models.backend import Qwen3Backend
+from .policies import best_of_n, self_consistency
 
 
 def _smoke(args: argparse.Namespace) -> int:
@@ -57,11 +58,63 @@ def _evaluate(args: argparse.Namespace) -> int:
     )
     max_new_tokens = int(config.get("max_new_tokens", 64))
     use_cache = bool(config.get("use_cache", True))
+    policy = config.get("policy", "greedy")
+    temperature = float(config.get("temperature", 0.8))
+    top_p = float(config.get("top_p", 0.9))
+    attempts = int(config.get("attempts", 4))
+    seed_base = config.get("seed", 0)
+    task_index = 0
+
+    def generate(prompt):
+        nonlocal task_index
+        task_seed = None if seed_base is None else int(seed_base) + task_index * max(attempts, 1)
+        task_index += 1
+        if policy == "greedy":
+            return backend.generate(prompt, max_new_tokens=max_new_tokens, use_cache=use_cache)
+        if policy == "sample":
+            return backend.generate(
+                prompt,
+                max_new_tokens=max_new_tokens,
+                use_cache=use_cache,
+                temperature=temperature,
+                top_p=top_p,
+                seed=task_seed,
+            )
+        if policy == "best_of_n":
+            return best_of_n(
+                backend,
+                prompt,
+                n=attempts,
+                max_new_tokens=max_new_tokens,
+                temperature=temperature,
+                top_p=top_p,
+                seed=task_seed,
+            )
+        if policy == "self_consistency":
+            return self_consistency(
+                backend,
+                prompt,
+                n=attempts,
+                max_new_tokens=max_new_tokens,
+                temperature=temperature,
+                top_p=top_p,
+                seed=task_seed,
+            )
+        raise ValueError(f"unsupported policy: {policy}")
+
     result = evaluate_tasks(
         tasks,
-        lambda prompt: backend.generate(prompt, max_new_tokens=max_new_tokens, use_cache=use_cache),
+        generate,
     )
     result["provenance"] = backend.provenance()
+    result["policy_config"] = {
+        "policy": policy,
+        "attempts": attempts,
+        "temperature": temperature,
+        "top_p": top_p,
+        "seed": seed_base,
+        "max_new_tokens": max_new_tokens,
+    }
     output_path = config.get("output")
     if output_path:
         destination = Path(output_path)
@@ -74,7 +127,7 @@ def _evaluate(args: argparse.Namespace) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(prog="reasonlab")
     subparsers = parser.add_subparsers(dest="command", required=True)
-    smoke = subparsers.add_parser("smoke", help="run a local Qwen3 Chapter 2 generation")
+    smoke = subparsers.add_parser("smoke", help="run a local Qwen3 generation smoke test")
     smoke.add_argument("--config", default="configs/ch02_smoke.toml")
     smoke.add_argument("--download", action="store_true", help="download missing model files")
     smoke.set_defaults(handler=_smoke)
