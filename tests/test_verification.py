@@ -1,4 +1,4 @@
-from reasonlab.verification import extract_final_candidate, verify_task
+from reasonlab.verification import extract_final_candidate, refinement_feedback, verify_task
 
 
 def numeric_task(answer="1/2"):
@@ -31,3 +31,11 @@ def test_missing_marker_is_a_parse_error():
 def test_unknown_answer_type_is_a_verifier_error():
     result = verify_task({"answer": "x", "answer_type": "unknown"}, r"\boxed{x}")
     assert result.status == "verifier_error"
+
+
+def test_refinement_feedback_does_not_leak_canonical_answer():
+    result = verify_task(numeric_task("4"), r"\boxed{5}")
+    feedback = refinement_feedback(result)
+    assert result.status == "incorrect"
+    assert "4" not in feedback
+    assert "correct answer is not provided" in feedback

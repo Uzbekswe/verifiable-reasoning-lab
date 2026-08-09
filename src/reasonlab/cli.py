@@ -11,7 +11,7 @@ import tomllib
 from .datasets import load_split, write_manifests
 from .evaluation import evaluate_tasks
 from .models.backend import Qwen3Backend
-from .policies import best_of_n, self_consistency
+from .policies import best_of_n, self_consistency, self_refine
 
 
 def _smoke(args: argparse.Namespace) -> int:
@@ -64,10 +64,11 @@ def _evaluate(args: argparse.Namespace) -> int:
     attempts = int(config.get("attempts", 4))
     seed_base = config.get("seed", 0)
     task_index = 0
+    seed_stride = 3 if policy == "self_refinement" else max(attempts, 1)
 
     def generate(prompt):
         nonlocal task_index
-        task_seed = None if seed_base is None else int(seed_base) + task_index * max(attempts, 1)
+        task_seed = None if seed_base is None else int(seed_base) + task_index * seed_stride
         task_index += 1
         if policy == "greedy":
             return backend.generate(prompt, max_new_tokens=max_new_tokens, use_cache=use_cache)
@@ -102,9 +103,28 @@ def _evaluate(args: argparse.Namespace) -> int:
             )
         raise ValueError(f"unsupported policy: {policy}")
 
+    generate_task = None
+    if policy == "self_refinement":
+        def generate_task(task, prompt):
+            nonlocal task_index
+            task_seed = None if seed_base is None else int(seed_base) + task_index * seed_stride
+            task_index += 1
+            return self_refine(
+                backend,
+                task,
+                prompt,
+                max_refinements=int(config.get("max_refinements", 1)),
+                max_new_tokens=max_new_tokens,
+                critique_max_tokens=int(config.get("critique_max_tokens", 48)),
+                temperature=temperature,
+                top_p=top_p,
+                seed=task_seed,
+            )
+
     result = evaluate_tasks(
         tasks,
         generate,
+        generate_task=generate_task,
     )
     result["provenance"] = backend.provenance()
     result["policy_config"] = {
@@ -114,6 +134,8 @@ def _evaluate(args: argparse.Namespace) -> int:
         "top_p": top_p,
         "seed": seed_base,
         "max_new_tokens": max_new_tokens,
+        "max_refinements": int(config.get("max_refinements", 1)),
+        "critique_max_tokens": int(config.get("critique_max_tokens", 48)),
     }
     output_path = config.get("output")
     if output_path:

@@ -13,3 +13,4 @@ artifacts/runs/
 !artifacts/runs/ch04_best_of_n.json
 !artifacts/runs/ch04_self_consistency.json
 !artifacts/runs/ch04_comparison.json
+!artifacts/runs/ch05_self_refinement.json

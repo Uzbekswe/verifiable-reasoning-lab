@@ -55,3 +55,28 @@ not an unconditional improvement.
 
 The project is private during development. See [`plan.md`](plan.md) for the
 complete scope, milestone gates, budget policy, and backup plans.
+
+## Chapter 5: verifier-guided self-refinement
+
+Self-refinement keeps the Qwen3 weights fixed. It generates a draft, runs the
+same exact verifier used for evaluation, asks the model for a short critique,
+and gives the critique plus verifier feedback to a revision prompt. The
+feedback is deliberately fail-closed: it can identify a parse/format problem or
+say that exact verification failed, but it never contains the canonical answer.
+The loop stops immediately when the draft verifies, so easy tasks do not pay
+the critique cost.
+
+```bash
+uv run reasonlab evaluate --config configs/ch05_eval.toml --limit 8
+uv run reasonlab evaluate --config configs/ch05_eval.toml
+```
+
+The full 120-task run is recorded in
+[`ch05_self_refinement.json`](artifacts/runs/ch05_self_refinement.json). With
+one permitted revision, accuracy was 24.17% (29/120), compared with 14.17%
+for the one-sample Chapter 4 policy. The improvement came with a cost: mean
+generated tokens rose to 103.81 and mean latency to 7.30 seconds; 104 of 120
+tasks used the critique/revision path. Of the 75 final parse failures, 74 were
+already parse failures after the draft and remained failures after revision.
+These results motivate the next adaptive-budget milestone: spend refinement
+only when a cheap format-aware signal predicts that it is likely to help.

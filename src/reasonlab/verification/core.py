@@ -45,6 +45,19 @@ class VerificationResult:
         return asdict(self)
 
 
+def refinement_feedback(result: VerificationResult) -> str:
+    """Return verifier feedback that never reveals the canonical answer."""
+    if result.status == "correct":
+        return "The final answer passed exact verification. Preserve the valid result and keep the response concise."
+    if result.status == "parse_error":
+        if result.reason in {"no_explicit_final_answer", "empty_output"}:
+            return "The response did not contain an explicit final answer. Re-solve the problem and end with exactly \\boxed{ANSWER}."
+        return "The final-answer format could not be parsed. Re-check the expression and end with exactly \\boxed{ANSWER}."
+    if result.status == "incorrect":
+        return "The final answer failed exact verification. Re-check every calculation or logical implication independently, then provide a corrected boxed answer. The correct answer is not provided."
+    return "The verifier could not safely validate this response. Use a concise numeric or logic answer in the requested boxed format."
+
+
 def _boxed_contents(text: str) -> tuple[str | None, str | None]:
     start = text.rfind(r"\boxed")
     if start < 0:

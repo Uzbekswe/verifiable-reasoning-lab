@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from .models.backend import GenerationResult, Qwen3Backend
-from .verification import extract_final_candidate
+from .verification import extract_final_candidate, refinement_feedback, verify_task
 
 
 @dataclass(frozen=True)
@@ -18,6 +18,7 @@ class PolicyResult:
     selected: GenerationResult
     candidates: tuple[GenerationResult, ...]
     selection: dict[str, Any]
+    overhead: tuple[GenerationResult, ...] = ()
 
     @property
     def text(self) -> str:
@@ -25,11 +26,11 @@ class PolicyResult:
 
     @property
     def generated_token_count(self) -> int:
-        return sum(candidate.generated_token_count for candidate in self.candidates)
+        return sum(candidate.generated_token_count for candidate in (*self.candidates, *self.overhead))
 
     @property
     def elapsed_seconds(self) -> float:
-        return sum(candidate.elapsed_seconds for candidate in self.candidates)
+        return sum(candidate.elapsed_seconds for candidate in (*self.candidates, *self.overhead))
 
     @property
     def tokens_per_second(self) -> float:
@@ -46,6 +47,7 @@ class PolicyResult:
             "selected": self.selected.to_dict(),
             "attempts": len(self.candidates),
             "selection": self.selection,
+            "overhead_calls": len(self.overhead),
         }
 
 
@@ -132,5 +134,102 @@ def self_consistency(
             "majority_winners": winners,
             "tie": len(winners) > 1,
             "score": "majority_extracted_answer",
+        },
+    )
+
+
+def _refine_prompt(task_prompt: str, draft: str, feedback: str, critique: str) -> str:
+    return (
+        "Revise a math or logic answer carefully. Do not invent facts or mention the hidden answer.\n\n"
+        f"Question:\n{task_prompt}\n\n"
+        f"Previous answer:\n{draft}\n\n"
+        f"Verifier feedback:\n{feedback}\n\n"
+        f"Reviewer notes:\n{critique}\n\n"
+        "Re-solve the problem, show only brief work, and end with exactly \\boxed{ANSWER}.\n"
+        "Revised answer:"
+    )
+
+
+def _critique_prompt(task_prompt: str, draft: str, feedback: str) -> str:
+    return (
+        "Review this math or logic response without supplying the correct answer. "
+        "Identify a likely arithmetic, logic, or formatting issue and give a short repair plan.\n\n"
+        f"Question:\n{task_prompt}\n\n"
+        f"Draft:\n{draft}\n\n"
+        f"Verifier feedback:\n{feedback}\n\n"
+        "Review notes:"
+    )
+
+
+def self_refine(
+    backend: Qwen3Backend,
+    task: dict,
+    prompt: str,
+    max_refinements: int = 1,
+    max_new_tokens: int = 64,
+    critique_max_tokens: int = 48,
+    temperature: float = 0.7,
+    top_p: float = 0.9,
+    seed: int | None = 0,
+) -> PolicyResult:
+    """Iteratively revise a response using verifier status without answer leakage."""
+    if max_refinements < 0:
+        raise ValueError("max_refinements must be non-negative")
+    current = backend.generate(
+        prompt,
+        max_new_tokens=max_new_tokens,
+        temperature=temperature,
+        top_p=top_p,
+        seed=seed,
+        use_cache=True,
+    )
+    candidates = [current]
+    overhead = []
+    history = []
+    current_check = verify_task(task, current.text)
+    history.append({"iteration": 0, **current_check.to_dict()})
+    if current_check.status == "correct":
+        return PolicyResult(
+            method="self_refinement",
+            selected=current,
+            candidates=tuple(candidates),
+            overhead=tuple(overhead),
+            selection={"revision_count": 0, "verification_history": history, "stopped_early": True},
+        )
+
+    for iteration in range(max_refinements):
+        feedback = refinement_feedback(current_check)
+        critique = backend.generate(
+            _critique_prompt(prompt, current.text, feedback),
+            max_new_tokens=critique_max_tokens,
+            temperature=min(temperature, 0.5),
+            top_p=top_p,
+            seed=None if seed is None else seed + iteration * 3 + 1,
+            use_cache=True,
+        )
+        overhead.append(critique)
+        revised = backend.generate(
+            _refine_prompt(prompt, current.text, feedback, critique.text),
+            max_new_tokens=max_new_tokens,
+            temperature=temperature,
+            top_p=top_p,
+            seed=None if seed is None else seed + iteration * 3 + 2,
+            use_cache=True,
+        )
+        candidates.append(revised)
+        revised_check = verify_task(task, revised.text)
+        history.append({"iteration": iteration + 1, **revised_check.to_dict()})
+        current, current_check = revised, revised_check
+        if current_check.status == "correct":
+            break
+    return PolicyResult(
+        method="self_refinement",
+        selected=current,
+        candidates=tuple(candidates),
+        overhead=tuple(overhead),
+        selection={
+            "revision_count": len(candidates) - 1,
+            "verification_history": history,
+            "stopped_early": current_check.status == "correct",
         },
     )

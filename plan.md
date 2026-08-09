@@ -178,12 +178,17 @@ Deliverables: paired comparisons for greedy, temperature/top-p sampling, best-of
 
 Exit criteria: all methods use the same frozen test set and prompt contract; compute budgets are visible; comparisons can be reproduced from saved run records.
 
-Status: Chapter 4 evidence gate complete. Seeded temperature/top-p sampling,
-model-scored best-of-N, and self-consistency voting are implemented and tested.
-Full 120-task real-Qwen artifacts and a paired comparison summary are saved for
-the one-sample, best-of-four, and self-consistency-of-four policies. The results
-are evidence about this fixed suite and resource budget, not a general benchmark
-claim. Chapter 5 self-refinement is the next active slice of M3.
+Status: complete. Seeded temperature/top-p sampling, model-scored best-of-N,
+self-consistency voting, and verifier-guided self-refinement are implemented
+and tested. Full 120-task real-Qwen artifacts and paired comparison evidence are
+saved for the Chapter 4 policies and the one-revision Chapter 5 policy. The
+self-refinement loop records draft/revision histories, counts critique overhead,
+stops early on verified drafts, and never gives the canonical answer to the
+model. On this fixed suite, self-refinement reached 24.17% accuracy versus
+14.17% for one sampled attempt, at 103.81 generated tokens and 7.30 seconds per
+task. The result is evidence about this fixed suite and resource budget, not a
+general benchmark claim; the high residual parse-error rate is an explicit
+reason to make adaptive compute selective in M5.
 
 ### M4 — Chapters 6–7 RLVR/GRPO
 
@@ -271,8 +276,9 @@ The owner approved the following operating decisions:
 - The verifier is a shared contract: it evaluates answers, supplies verifiable rewards for RLVR/GRPO, and can provide structured feedback for refinement.
 - The next key distinction is inference-time compute (spending more tokens/attempts with unchanged weights) versus weight updates (training changes parameters and therefore future behavior).
 
-M0, M1, M2, and the Chapter 4 slice of M3 are complete. The next active work is
-Chapter 5 self-refinement on the same frozen manifests.
+M0, M1, M2, and M3 are complete. The next active work is Chapter 6 RLVR/GRPO,
+starting with reward-contract teaching and a small local rollout unit test
+before any training or cloud spend.
 
 ## 12. Source and attribution notes
 

@@ -34,9 +34,10 @@ class EvaluationSummary:
 def _generation_fields(result):
     if hasattr(result, "selected") and hasattr(result, "candidates"):
         selected = result.selected
-        return selected.text, {
+        fields = {
             "policy": result.method,
             "attempts": len(result.candidates),
+            "overhead_calls": len(result.overhead),
             "selection": result.selection,
             "generated_token_count": result.generated_token_count,
             "latency_seconds": result.elapsed_seconds,
@@ -44,6 +45,10 @@ def _generation_fields(result):
             "device": result.device,
             "selected_mean_logprob": selected.mean_logprob,
         }
+        if result.method == "self_refinement":
+            fields["candidate_texts"] = [candidate.text for candidate in result.candidates]
+            fields["overhead_texts"] = [call.text for call in result.overhead]
+        return selected.text, fields
     if hasattr(result, "text"):
         return result.text, {
             "generated_token_count": result.generated_token_count,
@@ -55,14 +60,19 @@ def _generation_fields(result):
     return str(result), {}
 
 
-def evaluate_tasks(tasks: list[dict], generate: Callable[[str], object], output_path=None) -> dict:
+def evaluate_tasks(
+    tasks: list[dict],
+    generate: Callable[[str], object],
+    output_path=None,
+    generate_task: Callable[[dict, str], object] | None = None,
+) -> dict:
     records = []
     counts = {"correct": 0, "incorrect": 0, "parse_error": 0, "verifier_error": 0}
     started = time.perf_counter()
     for task in tasks:
         prompt = render_prompt(task)
         try:
-            generation = generate(prompt)
+            generation = generate_task(task, prompt) if generate_task is not None else generate(prompt)
             raw_output, generation_fields = _generation_fields(generation)
             checked = verify_task(task, raw_output)
             counts[checked.status] += 1
