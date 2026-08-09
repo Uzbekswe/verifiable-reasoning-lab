@@ -237,13 +237,23 @@ Per-run records should include:
 | Distillation is not justified | Stop at the evidence gate | Publish the decision not to distill | Teacher, budget, and expected-value analysis |
 | Demo becomes a distraction | Keep CLI and artifacts authoritative | Ship a CLI-only release | Scope decision and reason |
 
-## 11. Open decisions for approval
+## 11. Decisions resolved before Chapter 2
 
-1. Use MATH-500 as secondary compatibility evidence and the original suite as primary evidence.
-2. Use the proposed 400/80/120 split unless Chapter 3 data inspection shows a better justified size.
-3. For Chapter 2, decide whether the first model adapter should follow the book's readable pure-PyTorch Qwen implementation, use the upstream Transformers checkpoint, or support both in sequence.
-4. Keep the $24/$6 cloud policy and per-job approval.
-5. Ship CLI-first with a small local Gradio demo only after the experiment surface is stable.
+The owner approved the following operating decisions:
+
+1. Use the original verifier-backed suite as primary evidence and MATH-500 as clearly labeled secondary compatibility evidence.
+2. Start with a 400/80/120 train/validation/frozen-test split, subject to a justified revision during Chapter 3 data inspection.
+3. Implement the Chapter 2 model adapter with the book's readable pure-PyTorch Qwen path first; add a Transformers adapter only if a later training or deployment need justifies it.
+4. Keep the hard $24 cloud cap, $6 reserve, written forecast, exact stop condition, automatic termination, and owner approval for every cloud job.
+5. Ship a CLI-first experiment surface; add a small local Gradio demo only after the evaluator and experiment plumbing are stable.
+
+### Chapter 1 checkpoint
+
+- A reasoning system normally keeps the same decoder-only Transformer architecture as its base model; reasoning behavior comes from inference procedures and post-training, not a magical reasoning layer.
+- The verifier is a shared contract: it evaluates answers, supplies verifiable rewards for RLVR/GRPO, and can provide structured feedback for refinement.
+- The next key distinction is inference-time compute (spending more tokens/attempts with unchanged weights) versus weight updates (training changes parameters and therefore future behavior).
+
+M0 is complete. M1 now begins with the Chapter 2 generation substrate and a local-only smoke test.
 
 ## 12. Source and attribution notes
 
