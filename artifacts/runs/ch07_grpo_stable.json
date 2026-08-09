@@ -1,0 +1,55 @@
+{
+  "provenance": {
+    "model_id": "rasbt/qwen3-from-scratch:qwen3-0.6B-base",
+    "model_path": ".cache/models/qwen3/qwen3-0.6B-base.pth",
+    "model_sha256": "ff38e5cc1530161ca5d68f6284f9343e58d637358b2bee9cc37e781b1c440443",
+    "device": "mps",
+    "torch_version": "2.10.0"
+  },
+  "config": {
+    "manifest_dir": "data/manifests",
+    "split": "train",
+    "model_dir": ".cache/models/qwen3",
+    "device": "auto",
+    "steps": 1,
+    "num_rollouts": 4,
+    "trainable_scope": "output_head",
+    "max_new_tokens": 32,
+    "temperature": 0.8,
+    "top_p": 0.9,
+    "seed": 20260809,
+    "learning_rate": 1e-06,
+    "weight_decay": 0.0,
+    "grad_clip": 1.0,
+    "clip_epsilon": 0.2,
+    "kl_coeff": 0.0,
+    "kl_mode": "simple",
+    "format_reward_weight": 0.1,
+    "checkpoint_every": 1,
+    "checkpoint": ".cache/checkpoints/ch07_grpo_stable.pt",
+    "output": "artifacts/runs/ch07_grpo_stable.json"
+  },
+  "parameter_summary": {
+    "scope": "output_head",
+    "total_parameters": 751632384,
+    "trainable_parameters": 155582464
+  },
+  "metrics": [
+    {
+      "step": 1,
+      "loss": 0.03501713275909424,
+      "mean_reward": 0.8250000476837158,
+      "mean_advantage": -5.960464477539063e-08,
+      "mean_generated_tokens": 19.5,
+      "gradient_norm": 125.5,
+      "correct_count": 3,
+      "update_applied": true,
+      "nonfinite_gradient": false,
+      "mean_ratio": 1.0575637817382812,
+      "clip_fraction": 0.0,
+      "kl_loss": null,
+      "mean_entropy": 0.521286129951477,
+      "mean_format_reward": 0.75
+    }
+  ]
+}

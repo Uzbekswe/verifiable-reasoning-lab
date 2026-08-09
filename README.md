@@ -108,3 +108,24 @@ success, not evidence that the full Qwen3 policy improved: 155.6M of 751.6M
 parameters were trainable. The run is saved in
 [`ch06_grpo_train.json`](artifacts/runs/ch06_grpo_train.json). The checkpoint is
 kept under `.cache/` and excluded from Git because it is multi-gigabyte.
+
+## Chapter 7: GRPO stability and diagnostics
+
+Chapter 7 adds safeguards around the Chapter 6 objective without changing the
+verifier. The implementation tracks completion entropy and old/new policy
+ratios, supports PPO-style sequence-ratio clipping, supports an optional frozen
+reference-policy KL penalty, and exposes an optional explicit-format reward.
+All terms are configurable; disabling them reproduces the Chapter 6 loss.
+
+```bash
+uv run reasonlab grpo-train --config configs/ch07_grpo_stable.toml --limit 1
+```
+
+The reduced-parameter Qwen3 diagnostic enabled clipping (`epsilon=0.2`) and a
+small format-reward weight (`0.1`). It produced a finite gradient norm of
+`125.5`, applied the update, and recorded mean ratio `1.058`, clip fraction
+`0.0`, entropy `0.521`, and mean reward `0.825` (the latter includes format
+shaping). This is a one-step stability diagnostic—not a held-out performance
+claim—and it deliberately leaves KL disabled on the real Qwen run because a
+full frozen reference copy is memory-expensive. KL behavior is covered by
+deterministic unit tests.

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 from pathlib import Path
 
@@ -75,11 +76,20 @@ def _grpo_train(args: argparse.Namespace) -> int:
         device=config.get("device", "auto"),
         download=args.download,
     )
+    kl_coeff = float(config.get("kl_coeff", 0.0))
+    reference_model = None
+    if kl_coeff:
+        reference_model = copy.deepcopy(backend.model).eval()
+        for parameter in reference_model.parameters():
+            parameter.requires_grad_(False)
     trainable_scope = str(config.get("trainable_scope", "all"))
     parameter_summary = configure_trainable_scope(backend.model, trainable_scope)
     trainable_parameters = [parameter for parameter in backend.model.parameters() if parameter.requires_grad]
     if not trainable_parameters:
         raise ValueError("training scope selected no trainable parameters")
+    clip_epsilon = config.get("clip_epsilon")
+    if clip_epsilon is not None:
+        clip_epsilon = float(clip_epsilon)
     optimizer = torch.optim.AdamW(
         trainable_parameters,
         lr=float(config.get("learning_rate", 1e-6)),
@@ -96,6 +106,11 @@ def _grpo_train(args: argparse.Namespace) -> int:
         top_p=float(config.get("top_p", 0.9)),
         seed=config.get("seed", 0),
         grad_clip=float(config.get("grad_clip", 1.0)),
+        clip_epsilon=clip_epsilon,
+        reference_model=reference_model,
+        kl_coeff=kl_coeff,
+        kl_mode=str(config.get("kl_mode", "simple")),
+        format_reward_weight=float(config.get("format_reward_weight", 0.0)),
         checkpoint_path=config.get("checkpoint"),
         checkpoint_every=int(config.get("checkpoint_every", 0)),
     )

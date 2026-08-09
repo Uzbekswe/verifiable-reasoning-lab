@@ -198,7 +198,7 @@ Deliverables: small train/validation run, reward unit tests, rollout ledger, tra
 
 Exit criteria: reward computation is independently tested; training can resume or stop safely; held-out evaluation is performed once per selected checkpoint; cost remains inside the approved cap.
 
-Status: Chapter 6 implementation complete, full-model training gate still open. The binary
+Status: Chapters 6–7 implementation complete, full-model training gate still open. The binary
 verifier reward, grouped rollout collector, group-relative advantages,
 gradient-bearing sequence log-probabilities, policy-gradient loss, checkpoint
 round-trip, CLI, and deterministic tiny-policy smoke test are implemented and
@@ -209,8 +209,10 @@ The approved local reduced-parameter path now freezes the Transformer and trains
 only `out_head`: the same diagnostic produced a finite gradient norm of 113.5
 and applied the update, with 155.6M of 751.6M parameters trainable. This is a
 numerical/plumbing gate, not a full-policy improvement claim. No cloud money was
-spent. Before a full train/validation claim, choose whether to run one bounded
-GPU full-model diagnostic or continue with Chapter 7 stability terms on the
+spent. Chapter 7 clipping, entropy, optional KL, and format-reward diagnostics
+are now implemented and tested. A reduced-scope one-step run applied a finite
+update with clipping enabled. Before a full train/validation claim, choose
+whether to run one bounded GPU full-model diagnostic or continue with the
 reduced scope.
 
 ### M5 — Original adaptive reasoning budget
@@ -291,8 +293,8 @@ The owner approved the following operating decisions:
 - The verifier is a shared contract: it evaluates answers, supplies verifiable rewards for RLVR/GRPO, and can provide structured feedback for refinement.
 - The next key distinction is inference-time compute (spending more tokens/attempts with unchanged weights) versus weight updates (training changes parameters and therefore future behavior).
 
-M0, M1, M2, and M3 are complete. Chapter 6's reward and GRPO implementation is
-complete, and the reduced-parameter local training path is numerically safe.
+M0, M1, M2, and M3 are complete. Chapters 6–7 reward, GRPO, and stability
+implementations are complete, and the reduced-parameter local training path is numerically safe.
 Full-model Qwen training remains unclaimed after the all-parameter MPS failure.
 The next decision is whether one bounded GPU diagnostic is justified; no cloud
 job runs without explicit approval.
@@ -303,6 +305,7 @@ job runs without explicit approval.
 - Official Chapter 1: https://github.com/rasbt/reasoning-from-scratch/tree/main/ch01
 - Official Chapter 2: https://github.com/rasbt/reasoning-from-scratch/tree/main/ch02
 - Official Chapter 6 walkthrough: https://github.com/rasbt/reasoning-from-scratch/blob/main/ch06/01_main-chapter-code/ch06_main.ipynb
+- Official Chapter 7 walkthrough: https://github.com/rasbt/reasoning-from-scratch/blob/main/ch07/01_main-chapter-code/ch07_main.ipynb
 - Official Qwen3-from-scratch weight source: https://huggingface.co/rasbt/qwen3-from-scratch
 - The project will include attribution and preserve upstream model/data license notices.
 - No unauthorized book copy or book excerpt is required for this plan.

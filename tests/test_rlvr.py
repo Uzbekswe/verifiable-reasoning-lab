@@ -4,9 +4,12 @@ from reasonlab.models.backend import GenerationResult
 from reasonlab.rl_smoke import TinyPolicy, TinyTokenizer
 from reasonlab.rlvr import (
     Rollout,
+    clipped_policy_gradient_loss,
     compute_grpo_loss,
     configure_trainable_scope,
+    format_reward,
     group_relative_advantages,
+    kl_penalty,
     load_grpo_checkpoint,
     policy_gradient_loss,
     save_grpo_checkpoint,
@@ -48,6 +51,27 @@ def test_group_relative_advantages_match_chapter_formula():
     assert torch.equal(group_relative_advantages([1.0, 1.0]), torch.zeros(2))
 
 
+def test_clipped_policy_gradient_limits_large_ratio():
+    new = torch.tensor([0.0, 0.0], requires_grad=True)
+    old = torch.tensor([-3.0, 0.0])
+    advantages = torch.tensor([1.0, -1.0])
+    loss, ratios, clip_fraction = clipped_policy_gradient_loss(new, old, advantages, 0.2)
+    assert torch.allclose(ratios, torch.tensor([20.0855, 1.0]), atol=1e-3)
+    assert clip_fraction.item() == 0.5
+    loss.backward()
+    assert new.grad is not None
+
+
+def test_kl_penalty_supports_simple_and_reweighted_modes():
+    new = torch.tensor([-1.0, -2.0], requires_grad=True)
+    reference = torch.tensor([-1.5, -1.0])
+    ratios = torch.tensor([2.0, 0.5])
+    simple = kl_penalty(new, reference, 0.1)
+    reweighted = kl_penalty(new, reference, 0.1, mode="reweighted", ratios=ratios)
+    assert simple.item() < 0
+    assert reweighted.item() > 0
+
+
 def test_policy_gradient_detaches_advantages_but_keeps_logprob_gradient():
     log_probs = torch.tensor([-1.0, -2.0], requires_grad=True)
     advantages = torch.tensor([1.0, -1.0], requires_grad=True)
@@ -64,6 +88,11 @@ def test_sequence_logprob_backpropagates_through_tiny_policy():
     logprob.backward()
     assert logprob.ndim == 0
     assert model.logits.grad is not None
+
+
+def test_format_reward_only_accepts_boxed_contract():
+    assert format_reward(r"\boxed{4}") == 1.0
+    assert format_reward("Final answer: 4") == 0.0
 
 
 def test_compute_grpo_loss_produces_differentiable_stats():
@@ -99,6 +128,80 @@ def test_compute_grpo_loss_produces_differentiable_stats():
     assert stats.loss.requires_grad
     assert stats.rewards.tolist() == [1.0, 0.0]
     assert model.logits.grad is not None
+
+
+def test_compute_grpo_loss_can_enable_chapter7_terms():
+    model = TinyPolicy()
+    generation = GenerationResult(
+        text=r"\boxed{4}",
+        token_ids=[1],
+        prompt_token_count=1,
+        generated_token_count=1,
+        elapsed_seconds=0.001,
+        tokens_per_second=1000.0,
+        device="cpu",
+        use_cache=False,
+        stopped_on_eos=False,
+        mean_logprob=-1.0,
+    )
+    rollout = Rollout(
+        generation=generation,
+        reward=verifier_reward({"answer": "4", "answer_type": "numeric"}, generation.text),
+        seed=0,
+    )
+    second = Rollout(
+        generation=GenerationResult(
+            **{**generation.to_dict(), "text": r"\boxed{5}", "token_ids": [2], "mean_logprob": -1.0}
+        ),
+        reward=verifier_reward({"answer": "4", "answer_type": "numeric"}, r"\boxed{5}"),
+        seed=1,
+    )
+    stats = compute_grpo_loss(
+        model,
+        TinyTokenizer(),
+        "What is 2 + 2?",
+        (rollout, second),
+        clip_epsilon=0.2,
+        format_reward_weight=0.1,
+    )
+    assert stats.ratios is not None
+    assert stats.clip_fraction is not None
+    assert stats.entropy is not None
+    stats.loss.backward()
+
+
+def test_compute_grpo_loss_can_add_reference_kl_penalty():
+    model = TinyPolicy()
+    reference = TinyPolicy()
+    reference.logits.data[1] = 0.5
+    generation = GenerationResult(
+        text=r"\boxed{4}",
+        token_ids=[1],
+        prompt_token_count=1,
+        generated_token_count=1,
+        elapsed_seconds=0.001,
+        tokens_per_second=1000.0,
+        device="cpu",
+        use_cache=False,
+        stopped_on_eos=False,
+        mean_logprob=-1.0,
+    )
+    other = GenerationResult(**{**generation.to_dict(), "text": r"\boxed{5}", "token_ids": [2]})
+    task = {"answer": "4", "answer_type": "numeric"}
+    rollouts = tuple(
+        Rollout(generation=g, reward=verifier_reward(task, g.text), seed=index)
+        for index, g in enumerate((generation, other))
+    )
+    stats = compute_grpo_loss(
+        model,
+        TinyTokenizer(),
+        "What is 2 + 2?",
+        rollouts,
+        reference_model=reference,
+        kl_coeff=0.02,
+    )
+    assert stats.kl_loss is not None
+    stats.loss.backward()
 
 
 def test_grpo_checkpoint_round_trip(tmp_path):
