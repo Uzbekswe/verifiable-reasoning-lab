@@ -1,0 +1,7 @@
+manifest_dir = "data/manifests"
+split = "test"
+model_dir = ".cache/models/qwen3"
+device = "auto"
+max_new_tokens = 64
+use_cache = true
+output = "artifacts/runs/ch03_baseline.json"

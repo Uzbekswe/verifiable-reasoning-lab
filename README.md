@@ -23,5 +23,16 @@ autoregressive greedy decoding, EOS stopping, streaming, device selection,
 latency/token accounting, and KV-cache parity. Evaluation and training begin
 only after this path is reliable.
 
+## Chapter 3 quickstart
+
+```bash
+uv run reasonlab data build --out-dir data/manifests
+uv run reasonlab evaluate --config configs/ch03_eval.toml
+```
+
+The primary suite is original and generated deterministically from a recorded
+seed. MATH-500 remains a secondary compatibility path and must be supplied from
+a verified, licensed local file; it is not silently downloaded or bundled.
+
 The project is private during development. See [`plan.md`](plan.md) for the
 complete scope, milestone gates, budget policy, and backup plans.

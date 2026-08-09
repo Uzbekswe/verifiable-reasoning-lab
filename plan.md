@@ -164,6 +164,12 @@ Deliverables: primary original math/logic suite, secondary MATH-500 compatibilit
 
 Exit criteria: verifier tests pass; every task has a stable ID and canonical answer; held-out test is frozen before training; baseline results are saved with complete provenance.
 
+Status: core complete. The original primary suite contains 400/80/120 train/validation/test
+tasks across arithmetic, algebra, sequence, and logic families. Manifest hashes are recorded
+in `data/manifests/manifest.json`; the full 120-task base-model baseline is saved at
+`artifacts/runs/ch03_baseline.json`. The MATH-500 compatibility loader accepts a user-supplied
+licensed JSON file without bundling or silently downloading the dataset.
+
 ### M3 — Chapters 4–5 inference-time scaling
 
 Book concepts: spend more inference compute without changing weights through sampling, best-of-N/self-consistency, and verifier-guided self-refinement.
@@ -258,7 +264,8 @@ The owner approved the following operating decisions:
 - The verifier is a shared contract: it evaluates answers, supplies verifiable rewards for RLVR/GRPO, and can provide structured feedback for refinement.
 - The next key distinction is inference-time compute (spending more tokens/attempts with unchanged weights) versus weight updates (training changes parameters and therefore future behavior).
 
-M0 and M1 are complete. M2 now begins with the Chapter 3 verifier and frozen data contract.
+M0, M1, and the core M2 evaluator are complete. M3 now begins with inference-time
+scaling comparisons on the same frozen manifests.
 
 ## 12. Source and attribution notes
 

@@ -1,0 +1,26 @@
+{
+  "generator_version": "chapter3-original-v1",
+  "seed": 20260809,
+  "counts": {
+    "train": 400,
+    "validation": 80,
+    "test": 120
+  },
+  "files": {
+    "train": {
+      "path": "train.jsonl",
+      "count": 400,
+      "sha256": "e0f59195e36aec6be06e84ae6da43356f98cd5226a15c168cd6f69b97cf0baf4"
+    },
+    "validation": {
+      "path": "validation.jsonl",
+      "count": 80,
+      "sha256": "ec0f528ef96d8e1db147fe725370a78b01db199a9a6ae834072701553b5f85db"
+    },
+    "test": {
+      "path": "test.jsonl",
+      "count": 120,
+      "sha256": "77cefe9c148144f8f4f4e5161409f99fb6dc697205df74b7a3bb78f5654c213e"
+    }
+  }
+}
