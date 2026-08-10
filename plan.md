@@ -198,7 +198,8 @@ Deliverables: small train/validation run, reward unit tests, rollout ledger, tra
 
 Exit criteria: reward computation is independently tested; training can resume or stop safely; held-out evaluation is performed once per selected checkpoint; cost remains inside the approved cap.
 
-Status: Chapters 6–7 implementation complete, full-model training gate still open. The binary
+Status: Chapters 6–7 implementation complete; the bounded reduced-parameter evidence gate is
+closed, while full-model training remains unclaimed. The binary
 verifier reward, grouped rollout collector, group-relative advantages,
 gradient-bearing sequence log-probabilities, policy-gradient loss, checkpoint
 round-trip, CLI, and deterministic tiny-policy smoke test are implemented and
@@ -211,9 +212,15 @@ and applied the update, with 155.6M of 751.6M parameters trainable. This is a
 numerical/plumbing gate, not a full-policy improvement claim. No cloud money was
 spent. Chapter 7 clipping, entropy, optional KL, and format-reward diagnostics
 are now implemented and tested. A reduced-scope one-step run applied a finite
-update with clipping enabled. Before a full train/validation claim, choose
-whether to run one bounded GPU full-model diagnostic or continue with the
-reduced scope.
+update with clipping enabled. The local gate then used four GRPO steps, four
+rollouts, and an `out_head` scope; its checkpoint was evaluated on all 80
+validation tasks with the same sampled policy as the base. Base and checkpoint
+both scored 16/80 (20.0%), with 64 parse errors, 41.525 generated tokens per
+task, and no verifier errors. The checkpoint therefore provides reproducible
+negative evidence rather than a held-out gain. The training run, base
+validation, checkpoint validation, and config files are saved under
+`artifacts/runs/` and `configs/`. No cloud money was spent. A bounded GPU
+full-model diagnostic remains optional and requires explicit approval.
 
 ### M5 — Original adaptive reasoning budget
 
@@ -293,11 +300,12 @@ The owner approved the following operating decisions:
 - The verifier is a shared contract: it evaluates answers, supplies verifiable rewards for RLVR/GRPO, and can provide structured feedback for refinement.
 - The next key distinction is inference-time compute (spending more tokens/attempts with unchanged weights) versus weight updates (training changes parameters and therefore future behavior).
 
-M0, M1, M2, and M3 are complete. Chapters 6–7 reward, GRPO, and stability
-implementations are complete, and the reduced-parameter local training path is numerically safe.
-Full-model Qwen training remains unclaimed after the all-parameter MPS failure.
-The next decision is whether one bounded GPU diagnostic is justified; no cloud
-job runs without explicit approval.
+M0, M1, M2, M3, and the reduced-parameter M4 evidence gate are complete.
+Chapters 6–7 reward, GRPO, and stability implementations are complete, and
+the reduced-parameter local training path is numerically safe. The measured
+checkpoint did not improve held-out accuracy, so full-model Qwen training
+remains unclaimed after the all-parameter MPS failure. M5 adaptive-budget
+experiments are next; no cloud job runs without explicit approval.
 
 ## 12. Source and attribution notes
 

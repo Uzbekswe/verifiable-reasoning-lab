@@ -129,3 +129,30 @@ shaping). This is a one-step stability diagnostic—not a held-out performance
 claim—and it deliberately leaves KL disabled on the real Qwen run because a
 full frozen reference copy is memory-expensive. KL behavior is covered by
 deterministic unit tests.
+
+### M4 evidence gate: bounded train/validation result
+
+The local evidence gate uses the same frozen manifests, seed, sampling policy,
+and verifier before and after training. The bounded run trains only `out_head`
+for four GRPO steps, with four rollouts per prompt and a `0.1` format-reward
+weight; the 2.0 GB checkpoint stays in `.cache/` and is intentionally not
+committed.
+
+```bash
+uv run reasonlab evaluate --config configs/m4_validation_base.toml
+uv run reasonlab grpo-train --config configs/m4_gate_train.toml --limit 8
+uv run reasonlab evaluate --config configs/m4_validation_checkpoint.toml
+```
+
+| policy | validation accuracy | parse errors | mean tokens | mean latency |
+| --- | ---: | ---: | ---: | ---: |
+| base, sampled | 16/80 (20.0%) | 64 | 41.525 | 2.568 s |
+| output-head checkpoint | 16/80 (20.0%) | 64 | 41.525 | 2.552 s |
+
+The checkpoint matches the base on every family and difficulty slice. The
+training loop itself was numerically safe: three of four steps applied finite
+updates and one step correctly skipped because its grouped rewards had zero
+variance. This closes the reduced-parameter local evidence gate, but it is not
+evidence that all 751.6M Qwen3 parameters improved. The earlier all-parameter
+MPS/bfloat16 run remains negative numerical evidence; no cloud GPU experiment
+was purchased or started.

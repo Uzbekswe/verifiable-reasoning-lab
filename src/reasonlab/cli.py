@@ -15,7 +15,7 @@ from .evaluation import evaluate_tasks
 from .models.backend import Qwen3Backend
 from .policies import best_of_n, self_consistency, self_refine
 from .rl_smoke import run_tiny_grpo_smoke
-from .rlvr import configure_trainable_scope, train_grpo
+from .rlvr import configure_trainable_scope, load_grpo_checkpoint, train_grpo
 
 
 def _smoke(args: argparse.Namespace) -> int:
@@ -140,6 +140,15 @@ def _evaluate(args: argparse.Namespace) -> int:
         device=config.get("device", "auto"),
         download=args.download,
     )
+    checkpoint_path = config.get("checkpoint")
+    checkpoint_meta = None
+    if checkpoint_path:
+        payload = load_grpo_checkpoint(checkpoint_path, backend.model)
+        checkpoint_meta = {
+            "path": str(checkpoint_path),
+            "step": payload.get("step"),
+            "metric_rows": len(payload.get("metrics", [])),
+        }
     max_new_tokens = int(config.get("max_new_tokens", 64))
     use_cache = bool(config.get("use_cache", True))
     policy = config.get("policy", "greedy")
@@ -211,6 +220,7 @@ def _evaluate(args: argparse.Namespace) -> int:
         generate_task=generate_task,
     )
     result["provenance"] = backend.provenance()
+    result["checkpoint"] = checkpoint_meta
     result["policy_config"] = {
         "policy": policy,
         "attempts": attempts,
@@ -218,6 +228,7 @@ def _evaluate(args: argparse.Namespace) -> int:
         "top_p": top_p,
         "seed": seed_base,
         "max_new_tokens": max_new_tokens,
+        "checkpoint": checkpoint_path,
         "max_refinements": int(config.get("max_refinements", 1)),
         "critique_max_tokens": int(config.get("critique_max_tokens", 48)),
     }

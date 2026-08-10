@@ -1,0 +1,10 @@
+manifest_dir = "data/manifests"
+split = "validation"
+model_dir = ".cache/models/qwen3"
+device = "auto"
+policy = "sample"
+temperature = 0.8
+top_p = 0.9
+seed = 20260810
+max_new_tokens = 64
+output = "artifacts/runs/m4_validation_base.json"
