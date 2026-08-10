@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420">
+<rect width="100%" height="100%" fill="white"/>
+<text x="450.0" y="30.0" font-size="18" text-anchor="middle">Adaptive test-set failure slices</text>
+<text x="750.0" y="405.0" font-size="13" text-anchor="middle">task count</text>
+<text x="158.0" y="92.0" font-size="13" text-anchor="end">arithmetic</text>
+<rect x="170" y="70" width="420.0" height="28" fill="#16a34a"/>
+<rect x="590.0" y="70" width="160.0" height="28" fill="#f97316"/>
+<text x="780.0" y="90.0" font-size="11" text-anchor="start">21 correct / 8 parse</text>
+<text x="158.0" y="162.0" font-size="13" text-anchor="end">algebra</text>
+<rect x="170" y="140" width="320.0" height="28" fill="#16a34a"/>
+<rect x="490.0" y="140" width="280.0" height="28" fill="#f97316"/>
+<text x="780.0" y="160.0" font-size="11" text-anchor="start">16 correct / 14 parse</text>
+<text x="158.0" y="232.0" font-size="13" text-anchor="end">sequence</text>
+<rect x="170" y="210" width="100.0" height="28" fill="#16a34a"/>
+<rect x="270.0" y="210" width="480.0" height="28" fill="#f97316"/>
+<text x="780.0" y="230.0" font-size="11" text-anchor="start">5 correct / 24 parse</text>
+<text x="158.0" y="302.0" font-size="13" text-anchor="end">logic</text>
+<rect x="170" y="280" width="20.0" height="28" fill="#16a34a"/>
+<rect x="190.0" y="280" width="580.0" height="28" fill="#f97316"/>
+<text x="780.0" y="300.0" font-size="11" text-anchor="start">1 correct / 29 parse</text>
+<rect x="170" y="355" width="14" height="14" fill="#16a34a"/>
+<text x="190.0" y="367.0" font-size="12" text-anchor="start">correct</text>
+<rect x="270" y="355" width="14" height="14" fill="#f97316"/>
+<text x="290.0" y="367.0" font-size="12" text-anchor="start">parse error</text>
+</svg>

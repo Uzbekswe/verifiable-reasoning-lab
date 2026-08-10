@@ -1,0 +1,4 @@
+run_dir = "artifacts/runs"
+manifest = "data/manifests/manifest.json"
+output = "artifacts/portfolio/summary.json"
+figure_dir = "artifacts/portfolio"

@@ -1,0 +1,351 @@
+{
+  "project": "verifiable-reasoning-lab",
+  "evidence_scope": "original verifier-backed math and logic suite",
+  "model_sha256": "ff38e5cc1530161ca5d68f6284f9343e58d637358b2bee9cc37e781b1c440443",
+  "runs": [
+    {
+      "artifact": "ch03_baseline.json",
+      "policy": "base",
+      "split": "test",
+      "total": 120,
+      "correct": 3,
+      "incorrect": 0,
+      "parse_errors": 117,
+      "verifier_errors": 0,
+      "accuracy": 0.025,
+      "mean_generated_token_count": 42.391666666666666,
+      "mean_latency_seconds": 2.3318383023917706,
+      "by_family": {
+        "arithmetic": {
+          "total": 30,
+          "correct": 3,
+          "parse_errors": 27,
+          "verifier_errors": 0,
+          "accuracy": 0.1
+        },
+        "algebra": {
+          "total": 30,
+          "correct": 0,
+          "parse_errors": 30,
+          "verifier_errors": 0,
+          "accuracy": 0.0
+        },
+        "sequence": {
+          "total": 30,
+          "correct": 0,
+          "parse_errors": 30,
+          "verifier_errors": 0,
+          "accuracy": 0.0
+        },
+        "logic": {
+          "total": 30,
+          "correct": 0,
+          "parse_errors": 30,
+          "verifier_errors": 0,
+          "accuracy": 0.0
+        }
+      },
+      "by_difficulty": {
+        "medium": {
+          "total": 40,
+          "correct": 1,
+          "parse_errors": 39,
+          "verifier_errors": 0,
+          "accuracy": 0.025
+        },
+        "easy": {
+          "total": 80,
+          "correct": 2,
+          "parse_errors": 78,
+          "verifier_errors": 0,
+          "accuracy": 0.025
+        }
+      },
+      "model_sha256": "ff38e5cc1530161ca5d68f6284f9343e58d637358b2bee9cc37e781b1c440443",
+      "device": "mps"
+    },
+    {
+      "artifact": "ch04_sample.json",
+      "policy": "sample",
+      "split": "test",
+      "total": 120,
+      "correct": 17,
+      "incorrect": 6,
+      "parse_errors": 97,
+      "verifier_errors": 0,
+      "accuracy": 0.14166666666666666,
+      "mean_generated_token_count": 43.65833333333333,
+      "mean_latency_seconds": 2.4623718128755474,
+      "by_family": {
+        "arithmetic": {
+          "total": 30,
+          "correct": 12,
+          "parse_errors": 17,
+          "verifier_errors": 0,
+          "accuracy": 0.4
+        },
+        "algebra": {
+          "total": 30,
+          "correct": 3,
+          "parse_errors": 23,
+          "verifier_errors": 0,
+          "accuracy": 0.1
+        },
+        "sequence": {
+          "total": 30,
+          "correct": 2,
+          "parse_errors": 28,
+          "verifier_errors": 0,
+          "accuracy": 0.06666666666666667
+        },
+        "logic": {
+          "total": 30,
+          "correct": 0,
+          "parse_errors": 29,
+          "verifier_errors": 0,
+          "accuracy": 0.0
+        }
+      },
+      "by_difficulty": {
+        "medium": {
+          "total": 40,
+          "correct": 8,
+          "parse_errors": 30,
+          "verifier_errors": 0,
+          "accuracy": 0.2
+        },
+        "easy": {
+          "total": 80,
+          "correct": 9,
+          "parse_errors": 67,
+          "verifier_errors": 0,
+          "accuracy": 0.1125
+        }
+      },
+      "model_sha256": "ff38e5cc1530161ca5d68f6284f9343e58d637358b2bee9cc37e781b1c440443",
+      "device": "mps"
+    },
+    {
+      "artifact": "ch05_self_refinement.json",
+      "policy": "self_refinement",
+      "split": "test",
+      "total": 120,
+      "correct": 29,
+      "incorrect": 16,
+      "parse_errors": 75,
+      "verifier_errors": 0,
+      "accuracy": 0.24166666666666667,
+      "mean_generated_token_count": 103.80833333333334,
+      "mean_latency_seconds": 7.303573526441263,
+      "by_family": {
+        "arithmetic": {
+          "total": 30,
+          "correct": 18,
+          "parse_errors": 8,
+          "verifier_errors": 0,
+          "accuracy": 0.6
+        },
+        "algebra": {
+          "total": 30,
+          "correct": 7,
+          "parse_errors": 17,
+          "verifier_errors": 0,
+          "accuracy": 0.23333333333333334
+        },
+        "sequence": {
+          "total": 30,
+          "correct": 4,
+          "parse_errors": 23,
+          "verifier_errors": 0,
+          "accuracy": 0.13333333333333333
+        },
+        "logic": {
+          "total": 30,
+          "correct": 0,
+          "parse_errors": 27,
+          "verifier_errors": 0,
+          "accuracy": 0.0
+        }
+      },
+      "by_difficulty": {
+        "medium": {
+          "total": 40,
+          "correct": 9,
+          "parse_errors": 24,
+          "verifier_errors": 0,
+          "accuracy": 0.225
+        },
+        "easy": {
+          "total": 80,
+          "correct": 20,
+          "parse_errors": 51,
+          "verifier_errors": 0,
+          "accuracy": 0.25
+        }
+      },
+      "model_sha256": "ff38e5cc1530161ca5d68f6284f9343e58d637358b2bee9cc37e781b1c440443",
+      "device": "mps"
+    },
+    {
+      "artifact": "m5_fixed_budget_test.json",
+      "policy": "fixed_verifier_budget",
+      "split": "test",
+      "total": 120,
+      "correct": 44,
+      "incorrect": 3,
+      "parse_errors": 73,
+      "verifier_errors": 0,
+      "accuracy": 0.36666666666666664,
+      "mean_generated_token_count": 124.98333333333333,
+      "mean_latency_seconds": 10.193198931933269,
+      "by_family": {
+        "arithmetic": {
+          "total": 30,
+          "correct": 21,
+          "parse_errors": 8,
+          "verifier_errors": 0,
+          "accuracy": 0.7
+        },
+        "algebra": {
+          "total": 30,
+          "correct": 17,
+          "parse_errors": 13,
+          "verifier_errors": 0,
+          "accuracy": 0.5666666666666667
+        },
+        "sequence": {
+          "total": 30,
+          "correct": 5,
+          "parse_errors": 24,
+          "verifier_errors": 0,
+          "accuracy": 0.16666666666666666
+        },
+        "logic": {
+          "total": 30,
+          "correct": 1,
+          "parse_errors": 28,
+          "verifier_errors": 0,
+          "accuracy": 0.03333333333333333
+        }
+      },
+      "by_difficulty": {
+        "medium": {
+          "total": 40,
+          "correct": 17,
+          "parse_errors": 23,
+          "verifier_errors": 0,
+          "accuracy": 0.425
+        },
+        "easy": {
+          "total": 80,
+          "correct": 27,
+          "parse_errors": 50,
+          "verifier_errors": 0,
+          "accuracy": 0.3375
+        }
+      },
+      "model_sha256": "ff38e5cc1530161ca5d68f6284f9343e58d637358b2bee9cc37e781b1c440443",
+      "device": "mps"
+    },
+    {
+      "artifact": "m5_adaptive_test.json",
+      "policy": "adaptive_budget",
+      "split": "test",
+      "total": 120,
+      "correct": 43,
+      "incorrect": 2,
+      "parse_errors": 75,
+      "verifier_errors": 0,
+      "accuracy": 0.35833333333333334,
+      "mean_generated_token_count": 91.75833333333334,
+      "mean_latency_seconds": 8.238389913816173,
+      "by_family": {
+        "arithmetic": {
+          "total": 30,
+          "correct": 21,
+          "parse_errors": 8,
+          "verifier_errors": 0,
+          "accuracy": 0.7
+        },
+        "algebra": {
+          "total": 30,
+          "correct": 16,
+          "parse_errors": 14,
+          "verifier_errors": 0,
+          "accuracy": 0.5333333333333333
+        },
+        "sequence": {
+          "total": 30,
+          "correct": 5,
+          "parse_errors": 24,
+          "verifier_errors": 0,
+          "accuracy": 0.16666666666666666
+        },
+        "logic": {
+          "total": 30,
+          "correct": 1,
+          "parse_errors": 29,
+          "verifier_errors": 0,
+          "accuracy": 0.03333333333333333
+        }
+      },
+      "by_difficulty": {
+        "medium": {
+          "total": 40,
+          "correct": 17,
+          "parse_errors": 23,
+          "verifier_errors": 0,
+          "accuracy": 0.425
+        },
+        "easy": {
+          "total": 80,
+          "correct": 26,
+          "parse_errors": 52,
+          "verifier_errors": 0,
+          "accuracy": 0.325
+        }
+      },
+      "model_sha256": "ff38e5cc1530161ca5d68f6284f9343e58d637358b2bee9cc37e781b1c440443",
+      "device": "mps"
+    }
+  ],
+  "adaptive_comparison": {
+    "fixed_accuracy": 0.36666666666666664,
+    "adaptive_accuracy": 0.35833333333333334,
+    "accuracy_delta_percentage_points": -0.8333333333333304,
+    "token_savings_fraction": 0.26583544472596343,
+    "latency_delta_seconds": -1.9548090181170963
+  },
+  "manifest": {
+    "generator_version": "chapter3-original-v1",
+    "seed": 20260809,
+    "counts": {
+      "train": 400,
+      "validation": 80,
+      "test": 120
+    },
+    "files": {
+      "train": {
+        "path": "train.jsonl",
+        "count": 400,
+        "sha256": "e0f59195e36aec6be06e84ae6da43356f98cd5226a15c168cd6f69b97cf0baf4"
+      },
+      "validation": {
+        "path": "validation.jsonl",
+        "count": 80,
+        "sha256": "ec0f528ef96d8e1db147fe725370a78b01db199a9a6ae834072701553b5f85db"
+      },
+      "test": {
+        "path": "test.jsonl",
+        "count": 120,
+        "sha256": "77cefe9c148144f8f4f4e5161409f99fb6dc697205df74b7a3bb78f5654c213e"
+      }
+    }
+  },
+  "claims": {
+    "base_model": "Qwen3-0.6B from rasbt/qwen3-from-scratch",
+    "full_model_grpo_claim": false,
+    "full_distillation_claim": false,
+    "cloud_spend": 0.0
+  }
+}

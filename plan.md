@@ -267,6 +267,16 @@ Deliverables: README, reproducibility commands, concise technical report, final 
 
 Exit criteria: a clean checkout can run the smoke test; every reported number maps to a saved artifact; no benchmark or portfolio claim exceeds the evidence; final project remains private until owner approval.
 
+Status: complete. The README is the concise technical report and records the
+chapter sequence, commands, tables, failure analysis, and claim boundaries.
+`reasonlab report` validates shared model provenance and writes a deterministic
+JSON summary plus accuracy/compute and failure-slice SVG figures. `reasonlab
+demo` runs the adaptive policy on one frozen task and exposes verifier history,
+attempt count, tokens, latency, and provenance. The final test suite has 41
+passing tests. A Gradio dependency was intentionally not added: the stable
+CLI and artifact surface are sufficient for this portfolio milestone and keep
+the environment reproducible. No cloud job or paid service was used.
+
 ## 8. Evaluation contract
 
 Primary evidence will be an original, verifier-backed suite of short math and logic tasks. MATH-500 is secondary and clearly labeled for comparison with the book.
@@ -334,7 +344,7 @@ the reduced-parameter local training path is numerically safe. The measured
 checkpoint did not improve held-out accuracy, so full-model Qwen training
 remains unclaimed after the all-parameter MPS failure. M6 hard-distillation
 plumbing and its measured not-pursued decision are complete. M7 portfolio
-packaging is next; no cloud job runs without explicit approval.
+packaging is complete; no cloud job runs without explicit approval.
 
 ## 12. Source and attribution notes
 

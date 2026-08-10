@@ -222,3 +222,38 @@ MPS training already produced non-finite gradients, the reduced `out_head`
 path is not a faithful full-student experiment, and no cloud job has been
 approved. The smoke and validation artifacts preserve the dataset hash,
 license, selected rows, checkpoint metadata, and metrics.
+
+## M7: portfolio package
+
+The repository is now CLI-first and artifact-backed. Generate the final
+machine-readable summary and dependency-free SVG figures with:
+
+```bash
+uv sync --extra dev
+uv run pytest
+uv run reasonlab report --config configs/m7_report.toml
+uv run reasonlab demo --config configs/m7_demo.toml --index 0
+```
+
+The report command validates that the final evaluation artifacts use one model
+hash before writing [`summary.json`](artifacts/portfolio/summary.json),
+[`accuracy_vs_tokens.svg`](artifacts/portfolio/accuracy_vs_tokens.svg), and
+[`failure_slices.svg`](artifacts/portfolio/failure_slices.svg). The demo runs
+the adaptive policy on one frozen task and prints its prompt, attempts,
+verifier history, token count, latency, and provenance.
+
+### Failure analysis and claim boundaries
+
+The dominant failure is output formatting, not verifier instability. On the
+adaptive 120-task test run, 75/120 responses were parse errors and there were
+zero verifier errors. By family, parse errors were arithmetic 8/30, algebra
+14/30, sequence 24/30, and logic 29/30. This explains why more inference
+compute improves arithmetic more than logic and why the project does not claim
+general reasoning ability.
+
+The primary claim is limited to this original frozen verifier-backed suite,
+the recorded Qwen3 revision, and the declared local resource budgets. MATH
+compatibility data and the licensed distillation traces are secondary inputs;
+they do not replace the primary test set. Full-model GRPO and full-scale
+distillation remain explicitly unclaimed. The repository remains private during
+development, and no cloud GPU was used.

@@ -10,7 +10,7 @@ from pathlib import Path
 import tomllib
 import torch
 
-from .datasets import load_split, write_manifests
+from .datasets import load_split, render_prompt, write_manifests
 from .distillation import (
     DISTILL_DATASET_LICENSE,
     hard_distillation_step,
@@ -27,8 +27,10 @@ from .policies import (
     self_consistency,
     self_refine,
 )
+from .reporting import build_portfolio_summary, write_accuracy_compute_svg, write_failure_slices_svg
 from .rl_smoke import run_tiny_grpo_smoke
 from .rlvr import configure_trainable_scope, load_grpo_checkpoint, train_grpo
+from .verification import verify_task
 
 
 def _smoke(args: argparse.Namespace) -> int:
@@ -371,6 +373,72 @@ def _evaluate(args: argparse.Namespace) -> int:
     return 0
 
 
+def _report(args: argparse.Namespace) -> int:
+    with Path(args.config).open("rb") as handle:
+        config = tomllib.load(handle)
+    summary = build_portfolio_summary(
+        run_dir=config.get("run_dir", "artifacts/runs"),
+        manifest_path=config.get("manifest", "data/manifests/manifest.json"),
+    )
+    output = Path(config.get("output", "artifacts/portfolio/summary.json"))
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+    figure_dir = Path(config.get("figure_dir", output.parent))
+    write_accuracy_compute_svg(summary, figure_dir / "accuracy_vs_tokens.svg")
+    write_failure_slices_svg(summary, figure_dir / "failure_slices.svg")
+    print(json.dumps({"summary": str(output), "figure_dir": str(figure_dir)}, indent=2))
+    return 0
+
+
+def _demo(args: argparse.Namespace) -> int:
+    with Path(args.config).open("rb") as handle:
+        config = tomllib.load(handle)
+    tasks = load_split(config.get("manifest_dir", "data/manifests"), config.get("split", "test"))
+    index = int(config.get("index", 0)) if args.index is None else args.index
+    if not 0 <= index < len(tasks):
+        raise ValueError(f"index must be between 0 and {len(tasks) - 1}")
+    backend = Qwen3Backend.from_pretrained(
+        config.get("model_dir", ".cache/models/qwen3"),
+        device=config.get("device", "auto"),
+        download=args.download,
+    )
+    checkpoint_path = config.get("checkpoint")
+    checkpoint = None
+    if checkpoint_path:
+        payload = load_grpo_checkpoint(checkpoint_path, backend.model)
+        checkpoint = {"path": checkpoint_path, "step": payload.get("step")}
+    task = tasks[index]
+    prompt = render_prompt(task)
+    policy_result = adaptive_budget(
+        backend,
+        task,
+        prompt,
+        cheap_max_new_tokens=int(config.get("cheap_max_new_tokens", 32)),
+        escalation_max_new_tokens=int(config.get("escalation_max_new_tokens", 64)),
+        max_extra_attempts=int(config.get("max_extra_attempts", 2)),
+        confidence_threshold=float(config.get("confidence_threshold", -0.5)),
+        temperature=float(config.get("temperature", 0.8)),
+        top_p=float(config.get("top_p", 0.9)),
+        seed=config.get("seed", 0),
+    )
+    checked = verify_task(task, policy_result.text)
+    result = {
+        "provenance": backend.provenance(),
+        "checkpoint": checkpoint,
+        "task": {key: task[key] for key in ("task_id", "family", "difficulty", "prompt")},
+        "prompt": prompt,
+        "policy": policy_result.to_dict(),
+        "resource_usage": {
+            "generated_token_count": policy_result.generated_token_count,
+            "elapsed_seconds": policy_result.elapsed_seconds,
+            "attempts": len(policy_result.candidates),
+        },
+        "verification": checked.to_dict(),
+    }
+    print(json.dumps(result, indent=2, ensure_ascii=False))
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(prog="reasonlab")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -401,6 +469,14 @@ def main() -> int:
     evaluate.add_argument("--limit", type=int, default=0, help="optional bounded prefix for diagnostics")
     evaluate.add_argument("--download", action="store_true", help="download missing model files")
     evaluate.set_defaults(handler=_evaluate)
+    report = subparsers.add_parser("report", help="build artifact-backed portfolio summary and figures")
+    report.add_argument("--config", default="configs/m7_report.toml")
+    report.set_defaults(handler=_report)
+    demo = subparsers.add_parser("demo", help="run adaptive reasoning on one frozen task")
+    demo.add_argument("--config", default="configs/m7_demo.toml")
+    demo.add_argument("--index", type=int, default=None)
+    demo.add_argument("--download", action="store_true", help="download missing model files")
+    demo.set_defaults(handler=_demo)
     args = parser.parse_args()
     return args.handler(args)
 

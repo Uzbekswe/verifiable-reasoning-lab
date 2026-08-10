@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500">
+<rect width="100%" height="100%" fill="white"/>
+<text x="450.0" y="28.0" font-size="18" text-anchor="middle">Accuracy versus generated-token budget</text>
+<line x1="80" y1="60" x2="80" y2="420" stroke="black"/>
+<line x1="80" y1="420" x2="860" y2="420" stroke="black"/>
+<text x="450.0" y="488.0" font-size="14" text-anchor="middle">mean generated tokens per task</text>
+<text x="18.0" y="250.0" font-size="14" text-anchor="middle">accuracy (%)</text>
+<line x1="75" y1="420.0" x2="860" y2="420.0" stroke="#e5e7eb"/>
+<text x="70.0" y="424.0" font-size="11" text-anchor="end">0</text>
+<line x1="75" y1="338.2" x2="860" y2="338.2" stroke="#e5e7eb"/>
+<text x="70.0" y="342.2" font-size="11" text-anchor="end">10</text>
+<line x1="75" y1="256.4" x2="860" y2="256.4" stroke="#e5e7eb"/>
+<text x="70.0" y="260.4" font-size="11" text-anchor="end">20</text>
+<line x1="75" y1="174.5" x2="860" y2="174.5" stroke="#e5e7eb"/>
+<text x="70.0" y="178.5" font-size="11" text-anchor="end">30</text>
+<line x1="75" y1="92.7" x2="860" y2="92.7" stroke="#e5e7eb"/>
+<text x="70.0" y="96.7" font-size="11" text-anchor="end">40</text>
+<circle cx="310.1" cy="399.5" r="6" fill="#2563eb"/>
+<text x="319.1" y="403.5" font-size="11" text-anchor="start">base</text>
+<circle cx="316.9" cy="304.1" r="6" fill="#2563eb"/>
+<text x="325.9" y="308.1" font-size="11" text-anchor="start">sample</text>
+<circle cx="643.3" cy="222.3" r="6" fill="#2563eb"/>
+<text x="652.3" y="226.3" font-size="11" text-anchor="start">self_refinement</text>
+<circle cx="758.3" cy="120.0" r="6" fill="#2563eb"/>
+<text x="767.3" y="124.0" font-size="11" text-anchor="start">fixed_verifier_budget</text>
+<circle cx="578.0" cy="126.8" r="6" fill="#2563eb"/>
+<text x="587.0" y="130.8" font-size="11" text-anchor="start">adaptive_budget</text>
+</svg>
