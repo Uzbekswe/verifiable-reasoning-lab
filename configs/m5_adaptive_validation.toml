@@ -1,0 +1,15 @@
+manifest_dir = "data/manifests"
+split = "validation"
+model_dir = ".cache/models/qwen3"
+device = "auto"
+policy = "adaptive_budget"
+attempts = 3
+temperature = 0.8
+top_p = 0.9
+seed = 20260810
+max_new_tokens = 64
+cheap_max_new_tokens = 32
+escalation_max_new_tokens = 64
+max_extra_attempts = 2
+confidence_threshold = -0.5
+output = "artifacts/runs/m5_adaptive_validation.json"

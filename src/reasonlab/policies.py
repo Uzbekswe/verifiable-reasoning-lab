@@ -138,6 +138,140 @@ def self_consistency(
     )
 
 
+def fixed_verifier_budget(
+    backend: Qwen3Backend,
+    task: dict,
+    prompt: str,
+    attempts: int = 3,
+    max_new_tokens: int = 64,
+    temperature: float = 0.8,
+    top_p: float = 0.9,
+    seed: int | None = 0,
+) -> PolicyResult:
+    """Spend a fixed number of attempts, using the verifier for selection."""
+    if attempts < 1:
+        raise ValueError("attempts must be positive")
+    candidates = _sample_candidates(backend, prompt, attempts, max_new_tokens, temperature, top_p, seed)
+    checks = [verify_task(task, candidate.text) for candidate in candidates]
+    correct_indices = [index for index, check in enumerate(checks) if check.status == "correct"]
+    selected_index = correct_indices[0] if correct_indices else _highest_confidence_index(list(candidates))
+    return PolicyResult(
+        method="fixed_verifier_budget",
+        selected=candidates[selected_index],
+        candidates=candidates,
+        selection={
+            "selected_index": selected_index,
+            "selected_by": "verifier_success" if correct_indices else "highest_mean_logprob",
+            "verification_history": [check.to_dict() for check in checks],
+            "confidence_scores": [_confidence(candidate) for candidate in candidates],
+            "attempts": attempts,
+            "max_new_tokens": max_new_tokens,
+        },
+    )
+
+
+def adaptive_budget(
+    backend: Qwen3Backend,
+    task: dict,
+    prompt: str,
+    cheap_max_new_tokens: int = 32,
+    escalation_max_new_tokens: int = 64,
+    max_extra_attempts: int = 2,
+    confidence_threshold: float = -0.5,
+    temperature: float = 0.8,
+    top_p: float = 0.9,
+    seed: int | None = 0,
+) -> PolicyResult:
+    """Allocate extra generation only after verifier or confidence signals.
+
+    The verifier is allowed to guide compute allocation because this project
+    evaluates tasks with executable, answer-checking contracts. It never
+    exposes the canonical answer to the model. A correct early answer stops
+    immediately; unresolved failures receive at least one larger attempt, and
+    a third attempt is spent only when the second failure is a parse failure or
+    remains below the configured confidence threshold.
+    """
+    if cheap_max_new_tokens < 1 or escalation_max_new_tokens < 1:
+        raise ValueError("token budgets must be positive")
+    if max_extra_attempts < 0:
+        raise ValueError("max_extra_attempts must be non-negative")
+
+    candidates: list[GenerationResult] = []
+    checks = []
+
+    def run(max_new_tokens: int, index: int):
+        generation = backend.generate(
+            prompt,
+            max_new_tokens=max_new_tokens,
+            use_cache=True,
+            temperature=temperature,
+            top_p=top_p,
+            seed=None if seed is None else seed + index,
+        )
+        checked = verify_task(task, generation.text)
+        candidates.append(generation)
+        checks.append(checked)
+        return checked
+
+    first_check = run(cheap_max_new_tokens, 0)
+    if first_check.status == "correct":
+        selected_index = 0
+        stop_reason = "initial_verifier_success"
+    elif max_extra_attempts == 0:
+        selected_index = 0
+        stop_reason = "extra_budget_disabled"
+    else:
+        second_check = run(escalation_max_new_tokens, 1)
+        correct_indices = [index for index, check in enumerate(checks) if check.status == "correct"]
+        if correct_indices:
+            selected_index = correct_indices[0]
+            stop_reason = "escalation_verifier_success"
+        else:
+            second_confidence = _confidence(candidates[1])
+            third_gate = (
+                second_check.status == "parse_error"
+                or first_check.status == "parse_error"
+                or second_confidence < confidence_threshold
+            )
+            if max_extra_attempts >= 2 and third_gate:
+                run(escalation_max_new_tokens, 2)
+                correct_indices = [index for index, check in enumerate(checks) if check.status == "correct"]
+                if correct_indices:
+                    selected_index = correct_indices[0]
+                    stop_reason = "second_escalation_verifier_success"
+                else:
+                    selected_index = _highest_confidence_index(candidates)
+                    stop_reason = "confidence_budget_exhausted"
+            else:
+                selected_index = _highest_confidence_index(candidates)
+                stop_reason = "confidence_gate_not_triggered"
+
+    return PolicyResult(
+        method="adaptive_budget",
+        selected=candidates[selected_index],
+        candidates=tuple(candidates),
+        selection={
+            "selected_index": selected_index,
+            "selected_by": "verifier_success" if checks[selected_index].status == "correct" else "highest_mean_logprob",
+            "verification_history": [check.to_dict() for check in checks],
+            "confidence_scores": [_confidence(candidate) for candidate in candidates],
+            "cheap_max_new_tokens": cheap_max_new_tokens,
+            "escalation_max_new_tokens": escalation_max_new_tokens,
+            "max_extra_attempts": max_extra_attempts,
+            "confidence_threshold": confidence_threshold,
+            "stop_reason": stop_reason,
+        },
+    )
+
+
+def _confidence(candidate: GenerationResult) -> float:
+    return candidate.mean_logprob if candidate.mean_logprob is not None else float("-inf")
+
+
+def _highest_confidence_index(candidates: list[GenerationResult]) -> int:
+    return max(range(len(candidates)), key=lambda index: (_confidence(candidates[index]), -index))
+
+
 def _refine_prompt(task_prompt: str, draft: str, feedback: str, critique: str) -> str:
     return (
         "Revise a math or logic answer carefully. Do not invent facts or mention the hidden answer.\n\n"

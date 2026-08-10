@@ -156,3 +156,38 @@ variance. This closes the reduced-parameter local evidence gate, but it is not
 evidence that all 751.6M Qwen3 parameters improved. The earlier all-parameter
 MPS/bfloat16 run remains negative numerical evidence; no cloud GPU experiment
 was purchased or started.
+
+## M5: adaptive reasoning budget
+
+The adaptive policy treats the verifier as a compute-allocation signal, not as
+an answer generator. It starts with a 32-token attempt, stops immediately when
+that attempt verifies, spends one 64-token escalation after a failure, and
+spends a third attempt only when the remaining failure is a parse failure or
+below the predeclared mean-logprob threshold (`-0.5`). A matched fixed policy
+always spends three 64-token attempts and uses the same verifier-based
+selection rule. This makes the comparison an allocation experiment rather than
+a comparison of different answer selectors.
+
+```bash
+uv run reasonlab evaluate --config configs/m5_fixed_budget_test.toml
+uv run reasonlab evaluate --config configs/m5_adaptive_test.toml
+```
+
+On the untouched 120-task test split:
+
+| policy | accuracy | mean tokens/task | mean latency/task | verifier-selected answers |
+| --- | ---: | ---: | ---: | ---: |
+| fixed 3-attempt budget | 44/120 (36.67%) | 124.98 | 10.19 s | 44 |
+| adaptive budget | 43/120 (35.83%) | 91.76 | 8.24 s | 43 |
+
+Adaptive inference saved 3,987 generated tokens overall (26.6%) and 1.95
+seconds per task, at a 0.83 percentage-point accuracy cost. It stopped after
+one attempt on 9 tasks, two attempts on 21, and all three on 90. This is the
+intended portfolio result: a measurable accuracy/compute tradeoff with saved
+per-task decisions, not a claim that adaptive inference universally improves
+accuracy. The validation artifacts are in
+[`m5_fixed_budget_validation.json`](artifacts/runs/m5_fixed_budget_validation.json)
+and [`m5_adaptive_validation.json`](artifacts/runs/m5_adaptive_validation.json);
+the final test artifacts are in
+[`m5_fixed_budget_test.json`](artifacts/runs/m5_fixed_budget_test.json) and
+[`m5_adaptive_test.json`](artifacts/runs/m5_adaptive_test.json).

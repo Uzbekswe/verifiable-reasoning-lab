@@ -20,3 +20,7 @@ artifacts/runs/
 !artifacts/runs/m4_gate_train.json
 !artifacts/runs/m4_validation_base.json
 !artifacts/runs/m4_validation_checkpoint.json
+!artifacts/runs/m5_fixed_budget_validation.json
+!artifacts/runs/m5_adaptive_validation.json
+!artifacts/runs/m5_fixed_budget_test.json
+!artifacts/runs/m5_adaptive_test.json

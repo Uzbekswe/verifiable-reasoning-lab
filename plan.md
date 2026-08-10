@@ -228,6 +228,18 @@ Deliverables: a policy that starts with cheap generation and spends additional a
 
 Exit criteria: paired held-out results include accuracy, tokens, latency, and cost; the policy is evaluated against equal-cost or equal-token baselines; any “improvement” is described as an accuracy-compute tradeoff, not just accuracy.
 
+Status: complete. The adaptive policy starts with a 32-token attempt, stops on
+verifier success, escalates to a 64-token attempt after failure, and spends a
+third attempt only when parse/confidence signals trigger the gate. The matched
+fixed comparator always spends three 64-token attempts and uses the same
+verifier-based selection rule. On the untouched 120-task test split, fixed
+scored 44/120 (36.67%) at 124.98 generated tokens and 10.19 seconds per task;
+adaptive scored 43/120 (35.83%) at 91.76 tokens and 8.24 seconds. Adaptive
+therefore saved 26.6% generated tokens and 1.95 seconds per task at a 0.83
+percentage-point accuracy cost. It used one attempt on 9 tasks, two on 21,
+and three on 90. Every decision is recorded in the paired run artifacts. No
+cloud money was spent.
+
 ### M6 — Chapter 8 distillation decision and optional experiment
 
 Decision gate: distillation proceeds only if the prior experiments show a useful teacher/student tradeoff and the remaining budget supports a bounded run.
@@ -300,12 +312,13 @@ The owner approved the following operating decisions:
 - The verifier is a shared contract: it evaluates answers, supplies verifiable rewards for RLVR/GRPO, and can provide structured feedback for refinement.
 - The next key distinction is inference-time compute (spending more tokens/attempts with unchanged weights) versus weight updates (training changes parameters and therefore future behavior).
 
-M0, M1, M2, M3, and the reduced-parameter M4 evidence gate are complete.
+M0, M1, M2, M3, the reduced-parameter M4 evidence gate, and M5 adaptive-budget
+experiments are complete.
 Chapters 6–7 reward, GRPO, and stability implementations are complete, and
 the reduced-parameter local training path is numerically safe. The measured
 checkpoint did not improve held-out accuracy, so full-model Qwen training
-remains unclaimed after the all-parameter MPS failure. M5 adaptive-budget
-experiments are next; no cloud job runs without explicit approval.
+remains unclaimed after the all-parameter MPS failure. M6 is now an evidence-
+gated distillation decision; no cloud job runs without explicit approval.
 
 ## 12. Source and attribution notes
 

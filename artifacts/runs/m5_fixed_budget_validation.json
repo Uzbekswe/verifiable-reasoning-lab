@@ -1,0 +1,4966 @@
+{
+  "summary": {
+    "total": 80,
+    "correct": 23,
+    "incorrect": 1,
+    "parse_errors": 56,
+    "verifier_errors": 0,
+    "accuracy": 0.2875,
+    "parse_rate": 0.3,
+    "verifier_error_rate": 0.0,
+    "mean_generated_token_count": 131.7625,
+    "mean_latency_seconds": 7.613575856724947,
+    "by_family": {
+      "arithmetic": {
+        "total": 20,
+        "correct": 15,
+        "parse_errors": 5,
+        "verifier_errors": 0,
+        "accuracy": 0.75
+      },
+      "algebra": {
+        "total": 20,
+        "correct": 4,
+        "parse_errors": 16,
+        "verifier_errors": 0,
+        "accuracy": 0.2
+      },
+      "sequence": {
+        "total": 20,
+        "correct": 4,
+        "parse_errors": 15,
+        "verifier_errors": 0,
+        "accuracy": 0.2
+      },
+      "logic": {
+        "total": 20,
+        "correct": 0,
+        "parse_errors": 20,
+        "verifier_errors": 0,
+        "accuracy": 0.0
+      }
+    },
+    "by_difficulty": {
+      "medium": {
+        "total": 28,
+        "correct": 9,
+        "parse_errors": 18,
+        "verifier_errors": 0,
+        "accuracy": 0.32142857142857145
+      },
+      "easy": {
+        "total": 52,
+        "correct": 14,
+        "parse_errors": 38,
+        "verifier_errors": 0,
+        "accuracy": 0.2692307692307692
+      }
+    }
+  },
+  "elapsed_seconds": 611.5578647079965,
+  "records": [
+    {
+      "task_id": "validation-arithmetic-0000",
+      "split": "validation",
+      "family": "arithmetic",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 64 + 29.\n\nAnswer:",
+      "raw_output": " \\boxed{93} To compute \\(64 + 29\\), follow these steps:\n\n1. **Add the units place:**\n   \\[\n   4 + 9 = 13\n   \\]\n   Write down 3 and carry over 1.\n\n2. **Add the tens",
+      "verification": {
+        "status": "correct",
+        "candidate": "93",
+        "expected": "93",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "correct",
+            "candidate": "93",
+            "expected": "93",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "93",
+            "expected": "93",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "93",
+            "expected": "93",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.12744450601902269,
+          -0.21946047742052802,
+          -0.13825440595968885
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 142,
+      "latency_seconds": 8.795593042006658,
+      "tokens_per_second": 16.144448625786307,
+      "device": "mps",
+      "selected_mean_logprob": -0.12744450601902269
+    },
+    {
+      "task_id": "validation-arithmetic-0001",
+      "split": "validation",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 111 - 41.\n\nAnswer:",
+      "raw_output": " To compute \\( 111 - 41 \\), follow these steps:\n\n1. **Subtract the units place:**\n   \\[\n   1 - 1 = 0\n   \\]\n\n2. **Subtract the tens place:**\n   \\[\n   1 - 4 \\text",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "70",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "70",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "70",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "70",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.3498045455974837,
+          -0.8877140580117295,
+          -0.1192735174032098
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 131,
+      "latency_seconds": 7.9380173749959795,
+      "tokens_per_second": 16.502861333188548,
+      "device": "mps",
+      "selected_mean_logprob": -0.1192735174032098
+    },
+    {
+      "task_id": "validation-arithmetic-0002",
+      "split": "validation",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 20 × 22.\n\nAnswer:",
+      "raw_output": " To compute \\( 20 \\times 22 \\), follow these steps:\n\n1. **Multiply the numbers:**\n   \\[\n   20 \\times 22 = 440\n   \\]\n\n2. **Final Answer:**\n   \\[\n   \\boxed{440}\n",
+      "verification": {
+        "status": "correct",
+        "candidate": "440",
+        "expected": "440",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "440",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "440",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "440",
+            "expected": "440",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.11098472339679155,
+          -0.35039073353527783,
+          -0.10224917183071369
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 11.224368791998131,
+      "tokens_per_second": 17.1056389502167,
+      "device": "mps",
+      "selected_mean_logprob": -0.10224917183071369
+    },
+    {
+      "task_id": "validation-arithmetic-0003",
+      "split": "validation",
+      "family": "arithmetic",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 2464 / 28.\n\nAnswer:",
+      "raw_output": " 85.71428571428571\nTo compute \\( \\frac{2464}{28} \\), follow these steps:\n\n1. **Divide the numerator by the denominator:**\n   \\[\n   \\frac{2464}{2",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "88",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "88",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "88",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "incorrect",
+            "candidate": "87",
+            "expected": "88",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.765335409760361,
+          -0.19077421364788272,
+          -0.32439697885274654
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 133,
+      "latency_seconds": 8.010089874995174,
+      "tokens_per_second": 16.60405839080303,
+      "device": "mps",
+      "selected_mean_logprob": -0.19077421364788272
+    },
+    {
+      "task_id": "validation-arithmetic-0004",
+      "split": "validation",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 91 + 13.\n\nAnswer:",
+      "raw_output": " \\boxed{104}\n\nTo compute \\( 91 + 13 \\), follow these steps:\n\n1. **Add the units place:**\n   \\[\n   1 + 3 = 4\n   \\]\n\n2. **Add the tens place:**\n   \\[\n   9 +",
+      "verification": {
+        "status": "correct",
+        "candidate": "104",
+        "expected": "104",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "104",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "104",
+            "expected": "104",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "104",
+            "expected": "104",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.10455813971893013,
+          -0.12590728076915703,
+          -0.14156981169490734
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 11.444243584002834,
+      "tokens_per_second": 16.776993480668686,
+      "device": "mps",
+      "selected_mean_logprob": -0.12590728076915703
+    },
+    {
+      "task_id": "validation-arithmetic-0005",
+      "split": "validation",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 56 - 6.\n\nAnswer:",
+      "raw_output": " \\boxed{50}",
+      "verification": {
+        "status": "correct",
+        "candidate": "50",
+        "expected": "50",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "50",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "50",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "50",
+            "expected": "50",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.22948303532379544,
+          -0.4354155759016673,
+          -0.3531308219147225
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 73,
+      "latency_seconds": 4.559317957995518,
+      "tokens_per_second": 16.011166729879506,
+      "device": "mps",
+      "selected_mean_logprob": -0.3531308219147225
+    },
+    {
+      "task_id": "validation-arithmetic-0006",
+      "split": "validation",
+      "family": "arithmetic",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 5 × 9.\n\nAnswer:",
+      "raw_output": " 5 × 9 = \\boxed{45}.",
+      "verification": {
+        "status": "correct",
+        "candidate": "45",
+        "expected": "45",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "45",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "45",
+            "expected": "45",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "45",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.36482108542690384,
+          -0.3348034489439063,
+          -0.4196518409686784
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 79,
+      "latency_seconds": 4.873630666996178,
+      "tokens_per_second": 16.209681323408734,
+      "device": "mps",
+      "selected_mean_logprob": -0.3348034489439063
+    },
+    {
+      "task_id": "validation-arithmetic-0007",
+      "split": "validation",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 1128 / 12.\n\nAnswer:",
+      "raw_output": " 94\nTo compute \\( \\frac{1128}{12} \\), follow these steps:\n\n1. **Divide the numerator by the denominator:**\n   \\[\n   \\frac{1128}{12}\n   \\]\n\n2. **Perform the division:**\n   \\",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "94",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "94",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "incorrect",
+            "candidate": "936",
+            "expected": "94",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "94",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.12672119173895868,
+          -0.6547153823609863,
+          -0.3441412051518758
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 74,
+      "latency_seconds": 4.608011625998188,
+      "tokens_per_second": 16.058987260903475,
+      "device": "mps",
+      "selected_mean_logprob": -0.12672119173895868
+    },
+    {
+      "task_id": "validation-arithmetic-0008",
+      "split": "validation",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 72 + 21.\n\nAnswer:",
+      "raw_output": " \\boxed{93}. To compute \\(72 + 21\\), follow these steps:\n\n1. **Align the numbers by place value:**\n   \\[\n   \\begin{array}{c@{}c}\n     & 72 \\\\\n   + & 21 \\\\\n   \\end{array",
+      "verification": {
+        "status": "correct",
+        "candidate": "93",
+        "expected": "93",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "93",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "93",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "93",
+            "expected": "93",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.7898587414292706,
+          -0.4314465137831007,
+          -0.12890459538628463
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 11.480271000007633,
+      "tokens_per_second": 16.724343876540228,
+      "device": "mps",
+      "selected_mean_logprob": -0.12890459538628463
+    },
+    {
+      "task_id": "validation-arithmetic-0009",
+      "split": "validation",
+      "family": "arithmetic",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 41 - 4.\n\nAnswer:",
+      "raw_output": " \\boxed{37}\n\nLet's solve the problem step by step:\n\n1. **Subtract the units place:**  \n   \\( 1 - 4 \\).  \n   Since 1 is less than 4, we need to borrow 1 from the tens place.  \n   The 4 in the tens",
+      "verification": {
+        "status": "correct",
+        "candidate": "37",
+        "expected": "37",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "37",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "37",
+            "expected": "37",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "37",
+            "expected": "37",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.2236687388521732,
+          -0.3826974060473063,
+          -0.22832806800456673
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 11.420248290996824,
+      "tokens_per_second": 16.81224392917653,
+      "device": "mps",
+      "selected_mean_logprob": -0.3826974060473063
+    },
+    {
+      "task_id": "validation-arithmetic-0010",
+      "split": "validation",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 4 × 39.\n\nAnswer:",
+      "raw_output": " \\boxed{156}\n\nTo compute \\(4 \\times 39\\), follow these steps:\n\n1. **Multiply the numbers as if they were whole numbers:**\n   \\[\n   4 \\times 30 = 120\n   \\]\n   \n2. **Determine the place",
+      "verification": {
+        "status": "correct",
+        "candidate": "156",
+        "expected": "156",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "156",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "156",
+            "expected": "156",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "156",
+            "expected": "156",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.3205037072427028,
+          -0.26777181878119194,
+          -0.2255861586350615
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 90,
+      "latency_seconds": 5.675137458005338,
+      "tokens_per_second": 15.85864671401856,
+      "device": "mps",
+      "selected_mean_logprob": -0.26777181878119194
+    },
+    {
+      "task_id": "validation-arithmetic-0011",
+      "split": "validation",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 1026 / 38.\n\nAnswer:",
+      "raw_output": " To compute \\( \\frac{1026}{38} \\), follow these steps:\n\n1. **Simplify the Division:**\n   \n   First, simplify the fraction by dividing both the numerator and the denominator by their greatest common divisor (GCD). The GCD of 1026 and ",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "27",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "27",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "27",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "27",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.4859322290622482,
+          -0.21001018559271678,
+          -0.18590471347753823
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 147,
+      "latency_seconds": 8.840608541999245,
+      "tokens_per_second": 16.62781462403231,
+      "device": "mps",
+      "selected_mean_logprob": -0.18590471347753823
+    },
+    {
+      "task_id": "validation-arithmetic-0012",
+      "split": "validation",
+      "family": "arithmetic",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 37 + 6.\n\nAnswer:",
+      "raw_output": " \\boxed{43}",
+      "verification": {
+        "status": "correct",
+        "candidate": "43",
+        "expected": "43",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "correct",
+            "candidate": "43",
+            "expected": "43",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "43",
+            "expected": "43",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "43",
+            "extraction_method": "boxed",
+            "reason": "unbalanced_boxed_expression",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.3359945616684854,
+          -0.4862928315540742,
+          -0.44294035017935585
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 134,
+      "latency_seconds": 8.09393925099721,
+      "tokens_per_second": 16.555597447002164,
+      "device": "mps",
+      "selected_mean_logprob": -0.3359945616684854
+    },
+    {
+      "task_id": "validation-arithmetic-0013",
+      "split": "validation",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 90 - 35.\n\nAnswer:",
+      "raw_output": " 90 - 35 = \\boxed{55}.",
+      "verification": {
+        "status": "correct",
+        "candidate": "55",
+        "expected": "55",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "correct",
+            "candidate": "55",
+            "expected": "55",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "55",
+            "expected": "55",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "55",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.21511495511263742,
+          -0.17047209796978027,
+          -0.10701017631734144
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 92,
+      "latency_seconds": 5.725650333006342,
+      "tokens_per_second": 16.068043741625758,
+      "device": "mps",
+      "selected_mean_logprob": -0.21511495511263742
+    },
+    {
+      "task_id": "validation-arithmetic-0014",
+      "split": "validation",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 27 × 23.\n\nAnswer:",
+      "raw_output": " 27 × 23 = \\boxed{621}",
+      "verification": {
+        "status": "correct",
+        "candidate": "621",
+        "expected": "621",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "621",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "621",
+            "expected": "621",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "621",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.6787506933324039,
+          -0.2533061490083734,
+          -0.5191407511010766
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 23,
+      "latency_seconds": 1.7128398319982807,
+      "tokens_per_second": 13.42799225609268,
+      "device": "mps",
+      "selected_mean_logprob": -0.2533061490083734
+    },
+    {
+      "task_id": "validation-arithmetic-0015",
+      "split": "validation",
+      "family": "arithmetic",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 18 / 9.\n\nAnswer:",
+      "raw_output": " \\boxed{2}",
+      "verification": {
+        "status": "correct",
+        "candidate": "2",
+        "expected": "2",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "correct",
+            "candidate": "2",
+            "expected": "2",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "2",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "2",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.3988926174119115,
+          -0.5280741900205612,
+          -0.15295985292345005
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 71,
+      "latency_seconds": 4.445448126003612,
+      "tokens_per_second": 15.971393206611971,
+      "device": "mps",
+      "selected_mean_logprob": -0.3988926174119115
+    },
+    {
+      "task_id": "validation-arithmetic-0016",
+      "split": "validation",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 41 + 21.\n\nAnswer:",
+      "raw_output": " \\boxed{62} To solve the problem \\(41 + 21\\), follow these steps:\n\n1. **Add the units place:**  \n   \\(1 + 1 = 2\\)  \n   The units digit of the sum is **2**.\n\n2. **Add the tens place:**  \n",
+      "verification": {
+        "status": "correct",
+        "candidate": "62",
+        "expected": "62",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "62",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "62",
+            "expected": "62",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "62",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.40014188869254486,
+          -0.24903563844380905,
+          -0.15088786214322614
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 11.431693375001487,
+      "tokens_per_second": 16.795411992055378,
+      "device": "mps",
+      "selected_mean_logprob": -0.24903563844380905
+    },
+    {
+      "task_id": "validation-arithmetic-0017",
+      "split": "validation",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 109 - 38.\n\nAnswer:",
+      "raw_output": " \\boxed{71}.",
+      "verification": {
+        "status": "correct",
+        "candidate": "71",
+        "expected": "71",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "correct",
+            "candidate": "71",
+            "expected": "71",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "71",
+            "expected": "71",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "71",
+            "expected": "71",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.619995028944686,
+          -0.30831675616991383,
+          -0.11933660436911975
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 134,
+      "latency_seconds": 8.15243591601029,
+      "tokens_per_second": 16.436805070352282,
+      "device": "mps",
+      "selected_mean_logprob": -0.619995028944686
+    },
+    {
+      "task_id": "validation-arithmetic-0018",
+      "split": "validation",
+      "family": "arithmetic",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 39 × 29.\n\nAnswer:",
+      "raw_output": " \\boxed{1131}",
+      "verification": {
+        "status": "correct",
+        "candidate": "1131",
+        "expected": "1131",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "1131",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "1131",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "1131",
+            "expected": "1131",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.14853024134179016,
+          -0.35963641153648496,
+          -0.35377480724127963
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 77,
+      "latency_seconds": 4.825996040992322,
+      "tokens_per_second": 15.95525552568983,
+      "device": "mps",
+      "selected_mean_logprob": -0.35377480724127963
+    },
+    {
+      "task_id": "validation-arithmetic-0019",
+      "split": "validation",
+      "family": "arithmetic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Compute 3444 / 41.\n\nAnswer:",
+      "raw_output": " 82\nTo compute \\( \\frac{3444}{41} \\), follow these steps:\n\n1. **Divide 3444 by 41:**\n   \\[\n   \\frac{3444}{41} = 82\n   \\]\n\n2",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "84",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "84",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "84",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "84",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.17049816500512982,
+          -0.3702299905604747,
+          -0.15566693221167505
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 11.49003658399306,
+      "tokens_per_second": 16.710129562814277,
+      "device": "mps",
+      "selected_mean_logprob": -0.15566693221167505
+    },
+    {
+      "task_id": "validation-algebra-0000",
+      "split": "validation",
+      "family": "algebra",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Solve for x: 3x + (-2) = 43.\n\nAnswer:",
+      "raw_output": " 15. To solve the equation \\( 3x + (-2) = 43 \\) for \\( x \\), follow these steps:\n\n1. **Isolate the term with \\( x \\):**\n   \\[\n   3x + (-2) = 43\n   \\]\n  ",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "15",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "15",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "15",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "15",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.2671364526217668,
+          -0.16686703176285045,
+          -0.27096300993923705
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 171,
+      "latency_seconds": 9.919021208996128,
+      "tokens_per_second": 17.23960423079954,
+      "device": "mps",
+      "selected_mean_logprob": -0.16686703176285045
+    },
+    {
+      "task_id": "validation-algebra-0001",
+      "split": "validation",
+      "family": "algebra",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Solve for x: 4x + (-2) = 34.\n\nAnswer:",
+      "raw_output": " \\boxed{9}",
+      "verification": {
+        "status": "correct",
+        "candidate": "9",
+        "expected": "9",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "9",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "9",
+            "expected": "9",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "9",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.09674566492248005,
+          -0.7663788810372353,
+          -0.14583410560190213
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 133,
+      "latency_seconds": 6.879452624998521,
+      "tokens_per_second": 19.33293348321133,
+      "device": "mps",
+      "selected_mean_logprob": -0.7663788810372353
+    },
+    {
+      "task_id": "validation-algebra-0002",
+      "split": "validation",
+      "family": "algebra",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Solve for x: 5x + (-12) = -42.\n\nAnswer:",
+      "raw_output": " To solve the equation \\(5x + (-12) = -42\\), follow these steps:\n\n1. **Simplify the equation**:\n   \\[\n   5x - 12 = -42\n   \\]\n\n2. **Add 12 to both sides** to isolate the",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "-6",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-6",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-6",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-6",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.10816338388789626,
+          -0.182441169280267,
+          -0.18945914620457494
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 9.860126208994188,
+      "tokens_per_second": 19.47236738459411,
+      "device": "mps",
+      "selected_mean_logprob": -0.10816338388789626
+    },
+    {
+      "task_id": "validation-algebra-0003",
+      "split": "validation",
+      "family": "algebra",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Solve for x: 2x + (7) = 5.\n\nAnswer:",
+      "raw_output": " To solve for \\( x \\) in the equation \\( 2x + 7 = 5 \\), follow these steps:\n\n1. **Subtract 7 from both sides** to isolate the term with \\( x \\):\n   \\[\n   2x + 7 - 7 = 5 - ",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "-1",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-1",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-1",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-1",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.1874698181171084,
+          -0.1953385010506404,
+          -0.06351395533170268
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 165,
+      "latency_seconds": 8.42032599900267,
+      "tokens_per_second": 19.595440843922564,
+      "device": "mps",
+      "selected_mean_logprob": -0.06351395533170268
+    },
+    {
+      "task_id": "validation-algebra-0004",
+      "split": "validation",
+      "family": "algebra",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Solve for x: 3x + (-15) = 60.\n\nAnswer:",
+      "raw_output": " To solve the equation \\(3x + (-15) = 60\\), follow these steps:\n\n1. **Combine like terms**:\n   \\[\n   3x - 15 = 60\n   \\]\n\n2. **Add 15 to both sides** to isolate the term",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "25",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "incorrect",
+            "candidate": "30",
+            "expected": "25",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "25",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "25",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.909972308203578,
+          -0.20719694286559864,
+          -0.13355275132722877
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 136,
+      "latency_seconds": 7.092402417016274,
+      "tokens_per_second": 19.175448882272292,
+      "device": "mps",
+      "selected_mean_logprob": -0.13355275132722877
+    },
+    {
+      "task_id": "validation-algebra-0005",
+      "split": "validation",
+      "family": "algebra",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Solve for x: 2x + (0) = 74.\n\nAnswer:",
+      "raw_output": " To solve the equation \\( 2x + (0) = 74 \\), follow these steps:\n\n1. **Simplify the equation**:\n   \\[\n   2x + 0 = 74\n   \\]\n   \\[\n   2x = 74\n   \\]\n\n",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "37",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "37",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "37",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "37",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.13085472472312398,
+          -0.16013068243693596,
+          -0.5249674786168157
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 9.856889500988473,
+      "tokens_per_second": 19.478761528243343,
+      "device": "mps",
+      "selected_mean_logprob": -0.13085472472312398
+    },
+    {
+      "task_id": "validation-algebra-0006",
+      "split": "validation",
+      "family": "algebra",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Solve for x: 4x + (-7) = 89.\n\nAnswer:",
+      "raw_output": " To solve for \\( x \\) in the equation \\( 4x + (-7) = 89 \\), follow these steps:\n\n1. **Combine like terms**:\n   \\[\n   4x - 7 = 89\n   \\]\n\n2. **Add 7 to both sides**",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "24",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "24",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "24",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "24",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.12537593629589505,
+          -0.16352676264077393,
+          -0.3188954550952152
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 9.820130375002918,
+      "tokens_per_second": 19.55167524951958,
+      "device": "mps",
+      "selected_mean_logprob": -0.12537593629589505
+    },
+    {
+      "task_id": "validation-algebra-0007",
+      "split": "validation",
+      "family": "algebra",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Solve for x: 2x + (3) = 11.\n\nAnswer:",
+      "raw_output": " x = \\boxed{4}\n\nLet's solve the equation step by step:\n\nGiven equation:\n\\[ 2x + (3) = 11 \\]\n\n**Step 1:** Subtract 3 from both sides to isolate the term with \\( x \\):\n\\[\n2x + (3) - 3",
+      "verification": {
+        "status": "correct",
+        "candidate": "4",
+        "expected": "4",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "4",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "4",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "4",
+            "expected": "4",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.06499312793433376,
+          -0.059519496247236514,
+          -0.2947480392375521
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 11.453641999993124,
+      "tokens_per_second": 16.763226928178415,
+      "device": "mps",
+      "selected_mean_logprob": -0.2947480392375521
+    },
+    {
+      "task_id": "validation-algebra-0008",
+      "split": "validation",
+      "family": "algebra",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Solve for x: 2x + (-7) = 61.\n\nAnswer:",
+      "raw_output": " To solve for x in the equation 2x + (-7) = 61, follow these steps:\n\nStep 1: Simplify the equation by removing the parentheses.\n2x - 7 = 61\n\nStep 2: Add 7 to both sides of the equation to isolate the term with",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "34",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "34",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "34",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "34",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.17852049968476535,
+          -0.8455968499183655,
+          -0.21272134377242446
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 131,
+      "latency_seconds": 7.968949289999728,
+      "tokens_per_second": 16.43880456917859,
+      "device": "mps",
+      "selected_mean_logprob": -0.17852049968476535
+    },
+    {
+      "task_id": "validation-algebra-0009",
+      "split": "validation",
+      "family": "algebra",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Solve for x: 5x + (6) = 151.\n\nAnswer:",
+      "raw_output": " To solve the equation \\(5x + 6 = 151\\) for \\(x\\), follow these steps:\n\n1. **Subtract 6 from both sides** to isolate the term with \\(x\\):\n   \\[\n   5x + 6 - 6 = 151 -",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "29",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "29",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "29",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "29",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.06021605513554751,
+          -1.5271054983139039,
+          -0.06021605513554751
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 133,
+      "latency_seconds": 7.458939957999974,
+      "tokens_per_second": 17.83095195147038,
+      "device": "mps",
+      "selected_mean_logprob": -0.06021605513554751
+    },
+    {
+      "task_id": "validation-algebra-0010",
+      "split": "validation",
+      "family": "algebra",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Solve for x: 2x + (6) = 26.\n\nAnswer:",
+      "raw_output": " 2x + 6 = 26\n2x = 26 - 6\n2x = 20\nx = 20 / 2\nx = 10",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "10",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "10",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "10",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "10",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.8221801370382309,
+          -0.1762209945168468,
+          -1.2300981022417545
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 52,
+      "latency_seconds": 3.1265317080105888,
+      "tokens_per_second": 16.631847956881135,
+      "device": "mps",
+      "selected_mean_logprob": -0.1762209945168468
+    },
+    {
+      "task_id": "validation-algebra-0011",
+      "split": "validation",
+      "family": "algebra",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Solve for x: 2x + (14) = 12.\n\nAnswer:",
+      "raw_output": " To solve the equation \\( 2x + 14 = 12 \\), follow these steps:\n\n1. **Subtract 14 from both sides** to isolate the term with \\( x \\):\n   \\[\n   2x + 14 - 14 = 12 - ",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "-1",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-1",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-1",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-1",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.048496302980375106,
+          -0.19222905779607657,
+          -0.32717037982092734
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 9.703212624001026,
+      "tokens_per_second": 19.787260924808084,
+      "device": "mps",
+      "selected_mean_logprob": -0.048496302980375106
+    },
+    {
+      "task_id": "validation-algebra-0012",
+      "split": "validation",
+      "family": "algebra",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Solve for x: 3x + (13) = 121.\n\nAnswer:",
+      "raw_output": " To solve the equation \\( 3x + 13 = 121 \\), follow these steps:\n\n1. **Subtract 13 from both sides** to isolate the term with \\( x \\):\n   \\[\n   3x + 13 - 13 = 121",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "36",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "36",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "36",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "36",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.26773377960591915,
+          -0.5791748391566216,
+          -0.045695906408444564
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 144,
+      "latency_seconds": 7.494383708995883,
+      "tokens_per_second": 19.21438847962236,
+      "device": "mps",
+      "selected_mean_logprob": -0.045695906408444564
+    },
+    {
+      "task_id": "validation-algebra-0013",
+      "split": "validation",
+      "family": "algebra",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Solve for x: 5x + (13) = 143.\n\nAnswer:",
+      "raw_output": " To solve the equation \\(5x + 13 = 143\\), follow these steps:\n\n1. **Subtract 13 from both sides** to isolate the term with \\(x\\):\n   \\[\n   5x + 13 - 13 = 143 -",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "26",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "26",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "26",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "26",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.05226011810348452,
+          -0.058913818954110075,
+          -0.0993258909484882
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 9.701392541006499,
+      "tokens_per_second": 19.79097322249785,
+      "device": "mps",
+      "selected_mean_logprob": -0.05226011810348452
+    },
+    {
+      "task_id": "validation-algebra-0014",
+      "split": "validation",
+      "family": "algebra",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Solve for x: 2x + (-5) = 7.\n\nAnswer:",
+      "raw_output": " To solve the equation \\( 2x + (-5) = 7 \\), follow these steps:\n\n1. **Combine like terms**:\n   \\[\n   2x - 5 = 7\n   \\]\n\n2. **Isolate the term with \\( x \\)**:\n   Add 5 to",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "6",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "6",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "6",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "6",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.11652568554956133,
+          -0.34632157512351114,
+          -0.18696554282314537
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 9.624726832997112,
+      "tokens_per_second": 19.948618109529427,
+      "device": "mps",
+      "selected_mean_logprob": -0.11652568554956133
+    },
+    {
+      "task_id": "validation-algebra-0015",
+      "split": "validation",
+      "family": "algebra",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Solve for x: 3x + (6) = -15.\n\nAnswer:",
+      "raw_output": " To solve the equation \\( 3x + 6 = -15 \\), follow these steps:\n\n1. **Subtract 6 from both sides** to isolate the term with \\( x \\):\n   \\[\n   3x + 6 - 6 = -15 - 6\n   \\",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "-7",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-7",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-7",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-7",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.06248601506854079,
+          -0.251262813102187,
+          -0.04306175660879241
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 9.622423083004833,
+      "tokens_per_second": 19.953394102896105,
+      "device": "mps",
+      "selected_mean_logprob": -0.04306175660879241
+    },
+    {
+      "task_id": "validation-algebra-0016",
+      "split": "validation",
+      "family": "algebra",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Solve for x: 3x + (-11) = 85.\n\nAnswer:",
+      "raw_output": " 3x = 85 + 11\n3x = 96\nx = 96/3\nx = \\boxed{32}",
+      "verification": {
+        "status": "correct",
+        "candidate": "32",
+        "expected": "32",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "correct",
+            "candidate": "32",
+            "expected": "32",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "32",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "32",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.22729050534128745,
+          -0.11762184779118545,
+          -0.9399981901049614
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 104,
+      "latency_seconds": 5.444558999995934,
+      "tokens_per_second": 19.10163890226512,
+      "device": "mps",
+      "selected_mean_logprob": -0.22729050534128745
+    },
+    {
+      "task_id": "validation-algebra-0017",
+      "split": "validation",
+      "family": "algebra",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Solve for x: 4x + (-14) = -66.\n\nAnswer:",
+      "raw_output": " To solve the equation \\( 4x + (-14) = -66 \\), follow these steps:\n\n1. **Simplify the equation**:\n   \\[\n   4x - 14 = -66\n   \\]\n\n2. **Add 14 to both sides** to isolate",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "-13",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-13",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "incorrect",
+            "candidate": "13",
+            "expected": "-13",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-13",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.0957058197374181,
+          -0.198044261065617,
+          -0.457053797268145
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 10.698940584014053,
+      "tokens_per_second": 17.94570205267604,
+      "device": "mps",
+      "selected_mean_logprob": -0.0957058197374181
+    },
+    {
+      "task_id": "validation-algebra-0018",
+      "split": "validation",
+      "family": "algebra",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Solve for x: 4x + (2) = -34.\n\nAnswer:",
+      "raw_output": " 4x + 2 = -34\n4x = -34 - 2\n4x = -36\nx = -9\n\nSo, the solution for x is \\boxed{-9}.",
+      "verification": {
+        "status": "correct",
+        "candidate": "-9",
+        "expected": "-9",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-9",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "-9",
+            "expected": "-9",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "incorrect",
+            "candidate": "3x + 3 = 54",
+            "expected": "-9",
+            "extraction_method": "final_answer_label",
+            "reason": "candidate_expression_parse_failed",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.16500195240363158,
+          -0.3628743806317086,
+          -0.5033360881116096
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 173,
+      "latency_seconds": 10.465922249000869,
+      "tokens_per_second": 16.52983806721051,
+      "device": "mps",
+      "selected_mean_logprob": -0.3628743806317086
+    },
+    {
+      "task_id": "validation-algebra-0019",
+      "split": "validation",
+      "family": "algebra",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Solve for x: 3x + (-11) = 94.\n\nAnswer:",
+      "raw_output": " To solve the equation \\( 3x + (-11) = 94 \\), follow these steps:\n\n1. **Isolate the term with \\( x \\):**\n   \n   \\[\n   3x + (-11) = 94\n   \\]\n   \n   Subtract \\(-11",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "35",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "35",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "35",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "35",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.09455066595554973,
+          -0.09871356710080548,
+          -0.17688841640772734
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 11.707361000000674,
+      "tokens_per_second": 16.39993846606327,
+      "device": "mps",
+      "selected_mean_logprob": -0.09455066595554973
+    },
+    {
+      "task_id": "validation-sequence-0000",
+      "split": "validation",
+      "family": "sequence",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Sequence 1: find the next number: 10, 2, -6, -14, __.\n\nAnswer:",
+      "raw_output": " The sequence follows the pattern where each term is the sum of the previous term and twice the position of the term in the sequence. So, the next term after -14 would be -14 + (2 * 6) = -14 + 12 = -2. Therefore, the next number",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "-22",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-22",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-22",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "incorrect",
+            "candidate": "The sequence is multiplied by 4 each",
+            "expected": "-22",
+            "extraction_method": "final_answer_label",
+            "reason": "candidate_expression_parse_failed",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.4373987922330116,
+          -0.43051390041728155,
+          -0.5398505211851443
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 11.723837875004392,
+      "tokens_per_second": 16.376889722208656,
+      "device": "mps",
+      "selected_mean_logprob": -0.43051390041728155
+    },
+    {
+      "task_id": "validation-sequence-0001",
+      "split": "validation",
+      "family": "sequence",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Sequence 2: find the next number: -8, 1, 10, 19, __.\n\nAnswer:",
+      "raw_output": " \\(\\boxed{28}\\)\nTo solve the sequence -8, 1, 10, 19, __, we need to identify the pattern or rule that generates the sequence. Let's analyze the differences between consecutive terms:\n\n- The difference between the first and second term: \\(1 - (-",
+      "verification": {
+        "status": "correct",
+        "candidate": "28",
+        "expected": "28",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "28",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "28",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "28",
+            "expected": "28",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.2939121445614242,
+          -0.2793362089560958,
+          -0.2992994709932688
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 11.874548917003267,
+      "tokens_per_second": 16.16903524857888,
+      "device": "mps",
+      "selected_mean_logprob": -0.2992994709932688
+    },
+    {
+      "task_id": "validation-sequence-0002",
+      "split": "validation",
+      "family": "sequence",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Sequence 3: find the next number: -9, -1, 7, 15, __.\n\nAnswer:",
+      "raw_output": " 27\n\nTo solve the sequence -9, -1, 7, 15, __, we need to identify the pattern or rule that governs the sequence. Let's examine the differences between consecutive terms:\n\n-9 - (-1) = -8\n-1 - (-9) = ",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "23",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "23",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "23",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "23",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.4219212855180192,
+          -0.2489990638789692,
+          -0.6631750248314348
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 168,
+      "latency_seconds": 10.278148041994427,
+      "tokens_per_second": 16.345357092891255,
+      "device": "mps",
+      "selected_mean_logprob": -0.2489990638789692
+    },
+    {
+      "task_id": "validation-sequence-0003",
+      "split": "validation",
+      "family": "sequence",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Sequence 4: find the next number: 15, 19, 23, 27, __.\n\nAnswer:",
+      "raw_output": " \\boxed{31}.",
+      "verification": {
+        "status": "correct",
+        "candidate": "31",
+        "expected": "31",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "correct",
+            "candidate": "31",
+            "expected": "31",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "31",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "31",
+            "expected": "31",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.8422051795447866,
+          -0.4761586944589098,
+          -0.6547051795447866
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 76,
+      "latency_seconds": 4.929208584006119,
+      "tokens_per_second": 15.418296609844916,
+      "device": "mps",
+      "selected_mean_logprob": -0.8422051795447866
+    },
+    {
+      "task_id": "validation-sequence-0004",
+      "split": "validation",
+      "family": "sequence",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Sequence 5: find the next number: 20, 29, 38, 47, __.\n\nAnswer:",
+      "raw_output": " To find the next number in the sequence 20, 29, 38, 47, __, we need to identify the pattern.\n\n### Step 1: Observe the differences between consecutive terms:\n- 29 - 20 = 9\n- 38 - ",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "56",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "56",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "56",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "56",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.24517299683473937,
+          -0.21592432720504995,
+          -0.4778014337902682
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 146,
+      "latency_seconds": 9.143707665003603,
+      "tokens_per_second": 15.967264631479496,
+      "device": "mps",
+      "selected_mean_logprob": -0.21592432720504995
+    },
+    {
+      "task_id": "validation-sequence-0005",
+      "split": "validation",
+      "family": "sequence",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Sequence 6: find the next number: 0, -9, -18, -27, __.\n\nAnswer:",
+      "raw_output": " 36",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "-36",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-36",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "incorrect",
+            "candidate": "9",
+            "expected": "-36",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-36",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.43310174097617465,
+          -0.597024958129623,
+          -0.43310174097617465
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 38,
+      "latency_seconds": 2.7340615409993916,
+      "tokens_per_second": 13.898736158700261,
+      "device": "mps",
+      "selected_mean_logprob": -0.43310174097617465
+    },
+    {
+      "task_id": "validation-sequence-0006",
+      "split": "validation",
+      "family": "sequence",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Sequence 7: find the next number: 11, 19, 27, 35, __.\n\nAnswer:",
+      "raw_output": " \\boxed{43}.",
+      "verification": {
+        "status": "correct",
+        "candidate": "43",
+        "expected": "43",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "correct",
+            "candidate": "43",
+            "expected": "43",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "43",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "43",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.8050492657348514,
+          -0.36618473326957,
+          -0.28191653841532727
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 134,
+      "latency_seconds": 8.519468000005872,
+      "tokens_per_second": 15.728681650064022,
+      "device": "mps",
+      "selected_mean_logprob": -0.8050492657348514
+    },
+    {
+      "task_id": "validation-sequence-0007",
+      "split": "validation",
+      "family": "sequence",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Sequence 8: find the next number: 5, 11, 17, 23, __.\n\nAnswer:",
+      "raw_output": " To determine the next number in the sequence 5, 11, 17, 23, __, let's analyze the pattern:\n\n1. **Identify the differences between consecutive terms:**\n   - \\(11 - 5 = 6\\)\n   - \\(17 - 1",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "29",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "29",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "29",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "29",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.16241182943303523,
+          -0.27300952033450204,
+          -0.3595474002164494
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 131,
+      "latency_seconds": 7.177810874993156,
+      "tokens_per_second": 18.250689838651525,
+      "device": "mps",
+      "selected_mean_logprob": -0.16241182943303523
+    },
+    {
+      "task_id": "validation-sequence-0008",
+      "split": "validation",
+      "family": "sequence",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Sequence 9: find the next number: 15, 21, 27, 33, __.\n\nAnswer:",
+      "raw_output": " 39. To solve this problem, we need to identify the pattern in the sequence. Let's examine the differences between consecutive terms:\n\n15, 21, 27, 33\n\nCalculating the differences:\n\n21 - 15 = 6\n27 - 21",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "39",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "39",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "39",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "39",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.7959211331381084,
+          -0.32410726286093094,
+          -0.3286476197342078
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 131,
+      "latency_seconds": 7.223275374992227,
+      "tokens_per_second": 18.13581695272707,
+      "device": "mps",
+      "selected_mean_logprob": -0.32410726286093094
+    },
+    {
+      "task_id": "validation-sequence-0009",
+      "split": "validation",
+      "family": "sequence",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Sequence 10: find the next number: 0, 3, 6, 9, __.\n\nAnswer:",
+      "raw_output": " 12.\nTo find the next number in the sequence 0, 3, 6, 9, __, we need to identify the pattern. Let's analyze the sequence step by step:\n\n1. The first number is 0.\n2. The second number is 3. This can be expressed",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "12",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "12",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "12",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "12",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.25810009894957453,
+          -0.27864941412780553,
+          -0.3098633269609792
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 10.439816958998563,
+      "tokens_per_second": 18.391127043133288,
+      "device": "mps",
+      "selected_mean_logprob": -0.25810009894957453
+    },
+    {
+      "task_id": "validation-sequence-0010",
+      "split": "validation",
+      "family": "sequence",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Sequence 11: find the next number: -1, -10, -19, -28, __.\n\nAnswer:",
+      "raw_output": " To find the next number in the sequence -1, -10, -19, -28, we need to identify the pattern or rule that governs the sequence.\n\nLet's examine the differences between consecutive terms:\n\n-10 - (-1) = -9\n-19 - (-10",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "-37",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-37",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-37",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-37",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.16982389361008643,
+          -0.5511650294065475,
+          -0.3508338011051997
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 131,
+      "latency_seconds": 7.359734166995622,
+      "tokens_per_second": 17.799555938781495,
+      "device": "mps",
+      "selected_mean_logprob": -0.16982389361008643
+    },
+    {
+      "task_id": "validation-sequence-0011",
+      "split": "validation",
+      "family": "sequence",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Sequence 12: find the next number: -15, -5, 5, 15, __.\n\nAnswer:",
+      "raw_output": " 35\nTo find the next number in the sequence, we can look at the pattern of the differences between consecutive numbers.\n\n-15, -5, 5, 15\n\nFirst difference: -15 - (-5) = -10\nSecond difference: -5 - 5 =",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "25",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "25",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "25",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "25",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.48872036224400456,
+          -0.5172893752654394,
+          -0.4252773410121904
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 78,
+      "latency_seconds": 4.455614584003342,
+      "tokens_per_second": 17.506002489541515,
+      "device": "mps",
+      "selected_mean_logprob": -0.4252773410121904
+    },
+    {
+      "task_id": "validation-sequence-0012",
+      "split": "validation",
+      "family": "sequence",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Sequence 13: find the next number: 3, 15, 27, 39, __.\n\nAnswer:",
+      "raw_output": " 51\n\nTo find the next number in the sequence 3, 15, 27, 39, __, we need to identify the pattern or rule that generates the sequence. Let's analyze the sequence step by step:\n\n1. **Difference between consecutive terms:**\n   - 1",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "51",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "51",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "51",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "51",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.40763885517213794,
+          -0.3001003273830918,
+          -0.3343057435703507
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 10.091800415997568,
+      "tokens_per_second": 19.025346527428418,
+      "device": "mps",
+      "selected_mean_logprob": -0.3001003273830918
+    },
+    {
+      "task_id": "validation-sequence-0013",
+      "split": "validation",
+      "family": "sequence",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Sequence 14: find the next number: 16, 22, 28, 34, __.\n\nAnswer:",
+      "raw_output": " \\(\\boxed{40}\\)",
+      "verification": {
+        "status": "correct",
+        "candidate": "40",
+        "expected": "40",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "verifier_success",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "40",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "40",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "correct",
+            "candidate": "40",
+            "expected": "40",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.26055243002550554,
+          -0.15490266412041276,
+          -0.7972301041008905
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 136,
+      "latency_seconds": 7.513395915993897,
+      "tokens_per_second": 18.101002731733388,
+      "device": "mps",
+      "selected_mean_logprob": -0.7972301041008905
+    },
+    {
+      "task_id": "validation-sequence-0014",
+      "split": "validation",
+      "family": "sequence",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Sequence 15: find the next number: 2, 6, 10, 14, __.\n\nAnswer:",
+      "raw_output": " 18\n\nTo find the next number in the sequence 2, 6, 10, 14, __, we observe the pattern in the differences between consecutive terms:\n\n- 6 - 2 = 4\n- 10 - 6 = 4\n- 14",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "18",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "18",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "18",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "18",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.23943113655575665,
+          -0.31212382350693346,
+          -0.1859187202346222
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 13.437817625002936,
+      "tokens_per_second": 14.28803436376136,
+      "device": "mps",
+      "selected_mean_logprob": -0.1859187202346222
+    },
+    {
+      "task_id": "validation-sequence-0015",
+      "split": "validation",
+      "family": "sequence",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Sequence 16: find the next number: 12, 8, 4, 0, __.\n\nAnswer:",
+      "raw_output": " To find the next number in the sequence 12, 8, 4, 0, __, let's analyze the pattern step by step.\n\n1. **First Step:**\n   - Start with 12.\n   - Subtract 4 from 12: \\(12 - 4 =",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "-4",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-4",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "-4",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "incorrect",
+            "candidate": "-2",
+            "expected": "-4",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.30799990394427823,
+          -0.26145093939556574,
+          -0.3158135457754101
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 9.900905789996614,
+      "tokens_per_second": 19.392165128365054,
+      "device": "mps",
+      "selected_mean_logprob": -0.26145093939556574
+    },
+    {
+      "task_id": "validation-sequence-0016",
+      "split": "validation",
+      "family": "sequence",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Sequence 17: find the next number: -10, -7, -4, -1, __.\n\nAnswer:",
+      "raw_output": " 2\nTo find the next number in the sequence -10, -7, -4, -1, we need to identify the pattern or rule that governs the sequence.\n\nLet's examine the differences between consecutive terms:\n\n-10 - (-7) = 3\n-7 - (-4)",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "2",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "2",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "incorrect",
+            "candidate": "-2",
+            "expected": "2",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "2",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.28075160264646115,
+          -0.33597029022526925,
+          -0.23589313704652426
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 9.688250874001824,
+      "tokens_per_second": 19.817818768011794,
+      "device": "mps",
+      "selected_mean_logprob": -0.23589313704652426
+    },
+    {
+      "task_id": "validation-sequence-0017",
+      "split": "validation",
+      "family": "sequence",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Sequence 18: find the next number: -13, -3, 7, 17, __.\n\nAnswer:",
+      "raw_output": " 37\nTo solve the sequence -13, -3, 7, 17, __, we need to identify the pattern. Let's look at the differences between consecutive terms:\n\n-13 - (-3) = -13 + 3 = -10\n-3 - (-",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "27",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "27",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "27",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "27",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.42373435070022936,
+          -0.26458128926063296,
+          -0.29901772260019044
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 9.9889876659945,
+      "tokens_per_second": 19.221166991088136,
+      "device": "mps",
+      "selected_mean_logprob": -0.26458128926063296
+    },
+    {
+      "task_id": "validation-sequence-0018",
+      "split": "validation",
+      "family": "sequence",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Sequence 19: find the next number: -13, -3, 7, 17, __.\n\nAnswer:",
+      "raw_output": " \\boxed{31}\n\nTo find the next number in the sequence -13, -3, 7, 17, __, we need to identify the pattern. Let's analyze the differences between consecutive terms:\n\n- The difference between the first and second terms: \\(-3 - (-13)",
+      "verification": {
+        "status": "incorrect",
+        "candidate": "31",
+        "expected": "27",
+        "extraction_method": "boxed",
+        "reason": "symbolic_equivalence",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "27",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "incorrect",
+            "candidate": "31",
+            "expected": "27",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "27",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.4819171156997264,
+          -0.3353124133398424,
+          -1.002621665596962
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 131,
+      "latency_seconds": 6.977331416994275,
+      "tokens_per_second": 18.775086371980414,
+      "device": "mps",
+      "selected_mean_logprob": -0.3353124133398424
+    },
+    {
+      "task_id": "validation-sequence-0019",
+      "split": "validation",
+      "family": "sequence",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Sequence 20: find the next number: -7, -1, 5, 11, __.\n\nAnswer:",
+      "raw_output": " 19\nTo find the next number in the sequence -7, -1, 5, 11, we need to determine the pattern of the sequence. Let's analyze the differences between consecutive terms:\n\n-7 (first term) - (-1) (second term) = -6\n-1",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "17",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "incorrect",
+            "candidate": "19",
+            "expected": "17",
+            "extraction_method": "boxed",
+            "reason": "symbolic_equivalence",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "17",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "17",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.506046138847621,
+          -0.3284608133044955,
+          -0.37675370610214287
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 192,
+      "latency_seconds": 10.467838750002556,
+      "tokens_per_second": 18.341895073608494,
+      "device": "mps",
+      "selected_mean_logprob": -0.3284608133044955
+    },
+    {
+      "task_id": "validation-logic-0000",
+      "split": "validation",
+      "family": "logic",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Ava is 194 cm tall, Dina is 189 cm tall, and Cleo is 143 cm tall. Who is the shortest?\n\nAnswer:",
+      "raw_output": " The shortest person is Cleo who is 143 cm tall.",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "Cleo",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Cleo",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Cleo",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Cleo",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.5119953961267432,
+          -0.5394355929359639,
+          -0.4539241555069263
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 51,
+      "latency_seconds": 3.0756618739978876,
+      "tokens_per_second": 16.581796728425104,
+      "device": "mps",
+      "selected_mean_logprob": -0.4539241555069263
+    },
+    {
+      "task_id": "validation-logic-0001",
+      "split": "validation",
+      "family": "logic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Faye is 147 cm tall, Eli is 143 cm tall, and Dina is 140 cm tall. Who is the shortest?\n\nAnswer:",
+      "raw_output": " Dina is the shortest, as she is 140 cm tall and Faye and Eli are taller than her.",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "Dina",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Dina",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Dina",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Dina",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.46333309000299777,
+          -0.8497843790488938,
+          -0.5590991811104846
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 91,
+      "latency_seconds": 4.985157584000262,
+      "tokens_per_second": 18.254187248174905,
+      "device": "mps",
+      "selected_mean_logprob": -0.46333309000299777
+    },
+    {
+      "task_id": "validation-logic-0002",
+      "split": "validation",
+      "family": "logic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Eli is 187 cm tall, Ava is 173 cm tall, and Ben is 150 cm tall. Who is the shortest?\n\nAnswer:",
+      "raw_output": " Ben is the shortest, since he is 150 cm tall while Eli and Ava are taller.",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "Ben",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Ben",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Ben",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Ben",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -1.1431370785459876,
+          -0.6150142909083072,
+          -0.7939741130918264
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 36,
+      "latency_seconds": 2.325567998996121,
+      "tokens_per_second": 15.48008917199589,
+      "device": "mps",
+      "selected_mean_logprob": -0.6150142909083072
+    },
+    {
+      "task_id": "validation-logic-0003",
+      "split": "validation",
+      "family": "logic",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Ben is 193 cm tall, Ava is 165 cm tall, and Dina is 145 cm tall. Who is the shortest?\n\nAnswer:",
+      "raw_output": " Dina is the shortest, as she is 145 cm tall, while Ben is 193 cm tall and Ava is 165 cm tall.",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "Dina",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Dina",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Dina",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Dina",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.3056381858379511,
+          -0.6524737499033412,
+          -0.2861075744000638
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 78,
+      "latency_seconds": 4.3216538750057225,
+      "tokens_per_second": 18.048645786075756,
+      "device": "mps",
+      "selected_mean_logprob": -0.2861075744000638
+    },
+    {
+      "task_id": "validation-logic-0004",
+      "split": "validation",
+      "family": "logic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Faye is 162 cm tall, Dina is 160 cm tall, and Ava is 151 cm tall. Who is the shortest?\n\nAnswer:",
+      "raw_output": " Faye is the shortest of the three, as she is 162 cm tall, Dina is 160 cm tall, and Ava is 151 cm tall.",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "Ava",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Ava",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Ava",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Ava",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.30769818558378503,
+          -0.28437383214245177,
+          -0.912195664641331
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 105,
+      "latency_seconds": 5.737724000995513,
+      "tokens_per_second": 18.29993913645588,
+      "device": "mps",
+      "selected_mean_logprob": -0.28437383214245177
+    },
+    {
+      "task_id": "validation-logic-0005",
+      "split": "validation",
+      "family": "logic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Cleo is 197 cm tall, Ben is 195 cm tall, and Dina is 189 cm tall. Who is the shortest?\n\nAnswer:",
+      "raw_output": " The shortest person is Ben who is 195 cm tall.",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "Dina",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Dina",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Dina",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Dina",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.5568980902483288,
+          -2.288923740386963,
+          -0.811204521402639
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 21,
+      "latency_seconds": 1.6097737920063082,
+      "tokens_per_second": 13.045311151343249,
+      "device": "mps",
+      "selected_mean_logprob": -0.5568980902483288
+    },
+    {
+      "task_id": "validation-logic-0006",
+      "split": "validation",
+      "family": "logic",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Faye is 191 cm tall, Dina is 183 cm tall, and Ben is 167 cm tall. Who is the shortest?\n\nAnswer:",
+      "raw_output": " Faye is the shortest person at 191 cm tall.",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "Ben",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Ben",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Ben",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Ben",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.5345281927002361,
+          -0.8065210042521358,
+          -0.6139235383575746
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 32,
+      "latency_seconds": 2.065059624001151,
+      "tokens_per_second": 15.495920615598731,
+      "device": "mps",
+      "selected_mean_logprob": -0.5345281927002361
+    },
+    {
+      "task_id": "validation-logic-0007",
+      "split": "validation",
+      "family": "logic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Ava is 199 cm tall, Ben is 194 cm tall, and Eli is 181 cm tall. Who is the shortest?\n\nAnswer:",
+      "raw_output": " To determine who is the shortest among Ava, Ben, and Eli, we simply need to compare their heights. The shortest person will be the one with the smallest height. Ava's height is 199 cm, Ben's height is 194 cm, and Eli's height is 181 cm",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "Eli",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Eli",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Eli",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Eli",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -1.0303408920764923,
+          -0.33578030562819006,
+          -0.22021978780258777
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 133,
+      "latency_seconds": 7.41708945800201,
+      "tokens_per_second": 17.93156207068683,
+      "device": "mps",
+      "selected_mean_logprob": -0.22021978780258777
+    },
+    {
+      "task_id": "validation-logic-0008",
+      "split": "validation",
+      "family": "logic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Dina is 200 cm tall, Ava is 173 cm tall, and Cleo is 168 cm tall. Who is the shortest?\n\nAnswer:",
+      "raw_output": " Dina is 200 cm tall, Ava is 173 cm tall, and Cleo is 168 cm tall. Therefore, Cleo is the shortest.",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "Cleo",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Cleo",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Cleo",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Cleo",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.19753649770197962,
+          -0.5842973495309707,
+          -0.5640813883798046
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 104,
+      "latency_seconds": 5.7091567499956,
+      "tokens_per_second": 18.21635042689626,
+      "device": "mps",
+      "selected_mean_logprob": -0.19753649770197962
+    },
+    {
+      "task_id": "validation-logic-0009",
+      "split": "validation",
+      "family": "logic",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Ben is 189 cm tall, Cleo is 149 cm tall, and Faye is 140 cm tall. Who is the shortest?\n\nAnswer:",
+      "raw_output": " To determine who is the shortest, we simply compare their heights. Ben is 189 cm tall, Cleo is 149 cm tall, and Faye is 140 cm tall. Since 140 cm is less than 149 cm and 189 cm,",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "Faye",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 1,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Faye",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Faye",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Faye",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.24031896850465273,
+          -0.21608602368562657,
+          -0.42586887603921986
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 155,
+      "latency_seconds": 8.375000918000296,
+      "tokens_per_second": 18.507460657927837,
+      "device": "mps",
+      "selected_mean_logprob": -0.21608602368562657
+    },
+    {
+      "task_id": "validation-logic-0010",
+      "split": "validation",
+      "family": "logic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Cleo is 187 cm tall, Faye is 166 cm tall, and Dina is 149 cm tall. Who is the shortest?\n\nAnswer:",
+      "raw_output": " Faye is the shortest because her height is 166 cm, which is less than Cleo's 187 cm and Dina's 149 cm.",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "Dina",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Dina",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Dina",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Dina",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.28144289695976316,
+          -0.3248945440440862,
+          -0.2143385209418665
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 128,
+      "latency_seconds": 6.967696667001292,
+      "tokens_per_second": 18.370489720972273,
+      "device": "mps",
+      "selected_mean_logprob": -0.2143385209418665
+    },
+    {
+      "task_id": "validation-logic-0011",
+      "split": "validation",
+      "family": "logic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Ava is 199 cm tall, Dina is 196 cm tall, and Faye is 194 cm tall. Who is the shortest?\n\nAnswer:",
+      "raw_output": " Faye is the shortest because she is 194 cm tall, which is shorter than both Ava (199 cm) and Dina (196 cm).",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "Faye",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Faye",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Faye",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Faye",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.45608312205101054,
+          -0.38329028149805583,
+          -0.2934505266242316
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 88,
+      "latency_seconds": 4.956963418000669,
+      "tokens_per_second": 17.752804001021605,
+      "device": "mps",
+      "selected_mean_logprob": -0.2934505266242316
+    },
+    {
+      "task_id": "validation-logic-0012",
+      "split": "validation",
+      "family": "logic",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Cleo is 197 cm tall, Ava is 172 cm tall, and Faye is 149 cm tall. Who is the shortest?\n\nAnswer:",
+      "raw_output": " Faye is the shortest, with a height of 149 cm.",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "Faye",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Faye",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Faye",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "incorrect",
+            "candidate": "\\text{Cleo}",
+            "expected": "Faye",
+            "extraction_method": "boxed",
+            "reason": "normalized_exact_match",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.41602342615806265,
+          -0.8721513778436929,
+          -0.4267059230484077
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 76,
+      "latency_seconds": 4.364692874994944,
+      "tokens_per_second": 17.4124508130685,
+      "device": "mps",
+      "selected_mean_logprob": -0.41602342615806265
+    },
+    {
+      "task_id": "validation-logic-0013",
+      "split": "validation",
+      "family": "logic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Faye is 187 cm tall, Ben is 171 cm tall, and Dina is 152 cm tall. Who is the shortest?\n\nAnswer:",
+      "raw_output": " Faye is the shortest of the three. To determine who is the shortest, we compare their heights:\n\n- Faye is 187 cm tall.\n- Ben is 171 cm tall.\n- Dina is 152 cm tall.\n\nBy comparing these values, it is clear that Faye",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "Dina",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Dina",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Dina",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Dina",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.9230416460894049,
+          -0.3030087248489792,
+          -0.29616484520915876
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 138,
+      "latency_seconds": 9.515735374996439,
+      "tokens_per_second": 14.502294837097827,
+      "device": "mps",
+      "selected_mean_logprob": -0.29616484520915876
+    },
+    {
+      "task_id": "validation-logic-0014",
+      "split": "validation",
+      "family": "logic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Ben is 188 cm tall, Cleo is 169 cm tall, and Dina is 168 cm tall. Who is the shortest?\n\nAnswer:",
+      "raw_output": " To determine who is the shortest, we need to compare the heights of Ben, Cleo, and Dina.\n\n1. **Ben's Height**: 188 cm\n2. **Cleo's Height**: 169 cm\n3. **Dina's Height**: 168 cm\n\n",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "Dina",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 2,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Dina",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Dina",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Dina",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.5865628462440023,
+          -0.5865628462440023,
+          -0.14070157962003538
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 76,
+      "latency_seconds": 4.712737624999136,
+      "tokens_per_second": 16.126507785379616,
+      "device": "mps",
+      "selected_mean_logprob": -0.14070157962003538
+    },
+    {
+      "task_id": "validation-logic-0015",
+      "split": "validation",
+      "family": "logic",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Faye is 193 cm tall, Ben is 172 cm tall, and Ava is 143 cm tall. Who is the shortest?\n\nAnswer:",
+      "raw_output": " Ava is the shortest at 143 cm tall.",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "Ava",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Ava",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Ava",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Ava",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.4875938852201216,
+          -0.5191951312340929,
+          -0.601707975447521
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 52,
+      "latency_seconds": 3.111408709009993,
+      "tokens_per_second": 16.712687037681295,
+      "device": "mps",
+      "selected_mean_logprob": -0.4875938852201216
+    },
+    {
+      "task_id": "validation-logic-0016",
+      "split": "validation",
+      "family": "logic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Ava is 198 cm tall, Ben is 186 cm tall, and Cleo is 143 cm tall. Who is the shortest?\n\nAnswer:",
+      "raw_output": " Cleo is the shortest, as she is 143 cm tall and Ava and Ben are taller than her.",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "Cleo",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Cleo",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Cleo",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Cleo",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.4153799421765143,
+          -0.5887831643820391,
+          -0.4229983715176547
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 82,
+      "latency_seconds": 5.463918541005114,
+      "tokens_per_second": 15.007544381310579,
+      "device": "mps",
+      "selected_mean_logprob": -0.4153799421765143
+    },
+    {
+      "task_id": "validation-logic-0017",
+      "split": "validation",
+      "family": "logic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Faye is 191 cm tall, Cleo is 161 cm tall, and Eli is 144 cm tall. Who is the shortest?\n\nAnswer:",
+      "raw_output": " To determine who is the shortest among Faye, Cleo, and Eli, we simply need to compare their heights. Here are the steps:\n\n1. Identify the heights of the three individuals:\n   - Faye: 191 cm\n   - Cleo: 161 cm\n   - Eli",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "Eli",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Eli",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Eli",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Eli",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.2248480111340796,
+          -0.248879985401384,
+          -2.2492575645446777
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 100,
+      "latency_seconds": 7.2523964590000105,
+      "tokens_per_second": 13.788545698698385,
+      "device": "mps",
+      "selected_mean_logprob": -0.2248480111340796
+    },
+    {
+      "task_id": "validation-logic-0018",
+      "split": "validation",
+      "family": "logic",
+      "difficulty": "medium",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Ben is 198 cm tall, Ava is 174 cm tall, and Cleo is 141 cm tall. Who is the shortest?\n\nAnswer:",
+      "raw_output": " Cleo is the shortest because she is 141 cm tall, while Ava is 174 cm tall and Ben is 198 cm tall.",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "Cleo",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Cleo",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Cleo",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Cleo",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.21974516272894107,
+          -0.4881034577459407,
+          -0.3983418550924398
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 42,
+      "latency_seconds": 3.66043295799318,
+      "tokens_per_second": 11.474052518373771,
+      "device": "mps",
+      "selected_mean_logprob": -0.21974516272894107
+    },
+    {
+      "task_id": "validation-logic-0019",
+      "split": "validation",
+      "family": "logic",
+      "difficulty": "easy",
+      "prompt": "You are a careful math and logic solver. Show brief work, then put only your final answer on a separate line using exactly \\boxed{ANSWER}.\n\nQuestion: Ben is 192 cm tall, Eli is 190 cm tall, and Cleo is 140 cm tall. Who is the shortest?\n\nAnswer:",
+      "raw_output": " To determine who is the shortest, we compare their heights:\n\n- Ben is 192 cm tall.\n- Eli is 190 cm tall.\n- Cleo is 140 cm tall.\n\nSince 140 cm is the smallest among the three heights, Cleo is the shortest.\n\nThus",
+      "verification": {
+        "status": "parse_error",
+        "candidate": null,
+        "expected": "Cleo",
+        "extraction_method": null,
+        "reason": "no_explicit_final_answer",
+        "verifier_version": "chapter3-v1"
+      },
+      "policy": "fixed_verifier_budget",
+      "attempts": 3,
+      "overhead_calls": 0,
+      "selection": {
+        "selected_index": 0,
+        "selected_by": "highest_mean_logprob",
+        "verification_history": [
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Cleo",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Cleo",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          },
+          {
+            "status": "parse_error",
+            "candidate": null,
+            "expected": "Cleo",
+            "extraction_method": null,
+            "reason": "no_explicit_final_answer",
+            "verifier_version": "chapter3-v1"
+          }
+        ],
+        "confidence_scores": [
+          -0.22106229863807414,
+          -0.3969608300011042,
+          -2.1006951332092285
+        ],
+        "attempts": 3,
+        "max_new_tokens": 64
+      },
+      "generated_token_count": 111,
+      "latency_seconds": 8.46576841599017,
+      "tokens_per_second": 13.111627267094013,
+      "device": "mps",
+      "selected_mean_logprob": -0.22106229863807414
+    }
+  ],
+  "provenance": {
+    "model_id": "rasbt/qwen3-from-scratch:qwen3-0.6B-base",
+    "model_path": ".cache/models/qwen3/qwen3-0.6B-base.pth",
+    "model_sha256": "ff38e5cc1530161ca5d68f6284f9343e58d637358b2bee9cc37e781b1c440443",
+    "device": "mps",
+    "torch_version": "2.10.0"
+  },
+  "checkpoint": null,
+  "policy_config": {
+    "policy": "fixed_verifier_budget",
+    "attempts": 3,
+    "temperature": 0.8,
+    "top_p": 0.9,
+    "seed": 20260810,
+    "max_new_tokens": 64,
+    "checkpoint": null,
+    "cheap_max_new_tokens": 32,
+    "escalation_max_new_tokens": 64,
+    "max_extra_attempts": 2,
+    "confidence_threshold": -0.5,
+    "max_refinements": 1,
+    "critique_max_tokens": 48
+  }
+}

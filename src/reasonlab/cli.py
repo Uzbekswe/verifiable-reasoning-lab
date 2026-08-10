@@ -13,7 +13,13 @@ import torch
 from .datasets import load_split, write_manifests
 from .evaluation import evaluate_tasks
 from .models.backend import Qwen3Backend
-from .policies import best_of_n, self_consistency, self_refine
+from .policies import (
+    adaptive_budget,
+    best_of_n,
+    fixed_verifier_budget,
+    self_consistency,
+    self_refine,
+)
 from .rl_smoke import run_tiny_grpo_smoke
 from .rlvr import configure_trainable_scope, load_grpo_checkpoint, train_grpo
 
@@ -157,7 +163,12 @@ def _evaluate(args: argparse.Namespace) -> int:
     attempts = int(config.get("attempts", 4))
     seed_base = config.get("seed", 0)
     task_index = 0
-    seed_stride = 3 if policy == "self_refinement" else max(attempts, 1)
+    if policy == "self_refinement":
+        seed_stride = 3
+    elif policy == "adaptive_budget":
+        seed_stride = int(config.get("max_extra_attempts", 2)) + 1
+    else:
+        seed_stride = max(attempts, 1)
 
     def generate(prompt):
         nonlocal task_index
@@ -213,6 +224,38 @@ def _evaluate(args: argparse.Namespace) -> int:
                 top_p=top_p,
                 seed=task_seed,
             )
+    elif policy == "fixed_verifier_budget":
+        def generate_task(task, prompt):
+            nonlocal task_index
+            task_seed = None if seed_base is None else int(seed_base) + task_index * seed_stride
+            task_index += 1
+            return fixed_verifier_budget(
+                backend,
+                task,
+                prompt,
+                attempts=attempts,
+                max_new_tokens=max_new_tokens,
+                temperature=temperature,
+                top_p=top_p,
+                seed=task_seed,
+            )
+    elif policy == "adaptive_budget":
+        def generate_task(task, prompt):
+            nonlocal task_index
+            task_seed = None if seed_base is None else int(seed_base) + task_index * seed_stride
+            task_index += 1
+            return adaptive_budget(
+                backend,
+                task,
+                prompt,
+                cheap_max_new_tokens=int(config.get("cheap_max_new_tokens", 32)),
+                escalation_max_new_tokens=int(config.get("escalation_max_new_tokens", max_new_tokens)),
+                max_extra_attempts=int(config.get("max_extra_attempts", 2)),
+                confidence_threshold=float(config.get("confidence_threshold", -0.5)),
+                temperature=temperature,
+                top_p=top_p,
+                seed=task_seed,
+            )
 
     result = evaluate_tasks(
         tasks,
@@ -229,6 +272,10 @@ def _evaluate(args: argparse.Namespace) -> int:
         "seed": seed_base,
         "max_new_tokens": max_new_tokens,
         "checkpoint": checkpoint_path,
+        "cheap_max_new_tokens": int(config.get("cheap_max_new_tokens", 32)),
+        "escalation_max_new_tokens": int(config.get("escalation_max_new_tokens", max_new_tokens)),
+        "max_extra_attempts": int(config.get("max_extra_attempts", 2)),
+        "confidence_threshold": float(config.get("confidence_threshold", -0.5)),
         "max_refinements": int(config.get("max_refinements", 1)),
         "critique_max_tokens": int(config.get("critique_max_tokens", 48)),
     }
