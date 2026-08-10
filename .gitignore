@@ -24,3 +24,5 @@ artifacts/runs/
 !artifacts/runs/m5_adaptive_validation.json
 !artifacts/runs/m5_fixed_budget_test.json
 !artifacts/runs/m5_adaptive_test.json
+!artifacts/runs/m6_distill_smoke.json
+!artifacts/runs/m6_distill_validation.json

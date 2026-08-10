@@ -246,6 +246,21 @@ Decision gate: distillation proceeds only if the prior experiments show a useful
 
 If approved: use only open/licensed teachers and data; start with hard/sequence distillation. Explain why soft/KL distillation requires a shared tokenizer and teacher logits. If not approved: write a measured “not pursued” decision with the evidence and budget reason.
 
+Status: decision complete; full distillation is not pursued. The official
+Chapter 8 hard-distillation path was implemented locally using the Apache-2.0
+`rasbt/math_distill` dataset. The cached source has 9,550 rows and SHA-256
+`7a93f73c507f3adbafbae5457c2d3ba3767c5afe5e2096e065493467fa933199`.
+Two short traces (449 and 447 tokens) were used for a finite two-step
+`out_head` smoke update. Its checkpoint scored 16/80 (20.0%) on validation,
+matching the base exactly with 64 parse errors. This demonstrates data
+formatting, prompt masking, cross-entropy, checkpointing, and evaluation
+plumbing—not a useful student improvement. A larger run is not justified by
+the current evidence: all-parameter Qwen3/MPS training already produced
+non-finite gradients, `out_head` is only 155.6M of 751.6M parameters, and no
+cloud job has been approved. No paid teacher generation or cloud money was
+used. The artifacts are `artifacts/runs/m6_distill_smoke.json` and
+`artifacts/runs/m6_distill_validation.json`.
+
 ### M7 — Portfolio packaging
 
 Deliverables: README, reproducibility commands, concise technical report, final tables/plots, failure analysis, model/data provenance, test suite, and local CLI plus Gradio demo if stable.
@@ -317,8 +332,9 @@ experiments are complete.
 Chapters 6–7 reward, GRPO, and stability implementations are complete, and
 the reduced-parameter local training path is numerically safe. The measured
 checkpoint did not improve held-out accuracy, so full-model Qwen training
-remains unclaimed after the all-parameter MPS failure. M6 is now an evidence-
-gated distillation decision; no cloud job runs without explicit approval.
+remains unclaimed after the all-parameter MPS failure. M6 hard-distillation
+plumbing and its measured not-pursued decision are complete. M7 portfolio
+packaging is next; no cloud job runs without explicit approval.
 
 ## 12. Source and attribution notes
 

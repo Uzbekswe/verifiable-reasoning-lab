@@ -1,0 +1,13 @@
+dataset = ".cache/datasets/distillation/deepseek-r1-math-train_4000.json"
+dataset_url = "https://huggingface.co/datasets/rasbt/math_distill"
+dataset_license = "Apache-2.0"
+model_dir = ".cache/models/qwen3"
+device = "auto"
+limit = 2
+max_length = 512
+trainable_scope = "output_head"
+learning_rate = 1e-6
+weight_decay = 0.0
+grad_clip = 1.0
+checkpoint = ".cache/checkpoints/m6_distill_smoke.pt"
+output = "artifacts/runs/m6_distill_smoke.json"

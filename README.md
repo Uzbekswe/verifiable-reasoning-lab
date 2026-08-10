@@ -191,3 +191,34 @@ and [`m5_adaptive_validation.json`](artifacts/runs/m5_adaptive_validation.json);
 the final test artifacts are in
 [`m5_fixed_budget_test.json`](artifacts/runs/m5_fixed_budget_test.json) and
 [`m5_adaptive_test.json`](artifacts/runs/m5_adaptive_test.json).
+
+## M6: hard-distillation decision
+
+Hard distillation treats teacher-generated text as the target and minimizes
+cross-entropy only on the target suffix; the prompt tokens are masked. Soft
+distillation would instead match teacher logits with a KL term, which requires
+teacher logits and a compatible tokenizer. The official Chapter 8 path uses
+hard distillation and pre-generated teacher traces. We reused the licensed
+Apache-2.0 `rasbt/math_distill` data rather than generating paid teacher
+outputs.
+
+```bash
+uv run reasonlab distill-smoke --config configs/m6_distill_smoke.toml
+uv run reasonlab evaluate --config configs/m6_distill_validation.toml
+```
+
+The local smoke selected two short licensed traces (449 and 447 tokens) and
+applied two finite `out_head` updates. The resulting checkpoint was evaluated
+on the 80-task validation split:
+
+| policy | validation accuracy | parse errors |
+| --- | ---: | ---: |
+| base, sampled | 16/80 (20.0%) | 64 |
+| two-example distillation checkpoint | 16/80 (20.0%) | 64 |
+
+This closes the distillation decision gate without claiming a student-quality
+gain. A full-model or large-data distillation run is not pursued: all-parameter
+MPS training already produced non-finite gradients, the reduced `out_head`
+path is not a faithful full-student experiment, and no cloud job has been
+approved. The smoke and validation artifacts preserve the dataset hash,
+license, selected rows, checkpoint metadata, and metrics.

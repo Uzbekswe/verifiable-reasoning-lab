@@ -11,6 +11,13 @@ import tomllib
 import torch
 
 from .datasets import load_split, write_manifests
+from .distillation import (
+    DISTILL_DATASET_LICENSE,
+    hard_distillation_step,
+    load_distillation_examples,
+    select_fitting_examples,
+    sha256_file,
+)
 from .evaluation import evaluate_tasks
 from .models.backend import Qwen3Backend
 from .policies import (
@@ -132,6 +139,82 @@ def _grpo_train(args: argparse.Namespace) -> int:
         destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"provenance": result["provenance"], "metrics": metrics}, indent=2))
+    return 0
+
+
+def _distill_smoke(args: argparse.Namespace) -> int:
+    with Path(args.config).open("rb") as handle:
+        config = tomllib.load(handle)
+    dataset_path = Path(config["dataset"])
+    examples = load_distillation_examples(dataset_path)
+    backend = Qwen3Backend.from_pretrained(
+        config.get("model_dir", ".cache/models/qwen3"),
+        device=config.get("device", "auto"),
+        download=args.download,
+    )
+    encoded = select_fitting_examples(
+        backend.tokenizer,
+        examples,
+        limit=int(config.get("limit", 2)),
+        max_length=int(config.get("max_length", 512)),
+    )
+    trainable_scope = str(config.get("trainable_scope", "output_head"))
+    parameter_summary = configure_trainable_scope(backend.model, trainable_scope)
+    trainable_parameters = [parameter for parameter in backend.model.parameters() if parameter.requires_grad]
+    if not trainable_parameters:
+        raise ValueError("training scope selected no trainable parameters")
+    optimizer = torch.optim.AdamW(
+        trainable_parameters,
+        lr=float(config.get("learning_rate", 1e-6)),
+        weight_decay=float(config.get("weight_decay", 0.0)),
+    )
+    metrics = []
+    for encoded_example in encoded:
+        metrics.append(
+            hard_distillation_step(
+                backend.model,
+                encoded_example,
+                optimizer,
+                backend.device,
+                grad_clip=float(config.get("grad_clip", 1.0)),
+            )
+        )
+    checkpoint_path = config.get("checkpoint")
+    if checkpoint_path:
+        destination = Path(checkpoint_path)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        torch.save(
+            {
+                "format": "m6-hard-distillation-smoke-v1",
+                "model_state_dict": backend.model.state_dict(),
+                "step": len(metrics),
+                "dataset_sha256": sha256_file(dataset_path),
+                "row_indices": [example.row_index for example in encoded],
+                "metrics": metrics,
+            },
+            destination,
+        )
+    result = {
+        "provenance": backend.provenance(),
+        "dataset": {
+            "path": str(dataset_path),
+            "sha256": sha256_file(dataset_path),
+            "license": str(config.get("dataset_license", DISTILL_DATASET_LICENSE)),
+            "row_count": len(examples),
+            "selected_row_indices": [example.row_index for example in encoded],
+            "selected_token_counts": [example.token_count for example in encoded],
+        },
+        "config": config,
+        "parameter_summary": parameter_summary,
+        "metrics": metrics,
+        "checkpoint": str(checkpoint_path) if checkpoint_path else None,
+    }
+    output_path = config.get("output")
+    if output_path:
+        destination = Path(output_path)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(result, indent=2))
     return 0
 
 
@@ -309,6 +392,10 @@ def main() -> int:
     grpo_train.add_argument("--limit", type=int, default=0, help="optional bounded prefix for diagnostics")
     grpo_train.add_argument("--download", action="store_true", help="download missing model files")
     grpo_train.set_defaults(handler=_grpo_train)
+    distill_smoke = subparsers.add_parser("distill-smoke", help="run a bounded hard-distillation update")
+    distill_smoke.add_argument("--config", default="configs/m6_distill_smoke.toml")
+    distill_smoke.add_argument("--download", action="store_true", help="download missing model files")
+    distill_smoke.set_defaults(handler=_distill_smoke)
     evaluate = subparsers.add_parser("evaluate", help="evaluate Qwen3 on a frozen manifest split")
     evaluate.add_argument("--config", default="configs/ch03_eval.toml")
     evaluate.add_argument("--limit", type=int, default=0, help="optional bounded prefix for diagnostics")

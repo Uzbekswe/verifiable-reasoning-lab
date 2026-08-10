@@ -1,0 +1,62 @@
+{
+  "provenance": {
+    "model_id": "rasbt/qwen3-from-scratch:qwen3-0.6B-base",
+    "model_path": ".cache/models/qwen3/qwen3-0.6B-base.pth",
+    "model_sha256": "ff38e5cc1530161ca5d68f6284f9343e58d637358b2bee9cc37e781b1c440443",
+    "device": "mps",
+    "torch_version": "2.10.0"
+  },
+  "dataset": {
+    "path": ".cache/datasets/distillation/deepseek-r1-math-train_4000.json",
+    "sha256": "7a93f73c507f3adbafbae5457c2d3ba3767c5afe5e2096e065493467fa933199",
+    "license": "Apache-2.0",
+    "row_count": 9550,
+    "selected_row_indices": [
+      33,
+      97
+    ],
+    "selected_token_counts": [
+      449,
+      447
+    ]
+  },
+  "config": {
+    "dataset": ".cache/datasets/distillation/deepseek-r1-math-train_4000.json",
+    "dataset_url": "https://huggingface.co/datasets/rasbt/math_distill",
+    "dataset_license": "Apache-2.0",
+    "model_dir": ".cache/models/qwen3",
+    "device": "auto",
+    "limit": 2,
+    "max_length": 512,
+    "trainable_scope": "output_head",
+    "learning_rate": 1e-06,
+    "weight_decay": 0.0,
+    "grad_clip": 1.0,
+    "checkpoint": ".cache/checkpoints/m6_distill_smoke.pt",
+    "output": "artifacts/runs/m6_distill_smoke.json"
+  },
+  "parameter_summary": {
+    "scope": "output_head",
+    "total_parameters": 751632384,
+    "trainable_parameters": 155582464
+  },
+  "metrics": [
+    {
+      "row_index": 33,
+      "loss": 1.0026506185531616,
+      "gradient_norm": 5.25,
+      "update_applied": true,
+      "nonfinite_loss": false,
+      "nonfinite_gradient": false
+    },
+    {
+      "row_index": 97,
+      "loss": 1.0683813095092773,
+      "gradient_norm": 4.25,
+      "update_applied": true,
+      "nonfinite_loss": false,
+      "nonfinite_gradient": false
+    }
+  ],
+  "checkpoint": ".cache/checkpoints/m6_distill_smoke.pt"
+}
